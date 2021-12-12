@@ -1,1 +1,1 @@
-# restaurantreviews
+# Chicken shop review app
