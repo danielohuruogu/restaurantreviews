@@ -1,38 +1,40 @@
 package com.shopreview.app.user;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/users")
+@AllArgsConstructor
 public class UserController {
 
+    private final UserService userService;
+
     @GetMapping
-    public List<User> getAllUsers(){
-        List<User> users = Arrays.asList(
-                new User(
-                        1L,
-                        "Daniel",
-                        "Ohuruogu",
-                        "hello@hello.com",
-                        "pass",
-                        241292L,
-                        "Admin"
-                ),
-                new User(
-                        2L,
-                        "James",
-                        "Ogu",
-                        "hello@hello.com",
-                        "pass",
-                        241292L,
-                        "User"
-                )
-        );
-        return users;
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping
+    public User getUserById(User user) {
+        return userService.getUserById(user);
+    }
+
+    @PostMapping
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public void updateUser(@RequestBody User user, @PathVariable Long id){
+        userService.updateUser(user);
     }
 }
+
