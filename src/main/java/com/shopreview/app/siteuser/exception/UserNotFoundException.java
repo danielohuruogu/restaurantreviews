@@ -1,4 +1,4 @@
-package com.shopreview.app.user.exception;
+package com.shopreview.app.siteuser.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

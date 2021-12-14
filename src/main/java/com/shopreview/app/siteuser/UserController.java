@@ -1,4 +1,4 @@
-package com.shopreview.app.user;
+package com.shopreview.app.siteuser;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +13,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<SiteUser> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping
-    public User getUserById(User user) {
-        return userService.getUserById(user);
+    @GetMapping(value = "/{id}")
+    public SiteUser getUserById(@PathVariable("id") Long id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user) {
+    public void addUser(@RequestBody SiteUser user) {
         userService.addUser(user);
     }
 
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public void updateUser(@RequestBody User user, @PathVariable Long id){
+    public void updateUser(@RequestBody SiteUser user, @PathVariable Long id){
         userService.updateUser(user);
     }
 }

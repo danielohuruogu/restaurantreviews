@@ -1,7 +1,7 @@
-package com.shopreview.app.user;
+package com.shopreview.app.siteuser;
 
-import com.shopreview.app.user.exception.BadRequestException;
-import com.shopreview.app.user.exception.UserNotFoundException;
+import com.shopreview.app.siteuser.exception.BadRequestException;
+import com.shopreview.app.siteuser.exception.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +12,21 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<User> getAllUsers() {
+    public List<SiteUser> getAllUsers() {
 
         return userRepository.findAll();
     }
 
-    public User getUserById(User user) {
-        Long userId = user.getId();
-        if(!userRepository.existsById(userId)){
+    public SiteUser getUserById(Long id) {
+        if(!userRepository.existsById(id)){
             throw new UserNotFoundException(
-                    "User with id" + userId + " does not exist"
+                    "User with id" + id + " does not exist"
             );
         }
-        return userRepository.getById(userId);
+        return userRepository.findById(id).get();
     }
 
-    public void addUser(User user) {
+    public void addUser(SiteUser user) {
         Boolean existsEmail = userRepository.selectExistingEmail(user.getEmail());
         if (existsEmail) {
             throw new BadRequestException(
@@ -47,7 +46,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void updateUser(User newUserDetails) {
+    public void updateUser(SiteUser newUserDetails) {
         // grab the id of the person coming in
         Long userId = newUserDetails.getId();
         // if it doesn't already exist in the database, add it in
@@ -56,7 +55,7 @@ public class UserService {
                     "User with id" + userId + " does not exist"
             );
         }
-        User userToUpdate = userRepository.getById(userId);
+        SiteUser userToUpdate = userRepository.getById(userId);
         userToUpdate.setFirst_name(newUserDetails.getFirstName());
         userToUpdate.setLast_name(newUserDetails.getLastName());
         userToUpdate.setPassword(newUserDetails.getPassword());

@@ -1,8 +1,8 @@
-package com.shopreview.app.user;
+package com.shopreview.app.siteuser;
 
 import lombok.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 import javax.persistence.*;
 
 @ToString
@@ -13,11 +13,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table
-public class User {
+public class SiteUser {
 
     @Id
-    @SequenceGenerator(name="user_sequence",sequenceName="student_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "user_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name="siteuser_sequence",sequenceName="siteuser_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "siteuser_sequence", strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false)
     private String first_name;
@@ -27,20 +27,19 @@ public class User {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
-    private Long created_at;
+//    @Column(nullable = false)
+//    private Date created_at;
     @Column(nullable = false)
     private String role;
 
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    Date date = new Date();
+//    long now = System.currentTimeMillis();
 
-    public User(String first_name, String last_name, String password, String email, String role) {
+    public SiteUser(String first_name, String last_name, String password, String email, String role) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;
         this.email = email;
-        this.created_at = Long.valueOf(formatter.format(date));
+//        this.created_at = new Date(now);
         this.role = role;
     }
 
@@ -68,9 +67,9 @@ public class User {
         return email;
     }
 
-    public Long getDateCreated() {
-        return created_at;
-    }
+//    public Date getDateCreated() {
+//        return created_at;
+//    }
 
     public String getRole() {
         return role;
