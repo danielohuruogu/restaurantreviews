@@ -20,7 +20,7 @@ public class UserService {
     public SiteUser getUserById(Long id) {
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException(
-                    "User with id" + id + " does not exist"
+                    "User with id " + id + " does not exist"
             );
         }
         return userRepository.findById(id).get();
@@ -40,28 +40,43 @@ public class UserService {
     public void deleteUser(Long id) {
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException(
-                    "User with id" + id + " does not exist"
+                    "User with id " + id + " does not exist"
             );
         }
         userRepository.deleteById(id);
     }
 
-    public void updateUser(SiteUser newUserDetails) {
+    public SiteUser updateUser(SiteUser newUserDetails) {
         // grab the id of the person coming in
         Long userId = newUserDetails.getId();
         // if it doesn't already exist in the database, add it in
         if(!userRepository.existsById(userId)){
             throw new UserNotFoundException(
-                    "User with id" + userId + " does not exist"
+                    "User with id " + userId + " does not exist"
             );
         }
-        SiteUser userToUpdate = userRepository.getById(userId);
-        userToUpdate.setFirst_name(newUserDetails.getFirstName());
-        userToUpdate.setLast_name(newUserDetails.getLastName());
-        userToUpdate.setPassword(newUserDetails.getPassword());
-        userToUpdate.setEmail(newUserDetails.getEmail());
-        userToUpdate.setRole(newUserDetails.getRole());
-
-        userRepository.save(userToUpdate);
+//        SiteUser userToUpdate = userRepository.getById(userId);
+//        userToUpdate.setFirst_name(newUserDetails.getFirstName());
+//        userToUpdate.setLast_name(newUserDetails.getLastName());
+//        userToUpdate.setPassword(newUserDetails.getPassword());
+//        userToUpdate.setEmail(newUserDetails.getEmail());
+//        userToUpdate.setRole(newUserDetails.getRole());
+//        // should run a map function over the object, so only the keys with values
+//        // are mapped onto the values that match
+//
+//        userRepository.save(userToUpdate);
+        return userRepository.findById(userId)
+                .map(userToUpdate -> {
+                    userToUpdate.setFirst_name(newUserDetails.getFirst_name());
+                    userToUpdate.setLast_name(newUserDetails.getLastName());
+                    userToUpdate.setPassword(newUserDetails.getPassword());
+                    userToUpdate.setEmail(newUserDetails.getEmail());
+                    userToUpdate.setRole(newUserDetails.getRole());
+                    return userRepository.save(userToUpdate);
+                })
+                .orElseGet(() -> {
+                    newUserDetails.setId(userId);
+                    return userRepository.save(newUserDetails);
+                });
     }
 }

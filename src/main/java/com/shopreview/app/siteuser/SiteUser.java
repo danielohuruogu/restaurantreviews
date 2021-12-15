@@ -30,11 +30,11 @@ public class SiteUser {
 //    @Column(nullable = false)
 //    private Date created_at;
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
 //    long now = System.currentTimeMillis();
 
-    public SiteUser(String first_name, String last_name, String password, String email, String role) {
+    public SiteUser(String first_name, String last_name, String password, String email, Role role) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;
@@ -71,7 +71,7 @@ public class SiteUser {
 //        return created_at;
 //    }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 }
