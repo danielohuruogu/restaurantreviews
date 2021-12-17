@@ -38,5 +38,8 @@ public class UserController {
     public void replaceUser(@RequestBody SiteUser user, @PathVariable Long id){
         userService.replaceUser(user);
     }
+
+    @PatchMapping(value = "/{id}")
+    public void updateUser(@RequestBody SiteUser user, @PathVariable Long id) { userService.updateUser(user); }
 }
 

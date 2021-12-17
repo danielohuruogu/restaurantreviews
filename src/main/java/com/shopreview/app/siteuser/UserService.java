@@ -79,4 +79,27 @@ public class UserService {
                     return userRepository.save(newUserDetails);
                 });
     }
+
+    public SiteUser updateUser(SiteUser newUserDetails) {
+        Long userId = newUserDetails.getId();
+        if(!userRepository.existsById(userId)){
+            throw new UserNotFoundException(
+                    "User with id " + userId + " does not exist"
+            );
+        }
+        // this may not work - need to make sure it works for empty fields
+        return userRepository.findById(userId)
+                .map(userToUpdate -> {
+                    userToUpdate.setFirst_name(newUserDetails.getFirst_name());
+                    userToUpdate.setLast_name(newUserDetails.getLastName());
+                    userToUpdate.setPassword(newUserDetails.getPassword());
+                    userToUpdate.setEmail(newUserDetails.getEmail());
+                    userToUpdate.setRole(newUserDetails.getRole());
+                    return userRepository.save(userToUpdate);
+                })
+                .orElseGet(() -> {
+                    newUserDetails.setId(userId);
+                    return userRepository.save(newUserDetails);
+                });
+    }
 }
