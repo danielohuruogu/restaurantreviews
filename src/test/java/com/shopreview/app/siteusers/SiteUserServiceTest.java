@@ -49,26 +49,33 @@ public class SiteUserServiceTest {
     }
 
     @Test
+    @Disabled
     void canGetOneUser() {
         // given
-        SiteUser testUser = new SiteUser(
-                1L,
+
+        mock(SiteUser.class);
+        SiteUser fakeUser;
+        fakeUser = new SiteUser(1L,
                 "Jaime",
                 "Torres",
                 "saeadrg",
                 "jtorres@gmail.es",
-                Role.Reader
-        );
-        long testId = testUser.getId();
-        underTest.addUser(testUser);
+                Role.Reader);
+        userRepository.save(fakeUser);
+        long testId = fakeUser.getId();
+        // testUser needs to be already saved to the mock repository
+        // needs to be a mock object saved to a mock repo, with service method tested
+
 
         // when
         underTest.getUserById(testId);
+
         // then
-        verify(userRepository).findById(testId);
-//        assertThat(saved.getFirstName()).isEqualTo(testUser.getFirstName());
-//        assertThat(saved.getLastName()).isEqualTo(testUser.getLastName());
-//        assertThat(saved.getEmail()).isEqualTo(testUser.getEmail());
+        // verify that the method was invoked on the repo
+        verify(userRepository).findById(testId).get();
+        // assertThat(saved.getFirstName()).isEqualTo(testUser.getFirstName());
+        // assertThat(saved.getLastName()).isEqualTo(testUser.getLastName());
+        // assertThat(saved.getEmail()).isEqualTo(testUser.getEmail());
     }
 
     @Test
@@ -180,7 +187,7 @@ public class SiteUserServiceTest {
                 "jbiggs@hello.com",
                 Role.Admin
         );
-        underTest.updateUser(userToUpdate);
+        underTest.replaceUser(userToUpdate);
 
         // then
         // assert two things

@@ -46,7 +46,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public SiteUser updateUser(SiteUser newUserDetails) {
+    public SiteUser replaceUser(SiteUser newUserDetails) {
         // grab the id of the person coming in
         Long userId = newUserDetails.getId();
         // if it doesn't already exist in the database, add it in

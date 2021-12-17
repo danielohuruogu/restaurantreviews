@@ -12,6 +12,8 @@ public class UserController {
 
     private final UserService userService;
 
+    // can also do @RequestMapping to create a route with multiple methods
+    // the code below just splits the methods up
     @GetMapping
     public List<SiteUser> getAllUsers() {
         return userService.getAllUsers();
@@ -33,8 +35,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public void updateUser(@RequestBody SiteUser user, @PathVariable Long id){
-        userService.updateUser(user);
+    public void replaceUser(@RequestBody SiteUser user, @PathVariable Long id){
+        userService.replaceUser(user);
     }
 }
 
