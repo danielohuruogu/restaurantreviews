@@ -233,7 +233,7 @@ public class SiteUserIT {
         // ids should be the same, as I've set them to be the same
 //        assertThat(user.getId()).isEqualTo(userToUpdate.getId());
         // but the first name should be updated
-        assertThat(user.getFirstName()).isNotEqualTo(userToUpdate.getFirstName());
+        assertThat(user.getFirst_name()).isNotEqualTo(userToUpdate.getFirst_name());
     }
 
 }
