@@ -1,11 +1,12 @@
 package com.shopreview.app.siteuser;
 
+import com.shopreview.app.comment.Comment;
 import com.shopreview.app.review.Review;
 import lombok.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 @ToString
@@ -15,13 +16,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "users")
 public class SiteUser {
 
     @Id
     @SequenceGenerator(name="siteuser_sequence",sequenceName="siteuser_sequence", allocationSize = 1)
     @GeneratedValue(generator = "siteuser_sequence", strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long user_Id;
     @Column(nullable = false)
     private String first_name;
     @Column(nullable = false)
@@ -35,8 +36,10 @@ public class SiteUser {
     private Date created_at;
     @Column(nullable = false)
     private Role role;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch =FetchType.LAZY)
-            private Set<Review> reviews = new HashSet<>();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     long now = System.currentTimeMillis();
 
@@ -47,5 +50,9 @@ public class SiteUser {
         this.email = email;
         this.created_at = new Date(now);
         this.role = role;
+    }
+
+    String getFullName() {
+        return first_name + last_name;
     }
 }
