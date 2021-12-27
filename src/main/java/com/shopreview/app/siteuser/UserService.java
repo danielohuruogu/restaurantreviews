@@ -33,7 +33,6 @@ public class UserService {
                     "Email " + user.getEmail() + " taken"
             );
         }
-
         userRepository.save(user);
     }
 

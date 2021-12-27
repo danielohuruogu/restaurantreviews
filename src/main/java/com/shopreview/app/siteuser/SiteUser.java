@@ -50,6 +50,7 @@ public class SiteUser {
         this.email = email;
         this.created_at = new Date(now);
         this.role = role;
+
     }
 
     String getFullName() {

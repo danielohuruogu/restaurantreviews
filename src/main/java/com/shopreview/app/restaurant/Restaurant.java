@@ -3,10 +3,7 @@ package com.shopreview.app.restaurant;
 import com.shopreview.app.review.Review;
 import lombok.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 
 @ToString
@@ -26,19 +23,25 @@ public class Restaurant {
     private Type_Of_Food cuisine;
     private String keywords;
     private Integer no_of_ratings;
-    private String address;
-    private Float latitude;
-    private Float longitude;
+    @Embedded
+    private Address address;
+    @Embedded
+    private GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
     private Float rating_overall;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Review> comments = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
-    public Restaurant(Type_Of_Food foodtype, String address, String website){
+    private boolean geoProcessed = false;
+
+    public Restaurant(Type_Of_Food foodtype, String keywords, Address address, String website){
         this.cuisine = foodtype;
-        this.address = address;
         this.website = website;
+        this.address = address;
+
+        // geolocation and keywords can be set from data gathered from the maps API
+
 
 //      need to find a way of grabbing all ratings related to this restaurant
 //      grab reviews that have this restaurant id as part of its data
@@ -50,4 +53,8 @@ public class Restaurant {
 //      and summing them up to get the number of ratings
 //      and averaging to get the overall rating
     }
+
+//  this function here would take an address for a location and create a Geocode for it to be stored
+    // on a database
+    //
 }
