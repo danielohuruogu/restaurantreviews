@@ -23,6 +23,7 @@ public class RestaurantController {
         restaurantService.addRestaurant(restaurant);
     }
 
-    @DeleteMapping(value="/{id}")
-    public void deleteRestaurant(@PathVariable("id") Long id) { restaurantService.deleteRestaurant(id);}
+    @DeleteMapping
+    // maybe just send the id, actually
+    public void deleteRestaurant(@RequestBody Restaurant restaurant) { restaurantService.deleteRestaurant(restaurant);}
 }

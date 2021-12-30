@@ -20,6 +20,7 @@ public class Restaurant {
     @SequenceGenerator(name="restaurant_sequence", sequenceName = "restaurant_sequence", allocationSize = 1)
     @GeneratedValue(generator="restaurant_sequence", strategy = GenerationType.SEQUENCE)
     private Long restaurant_Id;
+    private String restaurant_name;
     private Type_Of_Food cuisine;
     private String keywords;
     private Integer no_of_ratings;
@@ -35,7 +36,8 @@ public class Restaurant {
 
     private boolean geoProcessed = false;
 
-    public Restaurant(Type_Of_Food foodtype, String keywords, Address address, String website){
+    public Restaurant(String name, Type_Of_Food foodtype, String keywords, Address address, String website){
+        this.restaurant_name = name;
         this.cuisine = foodtype;
         this.website = website;
         this.address = address;

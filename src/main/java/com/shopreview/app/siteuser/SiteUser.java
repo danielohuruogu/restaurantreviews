@@ -4,7 +4,6 @@ import com.shopreview.app.comment.Comment;
 import com.shopreview.app.review.Review;
 import lombok.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;

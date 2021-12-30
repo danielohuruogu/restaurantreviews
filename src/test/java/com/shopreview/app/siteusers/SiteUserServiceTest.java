@@ -60,9 +60,11 @@ public class SiteUserServiceTest {
                 "Torres",
                 "saeadrg",
                 "jtorres@gmail.es",
-                Role.Reader);
+                2021-12-25,
+                Role.Reader,
+        );
         userRepository.save(fakeUser);
-        long testId = fakeUser.getId();
+        long testId = fakeUser.getUser_Id();
         // testUser needs to be already saved to the mock repository
         // needs to be a mock object saved to a mock repo, with service method tested
 
@@ -174,9 +176,10 @@ public class SiteUserServiceTest {
                 "smalls",
                 "adjkghs",
                 "harrys@hello.com",
-                Role.Reader
+                2021-12-25,
+                Role.Reader,
         );
-        given(userRepository.existsById(initialUser.getId())).willReturn(true);
+        given(userRepository.existsById(initialUser.getUser_Id())).willReturn(true);
 
         // when
         SiteUser userToUpdate = new SiteUser(
@@ -185,7 +188,8 @@ public class SiteUserServiceTest {
                 "biggs",
                 "agargra",
                 "jbiggs@hello.com",
-                Role.Admin
+                2021-12-25,
+                Role.Admin,
         );
         underTest.replaceUser(userToUpdate);
 
