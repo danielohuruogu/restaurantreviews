@@ -47,7 +47,7 @@ public class UserService {
 
     public SiteUser replaceUser(SiteUser newUserDetails) {
         // grab the id of the person coming in
-        Long userId = newUserDetails.getId();
+        Long userId = newUserDetails.getUser_Id();
         // if it doesn't already exist in the database, add it in
         if(!userRepository.existsById(userId)){
             throw new UserNotFoundException(
@@ -67,20 +67,20 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(userToUpdate -> {
                     userToUpdate.setFirst_name(newUserDetails.getFirst_name());
-                    userToUpdate.setLast_name(newUserDetails.getLastName());
+                    userToUpdate.setLast_name(newUserDetails.getLast_name());
                     userToUpdate.setPassword(newUserDetails.getPassword());
                     userToUpdate.setEmail(newUserDetails.getEmail());
                     userToUpdate.setRole(newUserDetails.getRole());
                     return userRepository.save(userToUpdate);
                 })
                 .orElseGet(() -> {
-                    newUserDetails.setId(userId);
+                    newUserDetails.setUser_Id(userId);
                     return userRepository.save(newUserDetails);
                 });
     }
 
     public SiteUser updateUser(SiteUser newUserDetails) {
-        Long userId = newUserDetails.getId();
+        Long userId = newUserDetails.getUser_Id();
         if(!userRepository.existsById(userId)){
             throw new UserNotFoundException(
                     "User with id " + userId + " does not exist"
@@ -90,14 +90,14 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(userToUpdate -> {
                     userToUpdate.setFirst_name(newUserDetails.getFirst_name());
-                    userToUpdate.setLast_name(newUserDetails.getLastName());
+                    userToUpdate.setLast_name(newUserDetails.getLast_name());
                     userToUpdate.setPassword(newUserDetails.getPassword());
                     userToUpdate.setEmail(newUserDetails.getEmail());
                     userToUpdate.setRole(newUserDetails.getRole());
                     return userRepository.save(userToUpdate);
                 })
                 .orElseGet(() -> {
-                    newUserDetails.setId(userId);
+                    newUserDetails.setUser_Id(userId);
                     return userRepository.save(newUserDetails);
                 });
     }
