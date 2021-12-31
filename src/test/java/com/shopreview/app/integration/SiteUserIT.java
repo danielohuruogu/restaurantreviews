@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.StringUtils;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +47,12 @@ public class SiteUserIT {
     // don't really need it - can make up rubbish on my own. don't need a package for that
     private final Faker faker = new Faker();
 
+    // just empty arraylists to complete the user to be sent through to the repo
+    private ArrayList reviews;
+    private ArrayList comments;
+    private Date created_at = new Date(System.currentTimeMillis());
+
+
     // can we add a user in to the app
     @Test
     @Disabled
@@ -57,10 +65,10 @@ public class SiteUserIT {
                 "faker",
                 "dagsdrgsd",
                 "faker@fake.com",
-                2021-12-25,
+                created_at,
                 Role.Reader,
-//                <Review review>,
-//                <Comment comment>
+                reviews,
+                comments
         );
 
         // when
@@ -101,7 +109,10 @@ public class SiteUserIT {
                 lastname,
                 password,
                 email,
+                created_at,
                 Role.Reader,
+                reviews,
+                comments
         );
 
         // using mock controller to send data to repo
@@ -225,7 +236,10 @@ public class SiteUserIT {
                 lastname,
                 password,
                 email,
+                created_at,
                 Role.Reader,
+                reviews,
+                comments
         );
 
         ResultActions resultActions = mockMvc

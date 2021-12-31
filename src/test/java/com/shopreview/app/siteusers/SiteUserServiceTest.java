@@ -18,6 +18,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.sql.Date;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +33,9 @@ public class SiteUserServiceTest {
     @Mock
     private UserRepository userRepository;
     private UserService underTest;
+    private ArrayList reviews;
+    private ArrayList comments;
+    private Date created_at = new Date(System.currentTimeMillis());
 
     // new user service is to be set up before each test,
     // making use of the repo already in place
@@ -54,15 +60,17 @@ public class SiteUserServiceTest {
         // given
 
         mock(SiteUser.class);
-        SiteUser fakeUser;
-        fakeUser = new SiteUser(1L,
+        SiteUser fakeUser = new SiteUser(
+                1L,
                 "Jaime",
                 "Torres",
                 "saeadrg",
                 "jtorres@gmail.es",
-                2021-12-25,
+                created_at,
                 Role.Reader,
-        );
+                reviews,
+                comments
+                );
         userRepository.save(fakeUser);
         long testId = fakeUser.getUser_Id();
         // testUser needs to be already saved to the mock repository
@@ -176,8 +184,10 @@ public class SiteUserServiceTest {
                 "smalls",
                 "adjkghs",
                 "harrys@hello.com",
-                2021-12-25,
+                created_at,
                 Role.Reader,
+                reviews,
+                comments
         );
         given(userRepository.existsById(initialUser.getUser_Id())).willReturn(true);
 
@@ -188,8 +198,10 @@ public class SiteUserServiceTest {
                 "biggs",
                 "agargra",
                 "jbiggs@hello.com",
-                2021-12-25,
+                created_at,
                 Role.Admin,
+                reviews,
+                comments
         );
         underTest.replaceUser(userToUpdate);
 

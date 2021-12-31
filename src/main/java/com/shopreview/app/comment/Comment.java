@@ -3,6 +3,9 @@ package com.shopreview.app.comment;
 import com.shopreview.app.review.Review;
 import com.shopreview.app.siteuser.SiteUser;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.sql.Timestamp;
 import javax.persistence.*;
 
@@ -22,9 +25,11 @@ public class Comment {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_Id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private SiteUser author;
     @ManyToOne
     @JoinColumn(name = "review_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Review review;
     private String body;
     private Timestamp created_at;

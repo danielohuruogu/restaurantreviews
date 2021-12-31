@@ -40,9 +40,9 @@ public class SiteUser {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    long now = System.currentTimeMillis();
-
     public SiteUser(String first_name, String last_name, String password, String email, Role role) {
+        long now = System.currentTimeMillis();
+
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;

@@ -4,6 +4,9 @@ import com.shopreview.app.comment.Comment;
 import com.shopreview.app.restaurant.Restaurant;
 import com.shopreview.app.siteuser.SiteUser;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class Review {
     private SiteUser author;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_Id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
     @Column
     private Rating rating;
