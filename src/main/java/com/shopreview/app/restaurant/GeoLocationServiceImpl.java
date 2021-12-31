@@ -65,6 +65,7 @@ public class GeoLocationServiceImpl implements GeoLocationService{
             } else {
                 log.warn("No coordinates found using PlacesApi.textSearchQuery {}", fullAddressLine);
             }
+            geoApiContext.shutdown();
         }                                          // input/output exception
         catch (ApiException | InterruptedException | IOException e) {
             // catch any of these types of error

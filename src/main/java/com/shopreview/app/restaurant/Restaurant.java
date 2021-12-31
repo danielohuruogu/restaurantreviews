@@ -23,25 +23,27 @@ public class Restaurant {
     private String restaurant_name;
     private Type_Of_Food cuisine;
     private String keywords;
+    private Integer rating;
     private Integer no_of_ratings;
+    private Float average_rating;
     @Embedded
     private Address address;
     @Embedded
     private GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
-    private Float rating_overall;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     private boolean geoProcessed = false;
 
-    public Restaurant(String name, Type_Of_Food foodtype, String keywords, Address address, String website){
+    public Restaurant(String name, Type_Of_Food foodtype, String keywords, Integer rating, Address address, String website){
         this.restaurant_name = name;
         this.cuisine = foodtype;
         this.website = website;
         this.address = address;
-
+//        this.average_rating =
+        // will have to add up all that restaurant's ratings and work out the average
         // geolocation and keywords can be set from data gathered from the maps API
 
 
