@@ -28,6 +28,12 @@ export cont addNewRestaurant = restaurant =>
         }
     ).then(checkStatus)
 
+/* locate a restaurant for a review */
+
+//export const searchEstablishment = (address) => {
+//	query =
+//}
+
 // for the users
 
 export const getAllUsers = () =>

@@ -6,7 +6,7 @@ import { Layout, Menu, Button } from 'antd';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import MapOfRestaurants from './Components/MapOfRestaurants';
 import UserList from './Components/UserList';
-import AddRestaurant from './Components/AddRestaurant';
+import AddRestaurant from './Components/AddRestaurant/AddRestaurant';
 
 const { Header, Content, Footer, Sider } = Layout;
 
