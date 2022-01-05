@@ -7,10 +7,10 @@ import {
   Link
 } from "react-router-dom";
 
-import logo from './logo.svg';
+//import logo from './logo.svg';
 
 import './App.css';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import { EnvironmentOutlined, UserOutlined, FormOutlined } from '@ant-design/icons';
 
 

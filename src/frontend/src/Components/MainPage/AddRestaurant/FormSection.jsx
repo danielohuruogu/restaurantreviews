@@ -1,13 +1,17 @@
 import React from 'react';
-import { useRef, useEffect, forwardRef } from 'react';
-import { Input, Select, Form, Row, Button, Col, Rate } from 'antd';
+import { useRef, useEffect, useState } from 'react';
+import { Input, Select, Form, Row, Popconfirm, Button, Col, Rate } from 'antd';
+
 import { LoadingOutlined } from "@ant-design/icons";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const FormSection = ({ addressInfo }) => {
+const FormSection = ({ addressInfo, handleVisibility }) => {
 	const refForm = useRef()
 	const refForRating = useRef();
+
+	const [confirmVisible, setConfirmVisible] = useState(false);
+	const [confirmLoading, setConfirmLoading] = useState(false);
 
 	useEffect(()=>{
 		if (addressInfo) {
@@ -17,20 +21,41 @@ const FormSection = ({ addressInfo }) => {
 		}
 	})
 
-	function onFinish(restaurant) {
+	const [form] = Form.useForm();
+
+	function onSubmitConfirm(reviewInfo) {
         // to debug
-        console.log(JSON.stringify(restaurant,null,2));
+        console.log(JSON.stringify(reviewInfo,null,2));
+        handleVisibility()
     }
 
-	function onFinishFailed(errorInfo) {
+	function onSubmitConfirmFailed(errorInfo) {
 		console.log(JSON.stringify(errorInfo, null, 2));
 	};
 
+	function showPopConfirm() {
+		setConfirmVisible(!confirmVisible);
+	};
+
+	function handleOk() {
+		form
+			.validateFields()
+			.then(info => {
+				form.resetFields();
+				onSubmitConfirm(info)
+			})
+		setConfirmVisible(!confirmVisible);
+	}
+
+	function handleCancel() {
+		setConfirmVisible(!confirmVisible);
+	}
+
 	return (
 		<>
-			<Form layout="vertical"
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+			<Form
+				form={form}
+				layout="vertical"
                 ref={refForm}>
                 <Row gutter={16}>
                     <Col span={12}>
@@ -46,7 +71,7 @@ const FormSection = ({ addressInfo }) => {
                     </Col>
                 </Row>
                 <Row gutter={16}>
-                    <Col span={12}>
+                    <Col span={22}>
                         <Form.Item
                             name="Address"
                             label="Address"
@@ -58,25 +83,35 @@ const FormSection = ({ addressInfo }) => {
                 </Row>
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Form.Item
-                            name="Type of food"
-                            label="Type of food"
-                        >
-                            <Input placeholder="What kind of food was the place"/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item name="Rate the food" label="Rating" ref={refForRating}>
+                        <Form.Item name="Rating" label="Rate the place" ref={refForRating}>
                             <Rate/>
                         </Form.Item>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={22}>
+	                    <Form.Item name="Review" label="Leave a review of your visit:" placeholder="What did you think?">
+	                        <Input.TextArea
+	                            autoSize={{ minRows: 4, maxRows: 8 }}
+	                            allowClear="true"
+	                        />
+	                    </Form.Item>
                     </Col>
                 </Row>
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
+                            <Popconfirm
+//                                 okButtonProps={{ loading: confirmLoading }}
+                                onCancel={handleCancel}
+                                onConfirm={handleOk}
+                                title="Are you sure?"
+                                visible={confirmVisible}
+                            >
+                                <Button type="primary" onClick={showPopConfirm}>
+                                    Submit
+                                </Button>
+                            </Popconfirm>
                         </Form.Item>
                     </Col>
                 </Row>
