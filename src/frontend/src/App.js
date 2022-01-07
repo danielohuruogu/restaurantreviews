@@ -14,7 +14,8 @@ import { Layout, Menu } from 'antd';
 import { EnvironmentOutlined, UserOutlined, FormOutlined } from '@ant-design/icons';
 
 import ReviewsOverview from './Components/ReviewOverview/ReviewsOverview';
-import AboutMe from './Components/AboutMeSection/AboutMe'
+import AboutMe from './Components/AboutMeSection/AboutMe';
+import RestaurantPage from './Components/ReviewOverview/RestaurantPage/RestaurantPage';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -68,15 +69,25 @@ function App() {
 				<Layout style={{ minHeight: "100%" }}>
 					<Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
 					<Content style={{ padding: "1%" }}>
-						<div className="site-layout-background" style={{ minHeight: "100%", display: "grid", alignItems: "stretch" }}>
+						<div className="site-layout-background" style={{ minHeight: "100%", display: "grid" }}>
 							<Routes>
 								<Route
 									path="/"
 									element={<ReviewsOverview/>}
 								/>
 								<Route
-									path="/about-me"
+                                    path="restaurants/:restaurantId"
+                                    element={<RestaurantPage/>}
+                                />
+								<Route
+									path="about-me"
 									element={<AboutMe/>}
+								/>
+								<Route
+									path="*"
+									element={
+										<h1>There's nothing here 🙁</h1>
+									}
 								/>
 							</Routes>
 						</div>

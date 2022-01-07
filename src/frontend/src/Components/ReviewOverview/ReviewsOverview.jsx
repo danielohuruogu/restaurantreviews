@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from 'react';
 
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { Outlet } from 'react-router-dom';
 
 import { Button } from 'antd';
 import { Box, Modal, Typography } from '@mui/material';
@@ -14,6 +15,8 @@ import SearchResultsContainer from './SearchReviewsSection/SearchResultsContaine
 import SearchResult from './SearchReviewsSection/SearchResult';
 
 import { SearchResultReducer, initialState } from './SearchReviewsSection/SearchResultReducer';
+
+import { getData } from './mapdata.js'
 
 import './ReviewsOverview.css';
 
@@ -65,89 +68,13 @@ function ReviewsOverview() {
     };
 
     //******************** FOR THE SEARCH + FILTER FUNCTION *******************//
+	// **** TO GRAB USERS FROM SERVER AND STORE WITH A STATE **** //
+    const [serverData, setServerData] = useState([]);
 
     useEffect(()=>{
         // here the data for each review on the map will be pulled in
-    })
-
-	// **** TO GRAB USERS FROM SERVER AND STORE WITH A STATE **** //
-    const [serverData, setServerData] = useState([
-        {
-            id: 1,
-            name: "KFC Beckton",
-            address: "Unit 6, Gateway Retail Park, 8 Claps Gate Ln, Beckton E6 6LG",
-            ave_rating: 4,
-            type_food: "takeaway",
-            geometry: {
-	            location: {
-	                lat: 51.5217103,
-	                lng: 0.0699351
-	            },
-            },
-            reviews: [
-                {
-                    title: "Was good",
-                    body: "Went after football, hit the spot",
-                    rating: 5
-                },
-                {
-                    title: "Was decent",
-                    body: "Went when I burnt my dinner, was OK",
-                    rating: 3
-                }
-            ]
-        },
-        {
-            id: 2,
-            name: "Creams Beckton",
-            address: "Unit 4B, Gateway Retail Park, 8 Claps Gate Ln, London E6 6LG",
-            ave_rating: 3,
-            type_food: "takeaway",
-            geometry: {
-                location: {
-                    lat: 51.521283,
-                    lng: 0.0687208
-                },
-            },
-            reviews: [
-                {
-                    title: "Was alright",
-                    body: "Hella sugary",
-                    rating: 2
-                },
-                {
-                    title: "Was decent",
-                    body: "Went when I burnt my dinner, was OK",
-                    rating: 4
-                }
-            ]
-        },
-        {
-            id: 3,
-            name: "Subway Beckton",
-            address: "Unit 4C Gateway Retail Park Unit 4C, London E6 6LG",
-            ave_rating: 5,
-            type_food: "takeaway",
-            geometry: {
-                location: {
-	                lat: 51.5212826,
-	                lng: 0.0621547
-                },
-            },
-            reviews: [
-                {
-                    title: "Banging",
-                    body: "Bosswoman even gave me free cookies",
-                    rating: 5
-                },
-                {
-                    title: "Banging again",
-                    body: "7 golden letters",
-                    rating: 5
-                }
-            ]
-        }
-    ]);
+		setServerData(getData());
+    }, [])
 
 	// **** TO DISPLAY PARAMS IN URL BROWSER **** //
     const { search } = window.location;
@@ -167,16 +94,16 @@ function ReviewsOverview() {
         return results.filter((result) => {
             const resultInfo = {
                 // for each data object that comes through, make the info lower-case
-                restaurantName: result.name.tolowerCase(),
-                restaurantAddress: result.address.tolowerCase(),
-				restaurantType_food: result.type_food.toLowerCase(),
+                name: result.name.toLowerCase(),
+                address: result.address.toLowerCase(),
+				type_food: result.type_food.toLowerCase(),
 				// will have to go through array of keywords and types of food, add them to results object
             }
             return (
                 // return the data objects that include the query in any of their fields
-                resultInfo.restaurantName.includes(query) ||
-                resultInfo.restaurantAddress.includes(query) ||
-                resultInfo.restaurantType_food.includes(query)
+                resultInfo.name.startsWith(query) ||
+                resultInfo.address.includes(query) ||
+                resultInfo.type_food.includes(query)
             )
         });
     };
@@ -218,6 +145,7 @@ function ReviewsOverview() {
 					    state={state} // for useReducer hook
 						/>
 				</div>
+				<Outlet />
     </div>
 }
 
