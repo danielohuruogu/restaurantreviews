@@ -1,12 +1,16 @@
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
-import { Input, Select, Form, Row, Popconfirm, Button, Col, Rate } from 'antd';
+import { Input, Form, Row, Popconfirm, Button, Col, Rate } from 'antd';
+
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
 
 import { LoadingOutlined } from "@ant-design/icons";
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+const FormSection = ({ addressInfo, handleClose }) => {
+	const [value, setValue] = useState(2);
+    const [hover, setHover] = useState(-1);
 
-const FormSection = ({ addressInfo, handleVisibility }) => {
 	const refForm = useRef()
 	const refForRating = useRef();
 
@@ -26,7 +30,7 @@ const FormSection = ({ addressInfo, handleVisibility }) => {
 	function onSubmitConfirm(reviewInfo) {
         // to debug
         console.log(JSON.stringify(reviewInfo,null,2));
-        handleVisibility()
+        handleClose()
     }
 
 	function onSubmitConfirmFailed(errorInfo) {
@@ -34,7 +38,9 @@ const FormSection = ({ addressInfo, handleVisibility }) => {
 	};
 
 	function showPopConfirm() {
+		console.log(confirmVisible)
 		setConfirmVisible(!confirmVisible);
+		console.log(confirmVisible)
 	};
 
 	function handleOk() {
@@ -56,7 +62,7 @@ const FormSection = ({ addressInfo, handleVisibility }) => {
 			<Form
 				form={form}
 				layout="vertical"
-                ref={refForm}>
+			>
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item
@@ -81,13 +87,24 @@ const FormSection = ({ addressInfo, handleVisibility }) => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Row gutter={16}>
+               {/* <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item name="Rating" label="Rate the place" ref={refForRating}>
-                            <Rate/>
+                            <Rating
+	                            name="hover-feedback"
+	                            value={value}
+	                            precision={0.5}
+	                            onChange={(event, newValue) => {
+	                              setValue(newValue);
+	                            }}
+	                            onChangeActive={(event, newHover) => {
+	                              setHover(newHover);
+	                            }}
+	                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+	                        />
                         </Form.Item>
                     </Col>
-                </Row>
+                </Row>*/}
                 <Row>
                     <Col span={22}>
 	                    <Form.Item name="Review" label="Leave a review of your visit:" placeholder="What did you think?">

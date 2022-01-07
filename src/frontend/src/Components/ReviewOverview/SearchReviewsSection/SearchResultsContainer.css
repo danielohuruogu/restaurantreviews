@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.subContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/*****/
+.subContainer.headers {
+  border: 1px solid lightgrey;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 3% 0;
+  place-items: center;
+}
+
+.commTableheader {
+  font-size: 16;
+  font-weight: bold;
+  color: grey;
+  z-index: auto;
+}
+
+/*** to cap size of overflow container ***/
+
+.overflow-content {
+  height: 100%;
+  overflow-y: scroll;
+  border-radius: 0 0 8px 8px;
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* remove scrollbar space */
+  background: black; /* optional: just make scrollbar invisible */
+}
+/* https://css-tricks.com/forums/topic/hide-vertical-scrollbar-but-still-scrollable/ */
+/* taken from https://codepen.io/sulfurious/pen/eWPBjY?editors=1100 */
+
+.noMatch {
+  grid-column: 1/6;
+  text-align: center;
+}
+
+/*******/
+/* https://tobiasahlin.com/blog/how-to-animate-box-shadow/ - for the box shadow stuff below*/

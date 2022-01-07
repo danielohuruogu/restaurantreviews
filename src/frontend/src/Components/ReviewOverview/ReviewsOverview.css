@@ -1,0 +1,24 @@
+.pageContent {
+	display: grid;
+	grid-template-rows: 15% 85%;
+	grid-template-columns: 60% 40%;
+	grid-template-areas:
+		" button map "
+		" search map ";
+	gap: 10px 10px;
+	padding-left: 2%;
+}
+
+.buttonContainer {
+	grid-area: button;
+}
+
+.reviewSearchContainer {
+	grid-area: search;
+}
+
+.reviewMapContainer {
+	grid-area: map;
+	display: grid;
+	place-items: center;
+}

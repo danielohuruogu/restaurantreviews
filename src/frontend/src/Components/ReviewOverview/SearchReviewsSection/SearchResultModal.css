@@ -1,0 +1,73 @@
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+/****  ****/
+.modal-info-primary {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 0.9rem;
+}
+
+/****  ****/
+
+.modal-info-primary-primary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #eee;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 0.55rem;
+}
+
+.modal-info-primary-secondary {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 0.9rem;
+}
+
+.modal-info-primary-secondary > div {
+  flex: 1 0 0;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+/****  ****/
+
+.modal-info-secondary {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 0.9rem;
+  border-top: 1px solid #eee;
+}
+
+.modal-info-secondary > div {
+  flex: auto;
+  overflow-wrap: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.modal-contact {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-contact > a {
+  text-decoration: none;
+}

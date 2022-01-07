@@ -1,0 +1,2 @@
+export const SELECT_PD = "SELECT_PD";
+export const CLEAR_SELECTION = "CLEAR_SELECTION";

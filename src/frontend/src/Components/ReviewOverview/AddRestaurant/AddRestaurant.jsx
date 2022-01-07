@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
@@ -6,14 +6,20 @@ import './AddRestaurant.css';
 import MapSection from './MapSection.jsx';
 import FormSection from './FormSection.jsx';
 
-function AddRestaurant({ handleVisibility }) {
+function AddRestaurant({ handleClose }) {
 
 	// for grabbing the maps info
 	const [addressState, setAddressState] = useState();
 
 	// For the maps wrapper
 
-    const api_Key = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+
+    function render(status) {
+        if (status === Status.LOADING) return <h3>{status} ..</h3>;
+        if (status === Status.FAILURE) return <h3>{status} ...</h3>;
+        return null;
+    };
 
 	// props for MapSection
 	const center = {
@@ -22,12 +28,6 @@ function AddRestaurant({ handleVisibility }) {
     }
     const zoom = 11;
 
-    function render(status) {
-        if (status === Status.LOADING) return <h3>{status} ..</h3>;
-        if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-        return null;
-    };
-
     useEffect(()=> {
         console.log(addressState);
     }, [addressState])
@@ -35,10 +35,10 @@ function AddRestaurant({ handleVisibility }) {
     return <>
         <h1>Leave a review</h1>
         <div className="addRestaurantSection">
-	        <FormSection addressInfo={addressState} handleVisibility={handleVisibility}/>
-		    <Wrapper apiKey={api_Key} render={render} libraries={["places"]}>
+	        <FormSection addressInfo={addressState} handleClose={handleClose}/>
+	        <Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
 				<MapSection center={center} zoom={zoom} setAddressState={setAddressState}/>
-		    </Wrapper>
+			</Wrapper>
 	    </div>
     </>
 }
