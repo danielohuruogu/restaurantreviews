@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { getSingleData } from './../mapdata.js';
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import ChickenBucket from './../../Images/fried-chicken-bucket.png';
 
 import Review from './Review.jsx';
 import ReviewContainer from './ReviewContainer.jsx';
+import ResMap from './ResMap.jsx'
 
 import './RestaurantPage.css';
 
@@ -37,32 +37,6 @@ function RestaurantPage () {
         return null;
     };
 
-    const refResMap = useRef();
-
-    useEffect(()=>{
-        var map = new window.google.maps.Map(refResMap.current, {center,zoom})
-
-		const image = {
-            url: ChickenBucket,
-            size: new window.google.maps.Size(32,32),
-            origin: new window.google.maps.Point(0,0),
-            anchor: new window.google.maps.Point(16,16)
-        }
-
-        const shape = {
-            coords: [1,32,32,1],
-            type: "rect"
-        };
-
-		const marker = new window.google.maps.Marker({
-			position: center,
-			map,
-			icon: image,
-			shape: shape,
-			title: restaurantData.name
-		});
-    }, [refResMap.current])
-
 	return(
 	<div className="restaurantPage">
 		<div className="restaurantInfo">
@@ -74,7 +48,7 @@ function RestaurantPage () {
 		</div>
 		<div className="restaurantMapContainer">
 			<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
-				<div ref={refResMap} id="resMap"/>
+				<ResMap center={center} zoom={zoom} data={restaurantData}/>
 			</Wrapper>
 		</div>
 		<div className="reviewContainer">
