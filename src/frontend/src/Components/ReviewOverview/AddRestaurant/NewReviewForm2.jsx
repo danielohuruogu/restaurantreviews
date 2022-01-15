@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
@@ -20,8 +20,9 @@ const ReviewForm = ({
 	type,
 	pwMask,
 	onPwChange
-}) => {
+	}) => {
 
+	// for the rating
 	const labels = {
       0.5: 'Useless',
       1: 'Useless+',
@@ -35,14 +36,12 @@ const ReviewForm = ({
       5: 'Excellent+',
     };
 
-	// for the rating
 	const [value, setValue] = useState(2);
 	const [hover, setHover] = useState(-1);
 
 	return (
 		<div className="loginBox">
 		  {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
-
 			<form onSubmit={onSubmit}>
 				<TextField
 				  name="Name"
@@ -73,18 +72,6 @@ const ReviewForm = ({
 					/>
 					{value !== null && (<Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}
 				</Box>
-				{/* 		    <div className="pwStrRow"> */}
-				{/* 		      {score >= 1 && ( */}
-				{/* 		        <div> */}
-				{/* 		          <PasswordStr score={score} /> */}
-				{/* 		          <FlatButton */}
-				{/* 		            className="pwShowHideBtn" */}
-				{/* 		            label={btnTxt} onClick={pwMask} */}
-				{/* 		            style={{position: 'relative', left: '50%', transform: 'translateX(-50%)'}} */}
-				{/* 		          /> */}
-				{/* 		        </div> */}
-				{/* 		        )} */}
-				{/* 		    </div> */}
 			    <TextareaAutosize
 					aria-label="Section to leave a review"
 					minRows={3}
@@ -97,7 +84,7 @@ const ReviewForm = ({
 					primary={true}
 					type="submit"
 					label="submit"
-				/>
+					/>
 			</form>
 		</div>
 	);

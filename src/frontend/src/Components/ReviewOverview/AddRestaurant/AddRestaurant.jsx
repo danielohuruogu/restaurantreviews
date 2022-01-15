@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
-import './AddRestaurant.css';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import Chip from '@mui/material/Chip';
+import TagsInput from 'react-tagsinput';
+
 import MapSection from './MapSection.jsx';
 import FormSection from './FormSection.jsx';
 
-function AddRestaurant({ handleClose }) {
+import './AddRestaurant.css';
+
+
+function AddRestaurant({ handleClose, serverData }) {
 
 	// for grabbing the maps info
 	const [addressState, setAddressState] = useState();
@@ -33,9 +40,8 @@ function AddRestaurant({ handleClose }) {
     }, [addressState])
 
     return <>
-        <h1>Leave a review</h1>
         <div className="addRestaurantSection">
-	        <FormSection addressInfo={addressState} handleClose={handleClose}/>
+	        <FormSection addressInfo={addressState} handleClose={handleClose} serverData={serverData}/>
 	        <Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
 				<MapSection center={center} zoom={zoom} setAddressState={setAddressState}/>
 			</Wrapper>

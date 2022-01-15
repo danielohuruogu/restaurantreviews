@@ -1,139 +1,143 @@
-import React from 'react';
-import { useRef, useEffect, useState } from 'react';
-import { Input, Form, Row, Popconfirm, Button, Col, Rate } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import FreeSoloCreateOption from './AutocompleteTextField.jsx';
 
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import Button from '@mui/material/Button';
 
-import { LoadingOutlined } from "@ant-design/icons";
+import FormRating from './Rating.jsx';
+import FormDatePicker from './DatePicker.jsx';
+import TagInput from './TagsInput.jsx';
 
-const FormSection = ({ addressInfo, handleClose }) => {
-	const [value, setValue] = useState(2);
-    const [hover, setHover] = useState(-1);
+const FormSection = ({ addressInfo, handleClose, serverData }) => {
 
-	const refForm = useRef()
-	const refForRating = useRef();
+	const KeyCodes = {
+		comma: 188,
+		enter: [10, 13],
+	};
 
-	const [confirmVisible, setConfirmVisible] = useState(false);
-	const [confirmLoading, setConfirmLoading] = useState(false);
+	const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
-	useEffect(()=>{
-		if (addressInfo) {
-			refForm.current.setFieldsValue({
-				Address: addressInfo.formatted_address
-			})
-		}
-	})
-
-	const [form] = Form.useForm();
-
-	function onSubmitConfirm(reviewInfo) {
-        // to debug
-        console.log(JSON.stringify(reviewInfo,null,2));
-        handleClose()
+	const initialFValues = {
+        id: 0,
+        name:"",
+        address:"",
+// 		type_of_food:[],
+// 		keywords: [],
+        reviewTitle: "",
+        reviewBody: "",
+        dateVisited: new Date(),
     }
 
-	function onSubmitConfirmFailed(errorInfo) {
-		console.log(JSON.stringify(errorInfo, null, 2));
-	};
+	const [ values, setValues ] = useState(initialFValues);
 
-	function showPopConfirm() {
-		console.log(confirmVisible)
-		setConfirmVisible(!confirmVisible);
-		console.log(confirmVisible)
-	};
+	// to programmatically change address to Google Search answer
+	// 	const addressRef = useRef();
 
-	function handleOk() {
-		form
-			.validateFields()
-			.then(info => {
-				form.resetFields();
-				onSubmitConfirm(info)
+	// to programmatically change form values if there's a match in Autocomplete
+	const [ matchedValue, setMatchedValue ] = useState({
+		id: 0,
+		name: "",
+		address: "",
+		ave_rating: 0,
+		geometry: {
+			location: {
+				lat: 0,
+				lng: 0,
+			},
+		},
+		postcode: "",
+		reviews: [],
+		type_food: []
+	});
+
+	// on a matched value being selected, the text fields in the form need to be changed
+	// to reflect what's already in the database - no need for duplicates
+
+	const [ typeFoodTags, setTypeFoodTags ] = useState([]);
+
+	const [ keywordTags, setKeywordTags ] = useState([]);
+
+	useEffect(() => {
+		if (matchedValue) {
+			if (matchedValue.address){
+				console.log(matchedValue)
+				setValues({
+					...values,
+					address: matchedValue.address
+				})
+				setTypeFoodTags(matchedValue.type_food)
+			}
+		}
+	}, [matchedValue]);
+//
+
+// THIS CODE BELOW WORKS - DO NOT DELETE
+	useEffect(() => {
+		if (addressInfo) {
+  			console.log(addressInfo)
+			setValues({
+				...values,
+				address: addressInfo.formatted_address,
 			})
-		setConfirmVisible(!confirmVisible);
+		}
+	}, [addressInfo]);
+
+	const handleInputChange = e => {
+		const [ name, value ] = e.target;
+		setValues({
+			...values,
+			[name]: value
+		})
 	}
 
-	function handleCancel() {
-		setConfirmVisible(!confirmVisible);
-	}
+	const submitForm = (restaurantReview) => {
+		console.log(restaurantReview)
+	};
 
 	return (
-		<>
-			<Form
-				form={form}
-				layout="vertical"
-			>
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item
-                            name="Place name"
-                            label="Name"
-                            rules={[{
-//                             required: true,
-                            message: 'Please enter restaurant name'}]}
-                        >
-                            <Input placeholder="Please enter restaurant name"/>
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={16}>
-                    <Col span={22}>
-                        <Form.Item
-                            name="Address"
-                            label="Address"
-//                             rules={[{required: true}]}
-                        >
-                            <Input placeholder="Where are you looking for?" type="text"/>
-                        </Form.Item>
-                    </Col>
-                </Row>
-               {/* <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item name="Rating" label="Rate the place" ref={refForRating}>
-                            <Rating
-	                            name="hover-feedback"
-	                            value={value}
-	                            precision={0.5}
-	                            onChange={(event, newValue) => {
-	                              setValue(newValue);
-	                            }}
-	                            onChangeActive={(event, newHover) => {
-	                              setHover(newHover);
-	                            }}
-	                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-	                        />
-                        </Form.Item>
-                    </Col>
-                </Row>*/}
-                <Row>
-                    <Col span={22}>
-	                    <Form.Item name="Review" label="Leave a review of your visit:" placeholder="What did you think?">
-	                        <Input.TextArea
-	                            autoSize={{ minRows: 4, maxRows: 8 }}
-	                            allowClear="true"
-	                        />
-	                    </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item>
-                            <Popconfirm
-//                                 okButtonProps={{ loading: confirmLoading }}
-                                onCancel={handleCancel}
-                                onConfirm={handleOk}
-                                title="Are you sure?"
-                                visible={confirmVisible}
-                            >
-                                <Button type="primary" onClick={showPopConfirm}>
-                                    Submit
-                                </Button>
-                            </Popconfirm>
-                        </Form.Item>
-                    </Col>
-                </Row>
-            </Form>
-		</>
+	<>
+		<form action="">
+{/* 			<Grid container> */}
+{/* 				<Grid item xs={6}> */}
+			<FreeSoloCreateOption selection={serverData} setMatchedValue={setMatchedValue}
+			    />
+
+			<TextField
+				name="address"
+				value={values.address}
+// 				ref={addressRef}
+				label="Address"
+				onChange={handleInputChange}
+				/>
+
+
+			<TextField
+                name="title"
+                value={values.reviewTitle}
+                label="Title"
+                onChange={handleInputChange}
+                />
+			<FormRating />
+            <FormDatePicker />
+            <TextareaAutosize
+                name="body"
+                value={values.reviewBody}
+                onChange={handleInputChange}
+                aria-label="Section to leave a review"
+                minRows={3}
+                placeholder="What did you think?"
+                />
+            <Button onClick={submitForm}>
+                Submit
+            </Button>
+            <Button>
+                Reset
+            </Button>
+			<TagInput stateItems={typeFoodTags} setStateItems={setTypeFoodTags}/>
+            <TagInput stateItems={keywordTags} setStateItems={setKeywordTags}/>
+		</form>
+</>
 	)
 }
 

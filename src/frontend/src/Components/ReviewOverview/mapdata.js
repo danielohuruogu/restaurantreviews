@@ -4,8 +4,9 @@ let data =
         id: 1,
         name: "KFC Beckton",
         address: "Unit 6, Gateway Retail Park, 8 Claps Gate Ln, Beckton E6 6LG",
+        postcode: "E6 6LG",
         ave_rating: 4,
-        type_food: "takeaway",
+        type_food: ["takeaway", "fast food", "tasty"],
         geometry: {
             location: {
                 lat: 51.5217103,
@@ -33,8 +34,9 @@ let data =
         id: 2,
         name: "Creams Beckton",
         address: "Unit 4B, Gateway Retail Park, 8 Claps Gate Ln, London E6 6LG",
+        postcode: "E6 6LG",
         ave_rating: 3,
-        type_food: "takeaway",
+        type_food: ["takeaway", "fast food", "tasty"],
         geometry: {
             location: {
                 lat: 51.521283,
@@ -62,8 +64,9 @@ let data =
         id: 3,
         name: "McDonalds Gallions Reach",
         address: "Armada Wy., London E6 7ER",
+        postcode: "E6 7ER",
         ave_rating: 5,
-        type_food: "takeaway",
+        type_food: ["takeaway", "fast food", "tasty"],
         geometry: {
             location: {
                 lat: 51.5160856,

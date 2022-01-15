@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
+import './MapSection.css'
+
 // documentation for this section:
 // https://developers.google.com/maps/documentation/javascript/examples/places-searchbox?hl=en
 const MapSection = ({ center, zoom, setAddressState }) => {
@@ -61,9 +63,9 @@ const MapSection = ({ center, zoom, setAddressState }) => {
                     title: place.name
                 });
 
-                console.log(place)
+//                 console.log(place)
                 setAddressState(place);
-                console.log(place.geometry)
+//                 console.log(place.geometry)
 
                 const addressDescription =  `<div style={{ alignContent: center, alignItems: center, textAlign: center }} id="content">
                         <h3 className="formattedAddress">` + place.formatted_address + `</h3>
@@ -95,8 +97,8 @@ const MapSection = ({ center, zoom, setAddressState }) => {
     }, [refSearchMap.current, refSearchBox.current]);
 
 	return (
-		<div ref={refSearchMap} id="mapSearch">
-	        <input ref={refSearchBox} id="pac-input" placeholder={"Pick a place"}/>
+		<div ref={refSearchMap} id="mapSearch" style={{ zIndex:2 }}>
+	        <input ref={refSearchBox} id="pac-input" placeholder={"Search for a new place..."}/>
 	    </div>
 	);
 };

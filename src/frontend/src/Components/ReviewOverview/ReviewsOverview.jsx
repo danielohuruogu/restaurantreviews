@@ -3,12 +3,12 @@ import React, { useEffect, useState, useReducer } from 'react';
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { Outlet } from 'react-router-dom';
 
-import { Button } from 'antd';
-import { Box, Modal, Typography } from '@mui/material';
+// import { Button } from 'antd';
+// import { Box, Modal, Typography } from '@mui/material';
 
 import ReviewMap from './ReviewMap.jsx';
 
-import AddRestaurant from './AddRestaurant/AddRestaurant';
+import AddRestaurantButton from './AddRestaurant/AddRestaurantButton';
 
 import SearchBar from './SearchReviewsSection/SearchBar';
 import SearchResultsContainer from './SearchReviewsSection/SearchResultsContainer';
@@ -22,29 +22,6 @@ import './ReviewsOverview.css';
 
 
 function ReviewsOverview() {
-
-	//******************** FOR THE 'ADD A REVIEW' BUTTON + MODAL *******************//
-
-	const [isOpen, setOpen] = useState(false);
-
-	const showModal = () => {
-		setOpen(true);
-	}
-
-	const handleClose = () => {
-		setOpen(!isOpen);
-	}
-
-	const style = {
-      position: 'absolute',
-      top: '50%',
-      left: '57%',
-      transform: 'translate(-50%, -50%)',
-      width: '80vw',
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      p: 4,
-    };
 
 	//******************** TO DISPLAY THE MAIN MAP *******************//
 
@@ -77,9 +54,9 @@ function ReviewsOverview() {
     }, [])
 
 	// **** TO DISPLAY PARAMS IN URL BROWSER **** //
-    const { search } = window.location;
-
-    const query = new URLSearchParams(search).get("search"); // grab the params from the search bar
+//     const { search } = window.location;
+//
+//     const query = new URLSearchParams(search).get("search"); // grab the params from the search bar
 
     // ****** FOR DYNAMIC SEARCH BAR ****** //
     const [searchQuery, setSearchQuery] = useState(""); //want to make it nothing, but ok for now...
@@ -116,36 +93,22 @@ function ReviewsOverview() {
 	const [state, dispatch] = useReducer(SearchResultReducer, initialState);
 
     return <div className="pageContent">
-				<div className="buttonContainer">
-					<Button type="primary" onClick={showModal} style={{ position: "relative", top: "40%", borderRadius: "7px", }}>
-					    Click here to add a review
-					</Button>
-					<Modal
-					    onClose={handleClose}
-					    open={isOpen}
-					    aria-labelledby="Leave a review"
-					    aria-describedby="Modal box to leave a review of a restaurant recently visited"
-					>
-					    <Box sx={style}>
-					        <AddRestaurant handleClose={handleClose}/>
-					    </Box>
-					</Modal>
-				</div>
-				<div className="reviewMapContainer">
-					<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
-					    <ReviewMap center={center} zoom={zoom} filteredData={filteredResults}/>
-					</Wrapper>
-				</div>
-				<div className="reviewSearchContainer">
-					<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-					<SearchResultsContainer
-					    data={filteredResults}
-					    RenderComponent={SearchResult}
-					    dispatch={dispatch} // for useReducer hook
-					    state={state} // for useReducer hook
-						/>
-				</div>
-				<Outlet />
+		<AddRestaurantButton serverData={serverData} />
+		<div className="reviewMapContainer">
+			<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
+			    <ReviewMap center={center} zoom={zoom} filteredData={filteredResults}/>
+			</Wrapper>
+		</div>
+		<div className="reviewSearchContainer">
+			<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+			<SearchResultsContainer
+			    data={filteredResults}
+			    RenderComponent={SearchResult}
+			    dispatch={dispatch} // for useReducer hook
+			    state={state} // for useReducer hook
+				/>
+		</div>
+		<Outlet />
     </div>
 }
 
