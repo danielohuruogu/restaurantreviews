@@ -4,12 +4,18 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
 
 
-function FormDatePicker() {
+function FormDatePicker({ date, setDate }) {
 	// for the date picker
-	const [date, setDate] = useState(new Date());
+// 	const [date, setDate] = useState(new Date());
 
-	function onChange(date) {
-		setDate(date)
+	// will grab just the 'dateVisited' from the state object coming in
+	const dateVisited = date.dateVisited;
+
+	function onChange(dateToAssign) {
+		setDate({
+		...date,
+		dateVisited: dateToAssign,
+		})
 	}
 
 	return (
