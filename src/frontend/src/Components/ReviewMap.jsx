@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Chicken from './../Images/fried-chicken.png';
 
+// this is the map that will show on the review overview page
 function ReviewMap({ center, zoom, filteredData }) {
 
 	const refReviewsMap = useRef();

@@ -4,8 +4,9 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 
-export default function FreeSoloCreateOption({ selection, setMatchedValue, values, setValues }) {
-//   const [value, setValue] = React.useState(null);
+export default function AutoCompleteInput(props) {
+
+	const { options, setMatchedValue, values, setValues } = props
 
 	return (
 		<Autocomplete

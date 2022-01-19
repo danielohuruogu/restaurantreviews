@@ -6,7 +6,7 @@ import {RiRadioButtonLine} from 'react-icons/ri';
 import './Review.css';
 import Avatar from './../../Images/avatar-icon.png';
 
-const Review = ({ d, index, key }) => {
+const TableComponent_Review = ({ d, index }) => {
 
 	let userClass;
 	if (index % 2 === 0) {
@@ -55,8 +55,7 @@ const Review = ({ d, index, key }) => {
                 <h2>{d.title}</h2>
                 {/* if showMore is true, show the body
                 if false, show the button to turn it on */}
-                <p>{
-                    isLongReview() ?
+                <p>{ isLongReview() ?
                         (showMore ? d.body : `${d.body.substring(0,100)}...`) :
                         d.body
                 }</p>

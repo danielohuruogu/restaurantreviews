@@ -18,7 +18,7 @@ export const getAllRestaurants = () =>
     fetch("api/restaurants")
         .then(checkStatus);
 
-export cont addNewRestaurant = restaurant =>
+export const addNewRestaurant = restaurant =>
     fetch("api/restaurants", {
         headers: {
             'Content-Type': 'application/json'
@@ -28,24 +28,18 @@ export cont addNewRestaurant = restaurant =>
         }
     ).then(checkStatus)
 
-/* locate a restaurant for a review */
-
-//export const searchEstablishment = (address) => {
-//	query =
-//}
-
 // for the users
 
-export const getAllUsers = () =>
-    fetch("api/users")
-        .then(checkStatus)
-
-export cont addNewUser = user =>
-    fetch("api/users", {
-        headers: {
-            'Content-Type': 'application/json'
-            },
-        method: 'POST',
-        body: JSON.stringify(user)
-        }
-    ).then(checkStatus)
+//export const getAllUsers = () =>
+//    fetch("api/users")
+//        .then(checkStatus)
+//
+//export cont addNewUser = user =>
+//    fetch("api/users", {
+//        headers: {
+//            'Content-Type': 'application/json'
+//            },
+//        method: 'POST',
+//        body: JSON.stringify(user)
+//        }
+//    ).then(checkStatus)

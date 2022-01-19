@@ -3,19 +3,17 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
   Link
 } from "react-router-dom";
 
-//import logo from './logo.svg';
-
-import './App.css';
+import './Styles/App.css';
 import { Layout, Menu } from 'antd';
 import { EnvironmentOutlined, UserOutlined, FormOutlined } from '@ant-design/icons';
 
-import ReviewsOverview from './Components/ReviewOverview/ReviewsOverview';
-import AboutMe from './Components/AboutMeSection/AboutMe';
-import RestaurantPage from './Components/ReviewOverview/RestaurantPage/RestaurantPage';
+import ReviewsOverview from './Pages/ReviewsOverview';
+import RestaurantPage from './Pages/RestaurantPage';
+import AboutMe from './Pages/AboutMe';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 

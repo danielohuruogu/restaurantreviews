@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import FreeSoloCreateOption from './AutocompleteTextField.jsx';
+// import FreeSoloCreateOption from './AutocompleteTextField.jsx';
 
-import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
+import { useForm, Form } from './useForm.jsx';
 
-import FormRating from './Rating.jsx';
-import FormDatePicker from './DatePicker.jsx';
-import TagInput from './TagsInput.jsx';
+// import FormRating from './Rating.jsx';
+// import FormDatePicker from './DatePicker.jsx';
+// import TagInput from './TagsInput.jsx';
+import Controls from './Controls/Controls.jsx';
 
 const FormSection = ({ addressInfo, handleClose, serverData }) => {
 
@@ -17,16 +17,22 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
         id: 0,
         name:"",
         address:"",
-// 		type_of_food:[],
-// 		keywords: [],
+		type_of_food:[],
+		keywords: [],
 		rating: 0,
         reviewTitle: "",
         reviewBody: "",
-        // will assume the date was today
         dateVisited: new Date(),
     }
 
-	const [ values, setValues ] = useState(initialFValues);
+	const {
+		values,
+		setValues,
+		errors,
+		setErrors,
+		resetForm,
+		handleInputChange,
+	} = useForm(initialFValues)
 
 	const [ matchedValue, setMatchedValue ] = useState({
 		id: 0,
@@ -44,11 +50,9 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 		type_food: []
 	});
 
-	const [ typeFoodTags, setTypeFoodTags ] = useState([]);
+// 	const [ typeFoodTags, setTypeFoodTags ] = useState([]);
 
-	const [ keywordTags, setKeywordTags ] = useState([]);
-
-	const [ errors, setErrors ] = useState({});
+// 	const [ keywordTags, setKeywordTags ] = useState([]);
 
 	/// ****  BELOW IS CODE TO HELP THE USER EXPERIENCE WITH THE FORM
 
@@ -93,27 +97,6 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 // 		}
 // 	}, [values.name.length]);
 
-	const handleInputChange = e => {
-		const [ name, value ] = e.target;
-		setValues({
-			...values,
-			[name]: value
-		})
-	}
-
-	const submitForm = (e) => {
-		e.preventDefault();
-		if (validate()){
-			console.log(values);
-            resetForm();
-        }
-
-	};
-
-	const resetForm = () => {
-
-	};
-
 	const validate = () => {
 		let temp = {};
 		temp.name = values.name ? "" : "Shop name required"
@@ -123,57 +106,62 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 		setErrors({
 			...temp,
 		});
+
+		// return an object with the values found in temp
+		return Object.values(temp)
+		// returns a boolean if every item in an array passes the test laid out
+		// in this case, returns true if there are only empty strings, that the
+		// form is valid
+			.every(x => x == "");
+	};
+
+	const submitForm = (e) => {
+		e.preventDefault()
+		console.log(JSON.stringify(values,null,2));
+		resetForm();
 	};
 
 	return (
 	<>
-		<form onSubmit={submitForm}>
+		<Form onSubmit={submitForm}>
 {/* 			<Grid container> */}
 {/* 				<Grid item xs={6}> */}
 			<label>Pick an existing restaurant or leave a review for a new one</label>
-			<FreeSoloCreateOption
-				selection={serverData}
+			<Controls.AutoCompleteInput
+				options={serverData}
 				setMatchedValue={setMatchedValue}
 				values={values}
 				setValues={setValues}
 			    />
-
-			<TextField
+			<Controls.Input
 				name="address"
 				value={values.address}
-				error
-// 				ref={addressRef}
-				label="Address"
+				label="Shop Address"
 				onChange={handleInputChange}
+				error={errors.name}
 				/>
-
-			<TextField
-                name="title"
+			<Controls.TagsInput name={type_of_food} stateItems={values} setStateItems={setValues}/>
+            <Controls.TagsInput name={keywords} stateItems={values} setStateItems={setValues}/>
+            <Controls.Input
+                name="reviewTitle"
                 value={values.reviewTitle}
-                error
                 label="Title"
                 onChange={handleInputChange}
+                error={errors.reviewTitle}
                 />
-			<FormRating />
-            <FormDatePicker date={values} setDate={setValues}/>
-            <TextareaAutosize
-                name="body"
+			<Controls.Rating />
+            <Controls.DatePicker date={values} setDate={setValues}/>
+            <Controls.TextArea
+                name="reviewBody"
                 value={values.reviewBody}
-                error
-                onChange={handleInputChange}
                 aria-label="Section to leave a review"
+                onChange={handleInputChange}
                 minRows={3}
                 placeholder="What did you think?"
                 />
-            <Button type="submit">
-                Submit
-            </Button>
-            <Button onClick={resetForm}>
-                Reset
-            </Button>
-			<TagInput stateItems={typeFoodTags} setStateItems={setTypeFoodTags}/>
-            <TagInput stateItems={keywordTags} setStateItems={setKeywordTags}/>
-		</form>
+            <Controls.Button type="submit" text="Submit" />
+            <Controls.Button onClick={resetForm} text="Reset" color="default" />
+		</Form>
 </>
 	)
 }

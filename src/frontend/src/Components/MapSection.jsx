@@ -63,9 +63,7 @@ const MapSection = ({ center, zoom, setAddressState }) => {
                     title: place.name
                 });
 
-//                 console.log(place)
                 setAddressState(place);
-//                 console.log(place.geometry)
 
                 const addressDescription =  `<div style={{ alignContent: center, alignItems: center, textAlign: center }} id="content">
                         <h3 className="formattedAddress">` + place.formatted_address + `</h3>

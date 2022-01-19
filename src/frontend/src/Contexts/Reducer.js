@@ -1,14 +1,14 @@
 
 // thiefed this straight from Bench project
 
-import { SELECT_PD, CLEAR_SELECTION } from "./SearchResultTypes";
+import { SELECT_PD, CLEAR_SELECTION } from "./ReducerTypes";
 
 export const initialState = {
     pd: [],
     selection: null,
 };
 
-export function SearchResultReducer(state, action) {
+export function Reducer(state, action) {
     // action gets passed through on modal click
     switch (action.type) {
         case SELECT_PD: // specific modal selection

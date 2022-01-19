@@ -10,16 +10,13 @@ import {BsMoon} from 'react-icons/bs';
 
 import './SearchResult.css';
 
-const SearchResult = ({ d, dispatch, state, index }) => {
+const TableComponent_Result = ({ d, index, dispatch, state }) => {
 	let userClass;
 	if (index % 2 === 0) {
 		userClass = 'subContainer result even';
 	} else if (index % 2 !== 0) {
 		userClass = 'subContainer result odd';
 	}
-//   if (d.username === localStorage.getItem('loggedin_username')) {
-//     userClass = userClass + ' user';
-//   }
 
 	function clearSelection() {
 		dispatch({ type: CLEAR_SELECTION });
@@ -40,18 +37,11 @@ const SearchResult = ({ d, dispatch, state, index }) => {
             className={userClass}
             onClick={() => dispatch({ type: SELECT_PD, payload: d })}
             >
-        {/* ${ index+1 === d.length && "last" } */}
             <div className='gridCell'>
-{/*           {d.is_online || (localStorage.getItem("online") && d.id===parseInt(localStorage.getItem("loggedin_id"))) ? ( */}
-{/*             <RiRadioButtonLine color="green"></RiRadioButtonLine> */}
-{/*           ):(<BsMoon color="orange" fillColor="orange"></BsMoon>)} */}
                 {d.name ? (
                 <span>
 	                <strong>
 	                    {d.name}
-	{/*                 {localStorage.getItem('loggedin_username') == d.username && ( */}
-	{/*                   <span className="userProf">*</span> */}
-	{/*                 )} */}
 	                </strong>
                 </span>
                 ) : (
@@ -86,10 +76,8 @@ const SearchResult = ({ d, dispatch, state, index }) => {
         <Modal
 	        overlayClassName={'searchModalOverlay'}
 	        className={'searchModalContainer'}
-	        // style={customStyles}
 	        isOpen={!!selection}
 	        onRequestClose={clearSelection}
-	        transparent={true}
 	      >
 	        <SearchResultModal
 	          key={selection?.id}

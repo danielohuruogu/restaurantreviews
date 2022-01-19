@@ -3,8 +3,6 @@ import './SearchResultModal.css';
 
 import { Link, Outlet } from 'react-router-dom';
 
-import * as FaIcons from 'react-icons/fa';
-
 const SearchResultModal = ({ d: pd }) => {
 	if (!pd) {
 		return null;

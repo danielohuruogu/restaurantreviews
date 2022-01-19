@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useReducer } from 'react';
+//** React imports
+import React, { useEffect, useState } from 'react';
 
+//
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { Outlet } from 'react-router-dom';
 
-// import { Button } from 'antd';
 // import { Box, Modal, Typography } from '@mui/material';
 
 import ReviewMap from './ReviewMap.jsx';
@@ -14,11 +15,10 @@ import SearchBar from './SearchReviewsSection/SearchBar';
 import SearchResultsContainer from './SearchReviewsSection/SearchResultsContainer';
 import SearchResult from './SearchReviewsSection/SearchResult';
 
-import { SearchResultReducer, initialState } from './SearchReviewsSection/SearchResultReducer';
 
-import { getData } from './mapdata.js'
+import { getData } from '../Adapters/mapdata.js';
 
-import './ReviewsOverview.css';
+import '../Styles/ReviewsOverview.css';
 
 
 function ReviewsOverview() {
@@ -88,9 +88,7 @@ function ReviewsOverview() {
 	// an array object is the return of the filterResults function
     const filteredResults = filterResults(serverData, searchQuery);
 
-	// ***** FOR MODAL LOGIC ****** //
-	// for the modal reducer
-	const [state, dispatch] = useReducer(SearchResultReducer, initialState);
+
 
     return <div className="pageContent">
 		<AddRestaurantButton serverData={serverData} />
@@ -104,8 +102,6 @@ function ReviewsOverview() {
 			<SearchResultsContainer
 			    data={filteredResults}
 			    RenderComponent={SearchResult}
-			    dispatch={dispatch} // for useReducer hook
-			    state={state} // for useReducer hook
 				/>
 		</div>
 		<Outlet />
