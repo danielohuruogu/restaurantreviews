@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 
-export default function AutoCompleteInput(props) {
+function AutoCompleteInput(props) {
 
 	const { options, setMatchedValue, values, setValues } = props
 
@@ -46,7 +46,7 @@ export default function AutoCompleteInput(props) {
 			clearOnBlur={true}
 			handleHomeEndKeys={true}
 			id="free-solo-with-text-demo"
-			options={selection}
+			options={options}
 			getOptionLabel={(option) => {
 				if (option.inputValue !== ''){
 			        // Value selected with enter, right from the input
@@ -75,3 +75,5 @@ export default function AutoCompleteInput(props) {
 		/>
 	);
 }
+
+export default AutoCompleteInput;

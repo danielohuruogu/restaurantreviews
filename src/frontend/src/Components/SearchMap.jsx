@@ -1,10 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 
-import './MapSection.css'
+import { GenerateMarkers } from './Reusables/MapsDataAndFunctions.jsx';
+
+import '../Styles/SearchMap.css'
 
 // documentation for this section:
 // https://developers.google.com/maps/documentation/javascript/examples/places-searchbox?hl=en
-const MapSection = ({ center, zoom, setAddressState }) => {
+
+export default function SearchMap(props) {
+
+	const { center, zoom, setAddressState } = props;
 
     const refSearchMap = useRef();
     const refSearchBox = useRef();
@@ -39,7 +44,7 @@ const MapSection = ({ center, zoom, setAddressState }) => {
             });
             markers = [];
 
-// 			for each place, get the icon, name and location
+			// for each place, get the icon, name and location
             const bounds = new window.google.maps.LatLngBounds();
             places.forEach((place)=>{
                 if (!place.geometry || !place.geometry.location) {
@@ -47,23 +52,27 @@ const MapSection = ({ center, zoom, setAddressState }) => {
                     return;
                 }
 
-                const icon = {
-                    url: place.icon,
-                    size: new window.google.maps.Size(71, 71),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(17, 34),
-                    scaledSize: new window.google.maps.Size(25, 25),
-                };
-
-				// create a marker for each place
-                const marker = new window.google.maps.Marker({
-                    map,
-                    position: place.geometry.location,
-                    icon,
-                    title: place.name
-                });
-
                 setAddressState(place);
+
+				const image = {
+					url: place.icon,
+					size: new window.google.maps.Size(32,32),
+					origin: new window.google.maps.Point(0,0),
+					anchor: new window.google.maps.Point(16,16)
+				}
+
+				const shape = {
+			        coords: [1,32,32,1],
+			        type: "rect",
+			    }
+
+				const marker = new window.google.maps.Marker({
+					position: place.geometry.location,
+					map: map,
+					icon: image,
+					shape: shape,
+					title: place.name
+				})
 
                 const addressDescription =  `<div style={{ alignContent: center, alignItems: center, textAlign: center }} id="content">
                         <h3 className="formattedAddress">` + place.formatted_address + `</h3>
@@ -95,10 +104,20 @@ const MapSection = ({ center, zoom, setAddressState }) => {
     }, [refSearchMap.current, refSearchBox.current]);
 
 	return (
-		<div ref={refSearchMap} id="mapSearch" style={{ zIndex:2 }}>
-	        <input ref={refSearchBox} id="pac-input" placeholder={"Search for a new place..."}/>
+		<div ref={refSearchMap} id="mapSearch" style={{ zIndex:2, width: "80%" }}>
+	        <input
+	            ref={refSearchBox}
+	            id="pac-input"
+	            placeholder={"Search for a new place..."}
+	            style={{
+	                fontFamily: "Helvetica",
+	                marginTop: "0.5rem",
+	                marginRight:"0.5rem",
+	                width: "20vw",
+	                height: "2rem",
+	                borderColor: "lightgrey"
+	                }}
+	                />
 	    </div>
 	);
 };
-
-export default MapSection;

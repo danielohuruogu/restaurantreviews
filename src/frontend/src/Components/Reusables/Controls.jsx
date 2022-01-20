@@ -1,9 +1,10 @@
 import Input from './Input.jsx';
 import TagsInput from './TagsInput.jsx';
 import Rating from './Rating.jsx';
-import DatePicker from '/DatePicker.jsx';
+import DatePicker from './DatePicker.jsx';
 import AutoCompleteInput from './AutoCompleteInput.jsx';
-import Button from './Button.jsx'
+import TextArea from './TextArea.jsx'
+import MButton from './Button.jsx'
 
 const Controls = {
 	Input,
@@ -12,7 +13,7 @@ const Controls = {
 	DatePicker,
 	AutoCompleteInput,
 	TextArea,
-	Button,
+	MButton,
 }
 
 export default Controls;

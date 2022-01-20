@@ -1,7 +1,10 @@
 import React from "react";
-import "./SearchBar.css";
+
 import { useNavigate } from 'react-router-dom'
 import { BsSearch } from "react-icons/bs"
+
+import "../Styles/SearchBar.css";
+
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
 

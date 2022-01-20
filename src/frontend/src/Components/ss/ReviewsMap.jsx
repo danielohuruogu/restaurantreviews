@@ -1,8 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import Chicken from './../Images/fried-chicken.png';
+
+import { GenerateMarkers,CreateMarkerListener } from './Reusables/MapsDataAndFunctions.jsx';
+
 
 // this is the map that will show on the review overview page
-function ReviewMap({ center, zoom, filteredData }) {
+function ReviewsMap(props) {
+
+	const { center, zoom, filteredData } = props;
 
 	const refReviewsMap = useRef();
 
@@ -71,4 +75,4 @@ function ReviewMap({ center, zoom, filteredData }) {
 			/>
 	);
 }
-export default ReviewMap;
+export default ReviewsMap;

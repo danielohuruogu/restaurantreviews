@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import FreeSoloCreateOption from './AutocompleteTextField.jsx';
+import React, { useState, useEffect } from 'react';
 
-// import Button from '@mui/material/Button';
 import { useForm, Form } from './useForm.jsx';
 
-// import FormRating from './Rating.jsx';
-// import FormDatePicker from './DatePicker.jsx';
-// import TagInput from './TagsInput.jsx';
-import Controls from './Controls/Controls.jsx';
+import Controls from './Reusables/Controls.jsx';
 
-const FormSection = ({ addressInfo, handleClose, serverData }) => {
+export default function FormSection(props) {
 
-
+	const { addressInfo, data } = props
 	/// **** INITIAL VALUES AND STATES
 	const initialFValues = {
         id: 0,
@@ -67,9 +62,9 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 					address: matchedValue.address
 				})
 			}
-			if (matchedValue.type_food) {
-				setTypeFoodTags(matchedValue.type_food)
-			}
+// 			if (matchedValue.type_food) {
+// 				setTypeFoodTags(matchedValue.type_food)
+// 			}
 		}
 	}, [matchedValue]);
 
@@ -112,7 +107,7 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 		// returns a boolean if every item in an array passes the test laid out
 		// in this case, returns true if there are only empty strings, that the
 		// form is valid
-			.every(x => x == "");
+			.every(x => x === "");
 	};
 
 	const submitForm = (e) => {
@@ -122,13 +117,12 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 	};
 
 	return (
-	<>
 		<Form onSubmit={submitForm}>
 {/* 			<Grid container> */}
 {/* 				<Grid item xs={6}> */}
 			<label>Pick an existing restaurant or leave a review for a new one</label>
 			<Controls.AutoCompleteInput
-				options={serverData}
+				options={data}
 				setMatchedValue={setMatchedValue}
 				values={values}
 				setValues={setValues}
@@ -140,8 +134,8 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
 				onChange={handleInputChange}
 				error={errors.name}
 				/>
-			<Controls.TagsInput name={type_of_food} stateItems={values} setStateItems={setValues}/>
-            <Controls.TagsInput name={keywords} stateItems={values} setStateItems={setValues}/>
+			<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
+            <Controls.TagsInput name="keywords" stateItems={values} setStateItems={setValues}/>
             <Controls.Input
                 name="reviewTitle"
                 value={values.reviewTitle}
@@ -159,11 +153,8 @@ const FormSection = ({ addressInfo, handleClose, serverData }) => {
                 minRows={3}
                 placeholder="What did you think?"
                 />
-            <Controls.Button type="submit" text="Submit" />
-            <Controls.Button onClick={resetForm} text="Reset" color="default" />
+            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
+            <Controls.MButton color="default" onClick={resetForm} text="Reset"/>
 		</Form>
-</>
 	)
 }
-
-export default FormSection;

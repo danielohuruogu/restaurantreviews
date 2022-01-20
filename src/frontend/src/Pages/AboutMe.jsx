@@ -1,5 +1,7 @@
 import React from "react";
 
+import '../Styles/AboutMe.css';
+
 function AboutMe() {
 	return <>
 		<h1>About on the web</h1>

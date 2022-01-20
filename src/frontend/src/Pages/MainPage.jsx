@@ -1,48 +1,46 @@
 //** React imports
 import React, { useEffect, useState } from 'react';
-
-//
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { Outlet } from 'react-router-dom';
 
-// import { Box, Modal, Typography } from '@mui/material';
+import AddRestaurant from './AddRestaurant.jsx';
 
-import ReviewMap from './ReviewMap.jsx';
-
-import AddRestaurantButton from './AddRestaurant/AddRestaurantButton';
-
-import SearchBar from './SearchReviewsSection/SearchBar';
-import SearchResultsContainer from './SearchReviewsSection/SearchResultsContainer';
-import SearchResult from './SearchReviewsSection/SearchResult';
-
-
+import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
 import { getData } from '../Adapters/mapdata.js';
 
-import '../Styles/ReviewsOverview.css';
+import ModalWrapper from '../Components/ModalWrapper.jsx';
+import MapsWrapper from '../Components/Reusables/MapsWrapper.jsx';
+import MapComponent from '../Components/Reusables/MapComponent.jsx';
+import Chicken from './../Images/fried-chicken.png';
 
+import SearchBar from '../Components/SearchBar';
 
-function ReviewsOverview() {
+import Table from '../Components/Reusables/Table.jsx';
+import TableComponent_Result from '../Components/TableComponent_Result.jsx';
 
-	//******************** TO DISPLAY THE MAIN MAP *******************//
+import '../Styles/MainPage.css';
 
-	const center = {
-		lat: 51.5087908,
-		lng: -0.1289414
-	}
+function MainPage() {
 
-	const zoom = 9;
-
-    // in this file will be the filtering function for the searching
-    // can pass the filtered data for display through to the review map
-    // - this was done by me on the Community page for the app
-
-    const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-
-    function render(status) {
-        if (status === Status.LOADING) return <h3>{status} ..</h3>;
-        if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-        return null;
-    };
+// 	//******************** TO DISPLAY THE MAIN MAP *******************//
+//
+// 	const center = {
+// 		lat: 51.5087908,
+// 		lng: -0.1289414
+// 	}
+//
+// 	const zoom = 9;
+//
+//     // in this file will be the filtering function for the searching
+//     // can pass the filtered data for display through to the review map
+//     // - this was done by me on the Community page for the app
+//
+//     const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+//
+//     function render(status) {
+//         if (status === Status.LOADING) return <h3>{status} ..</h3>;
+//         if (status === Status.FAILURE) return <h3>{status} ...</h3>;
+//         return null;
+//     };
 
     //******************** FOR THE SEARCH + FILTER FUNCTION *******************//
 	// **** TO GRAB USERS FROM SERVER AND STORE WITH A STATE **** //
@@ -88,24 +86,45 @@ function ReviewsOverview() {
 	// an array object is the return of the filterResults function
     const filteredResults = filterResults(serverData, searchQuery);
 
+    const mapData = MapParams();
+    const { params } = mapData[1];
 
-
-    return <div className="pageContent">
-		<AddRestaurantButton serverData={serverData} />
+    return (
+    <div className="pageContent">
+		<ModalWrapper
+			RenderComponent={AddRestaurant}
+			incButton={true}
+			displayData={serverData}
+			/>
 		<div className="reviewMapContainer">
-			<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
-			    <ReviewMap center={center} zoom={zoom} filteredData={filteredResults}/>
-			</Wrapper>
+			<MapsWrapper
+				center={params.center}
+				zoom={params.zoom}
+				ComponentToRender={MapComponent}
+				dataToDisplay={filteredResults}
+				url={Chicken}
+				style={{
+					height: "95%",
+					width:"90%",
+					position: "relative",
+					right: "2%"}}
+					/>
 		</div>
 		<div className="reviewSearchContainer">
 			<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-			<SearchResultsContainer
+			<Table
 			    data={filteredResults}
-			    RenderComponent={SearchResult}
+			    RenderComponent={TableComponent_Result}
+			    useHeader={true}
+			    headerInfo={{
+			        noColumns: 3,
+			        columnNames: ["Name", "Address", "Date Visited"]
+			    }}
+			    redux
 				/>
 		</div>
 		<Outlet />
     </div>
-}
+)}
 
-export default ReviewsOverview;
+export default MainPage;

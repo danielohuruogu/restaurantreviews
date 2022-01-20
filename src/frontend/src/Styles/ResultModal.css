@@ -1,3 +1,4 @@
+
 .restaurantInfo {
 	display: grid;
 	grid-template-columns: 60% 40%;
@@ -25,8 +26,6 @@
 	display: inherit;
 	place-items: center;
 }
-
-/***/
 .noReviews {
 	padding-top: 2rem;
 }

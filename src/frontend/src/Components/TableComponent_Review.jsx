@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import {RiRadioButtonLine} from 'react-icons/ri';
 
-import './Review.css';
-import Avatar from './../../Images/avatar-icon.png';
+import '../Styles/TableComponents.css';
+import Avatar from '../Images/avatar-icon.png';
 
-const TableComponent_Review = ({ d, index }) => {
+const TableComponent_Review = (props) => {
 
-	let userClass;
+	const { data, index } = props;
+
+	let reviewClass;
 	if (index % 2 === 0) {
-		userClass = 'subContainer result even';
+		reviewClass = 'subContainer review even';
 	} else if (index % 2 !== 0) {
-		userClass = 'subContainer result odd';
+		reviewClass = 'subContainer review odd';
 	}
 
 	// logic inspired by here
@@ -20,12 +22,12 @@ const TableComponent_Review = ({ d, index }) => {
 	const [showMore, setShowMore] = useState(false);
 
 	const isLongReview = () => {
-		return (d.body.length > 100 ? true : false);
+		return (data.body.length > 100 ? true : false);
 	};
 
 	return (
     <>
-        <div className={userClass}>
+        <div className={reviewClass}>
             <div className="user">
 	            <div className="userPicture">
 	                <img
@@ -35,10 +37,10 @@ const TableComponent_Review = ({ d, index }) => {
 	                    />
 	            </div>
                 <div className="userName">
-                {d.author ? (
+                {data.author ? (
 	                <span>
 		                <strong>
-		                    {d.author}
+		                    {data.author}
 		                </strong>
 	                </span>
 	                ) : (
@@ -51,17 +53,17 @@ const TableComponent_Review = ({ d, index }) => {
                 </div>
             </div>
             <div className="review">
-                <p><em>{d.rating}</em></p>
-                <h2>{d.title}</h2>
+                <p><em>{data.rating}</em></p>
+                <h2>{data.title}</h2>
                 {/* if showMore is true, show the body
                 if false, show the button to turn it on */}
                 <p>{ isLongReview() ?
-                        (showMore ? d.body : `${d.body.substring(0,100)}...`) :
-                        d.body
+                        (showMore ? data.body : `${data.body.substring(0,100)}...`) :
+                        data.body
                 }</p>
             </div>
             <div className="date-btn">
-                <p className="date"><em>{d.date_made}</em></p>
+                <p className="date"><em>{data.date_made}</em></p>
                 <button
                     className={ isLongReview() ? "showMoreBtn" : "notThere"}
                     onClick={() => {
@@ -76,4 +78,4 @@ const TableComponent_Review = ({ d, index }) => {
   );
 };
 
-export default Review;
+export default TableComponent_Review;

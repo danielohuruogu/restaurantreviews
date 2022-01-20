@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from './Button.jsx';
+import MButton from './Button.jsx';
 
 //https://blog.logrocket.com/building-a-tag-input-field-component-for-react/
 const TagsInput = (props) => {
@@ -63,7 +63,7 @@ const TagsInput = (props) => {
 	{stateItemsArray.map((tag, index) =>
 		<div className="tag" key={index}>
 			{tag}
-			<Button onClick={()=> deleteTag(index)} text="x"/>
+			<MButton onClick={()=> deleteTag(index)} text="x"/>
 		</div>)}
 		<input
 			value={input}

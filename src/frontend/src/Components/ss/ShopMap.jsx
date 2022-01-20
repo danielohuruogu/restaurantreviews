@@ -30,11 +30,7 @@ function ResMap({ center, zoom, data }) {
     }, [refResMap.current])
 
 	return <>
-		<div ref={refResMap} id="resMap" style={{
-	        height: "95%",
-	        width:"40%",
-	        position: "relative",
-	        }}
+		<div ref={refResMap} id="resMap" style={style}
 	        />
 	</>
 }

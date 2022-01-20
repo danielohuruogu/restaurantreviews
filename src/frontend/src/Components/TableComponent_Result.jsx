@@ -1,47 +1,47 @@
 import React from 'react';
 
-import { SELECT_PD, CLEAR_SELECTION } from './SearchResultTypes';
+import { SELECT_PD, CLEAR_SELECTION } from '../Contexts/ReducerTypes';
 
-import * as FaIcons from 'react-icons/fa';
-import {RiRadioButtonLine} from 'react-icons/ri';
-import Modal from 'react-modal';
-import SearchResultModal from './SearchResultModal';
-import {BsMoon} from 'react-icons/bs';
+// import Modal from 'react-modal';
+import ReduxModalWrapper from './ReduxModalWrapper';
+import ResultModal from './ResultModal';
 
-import './SearchResult.css';
+import '../Styles/TableComponents.css';
 
-const TableComponent_Result = ({ d, index, dispatch, state }) => {
-	let userClass;
+const TableComponent_Result = (props) => {
+
+	const { data, index, state, dispatch } = props
+
+	let resultClass;
 	if (index % 2 === 0) {
-		userClass = 'subContainer result even';
+		resultClass = 'subContainer result even';
 	} else if (index % 2 !== 0) {
-		userClass = 'subContainer result odd';
+		resultClass = 'subContainer result odd';
 	}
 
 	function clearSelection() {
 		dispatch({ type: CLEAR_SELECTION });
 	}
-	if (!d) {
+	if (!data) {
 		return null;
 	}
 
 	const { selection } = state;
 
-	Modal.setAppElement('#root');
 
 	return (
     <>
       {/* used to send payload to reducer hook on card click */}
       {/* rendering each result */}
         <div
-            className={userClass}
-            onClick={() => dispatch({ type: SELECT_PD, payload: d })}
+            className={resultClass}
+            onClick={() => dispatch({ type: SELECT_PD, payload: data })}
             >
             <div className='gridCell'>
-                {d.name ? (
+                {data.name ? (
                 <span>
 	                <strong>
-	                    {d.name}
+	                    {data.name}
 	                </strong>
                 </span>
                 ) : (
@@ -54,17 +54,17 @@ const TableComponent_Result = ({ d, index, dispatch, state }) => {
             </div>
             <div className='gridCell'>
                 <p>
-                    <em>{d.ave_rating}</em>
+                    <em>{data.ave_rating}</em>
                 </p>
             </div>
             <div className='gridCell'>
                 <p>
-                    <em>{d.address}</em>
+                    <em>{data.address}</em>
                 </p>
             </div>
             <div className='gridCell'>
 				<span>
-					{d.type_food}
+					{data.type_food}
 				</span>
             </div>
             <div className='gridCell'>
@@ -73,21 +73,27 @@ const TableComponent_Result = ({ d, index, dispatch, state }) => {
 				</p>
 	        </div>
         </div>
-        <Modal
-	        overlayClassName={'searchModalOverlay'}
-	        className={'searchModalContainer'}
-	        isOpen={!!selection}
-	        onRequestClose={clearSelection}
-	      >
-	        <SearchResultModal
-	          key={selection?.id}
-	          closeModal={clearSelection}
-	          d={selection}
-	          dispatch={dispatch}
-	            />
-        </Modal>
+        <ReduxModalWrapper
+            RenderComponent={ResultModal}
+            reduxSelection={!!selection}
+            reduxClearSelection={clearSelection}
+            displayData={selection}
+            />
+{/*         <Modal */}
+{/* 	        overlayClassName={'searchModalOverlay'} */}
+{/* 	        className={'searchModalContainer'} */}
+{/* 	        isOpen={!!selection} */}
+{/* 	        onRequestClose={clearSelection} */}
+{/* 	      > */}
+{/* 	        <SearchResultModal */}
+{/* 	          key={selection?.id} */}
+{/* 	          closeModal={clearSelection} */}
+{/* 	          d={selection} */}
+{/* 	          dispatch={dispatch} */}
+{/* 	            /> */}
+{/*         </Modal> */}
     </>
   );
 };
 
-export default SearchResult;
+export default TableComponent_Result;

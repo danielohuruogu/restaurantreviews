@@ -1,13 +1,17 @@
 import React from 'react';
+
 import { useParams } from 'react-router-dom';
-import { getSingleData } from './../mapdata.js';
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { getSingleData } from '../Adapters/mapdata.js';
 
-import Review from './Review.jsx';
-import ReviewContainer from './ReviewContainer.jsx';
-import ResMap from './ResMap.jsx'
+import MapsWrapper from '../Components/Reusables/MapsWrapper.jsx';
+import MapComponent from '../Components/Reusables/MapComponent.jsx';
 
-import './RestaurantPage.css';
+import Table from '../Components/Reusables/Table.jsx';
+import TableComponent_Review from '../Components/TableComponent_Review.jsx';
+
+import Bucket from '../Images/fried-chicken-bucket.png';
+
+import '../Styles/RestaurantPage.css';
 
 function RestaurantPage () {
 
@@ -18,24 +22,7 @@ function RestaurantPage () {
 	// may have to be a useEffect for grabbing just one piece of info
 	let restaurantData = getSingleData(restaurantId);
 
-	const center = {
-        lat: restaurantData.geometry.location.lat,
-        lng: restaurantData.geometry.location.lng,
-    }
-
-    const zoom = 12;
-
-    // in this file will be the filtering function for the searching
-    // can pass the filtered data for display through to the review map
-    // - this was done by me on the Community page for the app
-
-    const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-
-    function render(status) {
-        if (status === Status.LOADING) return <h3>{status} ..</h3>;
-        if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-        return null;
-    };
+	const { center, zoom } = restaurantData.geometry.location;
 
 	return(
 	<div className="restaurantPage">
@@ -47,15 +34,25 @@ function RestaurantPage () {
 			</div>
 		</div>
 		<div className="restaurantMapContainer">
-			<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
-				<ResMap center={center} zoom={zoom} data={restaurantData}/>
-			</Wrapper>
+			<MapsWrapper
+				center={center}
+				zoom={zoom}
+				ComponentToRender={MapComponent}
+				DataToDisplay={restaurantData}
+				url={Bucket}
+				style={{
+	                height: "95%",
+	                width:"40%",
+	                position: "relative",
+	                }}
+					/>
 		</div>
 		<div className="reviewContainer">
 			<h1>Reviews</h1>
-			<ReviewContainer
+			<Table
 				data={restaurantData.reviews}
-                RenderComponent={Review}
+                RenderComponent={TableComponent_Review}
+                useHeader={false}
 				/>
 		</div>
 	</div>

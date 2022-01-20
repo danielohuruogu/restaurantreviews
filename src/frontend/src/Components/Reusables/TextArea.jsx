@@ -1,16 +1,15 @@
 import React from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 
+export default function TextArea(props) {
 
-export function TextArea(props) {
-
-	const { name, value, aria-label, onChange, minRows, placeholder } = props
+	const { name, value, ariaLabel, onChange, minRows, placeholder } = props
 
 	return (
 		<TextareaAutosize
             name={name}
             value={value}
-            aria-label={aria-label}
+            aria-label={ariaLabel}
             onChange={onChange}
             minRows={minRows}
             placeholder={placeholder}

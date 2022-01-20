@@ -1,8 +1,7 @@
-import React from 'react'
 
 let mapData = [
 	{
-		name: "AddRestaurantMap",
+		name: "SearchMap",
 		params: {
 			center: {
 				lat: 51.5255,
@@ -12,13 +11,7 @@ let mapData = [
 		}
 	},
 	{
-		name: "RestaurantPageMap",
-		params: {
-			zoom: 12,
-		}
-	},
-	{
-		name: "SummaryMap",
+		name: "ReviewsMap",
 		params: {
 			center: {
 				lat: 51.5087908,
@@ -33,7 +26,7 @@ export function MapParams() {
 	return mapData;
 }
 
-export function GenerateMarkers(position, map, url, title){
+export function GenerateMarkerAndInfoWindow(place, map, url){
 
 	const image = {
 		url: url,
@@ -46,22 +39,20 @@ export function GenerateMarkers(position, map, url, title){
     	coords: [1,32,32,1],
     	type: "rect",
     }
+
 	const marker = new window.google.maps.Marker({
-		position: position,
+		position: place.geometry.location,
 		map: map,
 		icon: image,
 		shape: shape,
-		title: title
+		title: place.name
 	})
-	return marker;
-}
 
-export function CreateMarkerListener(name, rating, address, map) {
 	const markerDescription = `
 	<div style={{ alignContent: center, alignItems: center, textAlign: center }}>
-        <h4>${name}</h4><h4><strong>${rating}</strong></h4>
+        <h4>${place.name}</h4><h4><strong>${place.rating ? place.rating : "no rating available"}</strong></h4>
         <div>
-            <h5>${address}</h5>
+            <h5>${place.address}</h5>
         </div>
     </div>
 	`;
@@ -70,10 +61,12 @@ export function CreateMarkerListener(name, rating, address, map) {
 		content: markerDescription,
 	});
 
-	(function (m, infoWindow) {
-		window.google.maps.event.addListener(m, 'click', function(event) {
-			infoWindow.setContent(markerDescription);
-			infoWindow.open(map, m)
-		})
-	})(marker, infoWindow);
+	(function (m, infowindow) {
+        window.google.maps.event.addListener(m, 'click', function (event) {
+            infowindow.setContent(markerDescription);
+            infowindow.open(map, m);
+        });
+    })(marker, infoWindow);
+
+    return marker;
 }

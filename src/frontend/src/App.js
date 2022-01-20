@@ -10,7 +10,7 @@ import './Styles/App.css';
 import { Layout, Menu } from 'antd';
 import { EnvironmentOutlined, UserOutlined, FormOutlined } from '@ant-design/icons';
 
-import ReviewsOverview from './Pages/ReviewsOverview';
+import MainPage from './Pages/MainPage';
 import RestaurantPage from './Pages/RestaurantPage';
 import AboutMe from './Pages/AboutMe';
 
@@ -35,7 +35,7 @@ function App() {
 				  }}
 				>
 				    <div className="logo" />
-				    <Menu theme="dark" defaultSelectedKeys={['2']}
+				    <Menu theme="dark" defaultSelectedKeys={['1']}
 				        style={{
 							marginTop: "50%",
 							display: "flex",
@@ -49,13 +49,13 @@ function App() {
 				        ><Link to="/">
 				            Main page
 				        </Link></Menu.Item>
-				        <Menu.Item
-				            key="2"
-				            icon={<FormOutlined />}
-				        ><Link to="/">
-				            Leave a review
-				        </Link></Menu.Item>
-				        <Menu.Item key="3" icon={<UserOutlined />}
+				       {/* <Menu.Item
+//				            key="2"
+//				            icon={<FormOutlined />}
+//				        ><Link to="/">
+//				            Leave a review
+//				        </Link></Menu.Item> */}
+				        <Menu.Item key="2" icon={<UserOutlined />}
 				            style={{
 								marginTop: "230%",
 							}}
@@ -71,7 +71,7 @@ function App() {
 							<Routes>
 								<Route
 									path="/"
-									element={<ReviewsOverview/>}
+									element={<MainPage/>}
 								/>
 								<Route
                                     path="restaurants/:restaurantId"
