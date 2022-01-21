@@ -9,6 +9,8 @@ import MapComponent from '../Components/Reusables/MapComponent.jsx';
 import Table from '../Components/Reusables/Table.jsx';
 import TableComponent_Review from '../Components/TableComponent_Review.jsx';
 
+import Controls from '../Components/Reusables/Controls.jsx';
+
 import Bucket from '../Images/fried-chicken-bucket.png';
 
 import '../Styles/RestaurantPage.css';
@@ -30,7 +32,7 @@ function RestaurantPage () {
 			<div className="summary">
 				<h1>{restaurantData.name}</h1>
 				<h2>{restaurantData.address}</h2>
-				<h1>{restaurantData.ave_rating}</h1>
+				<Controls.Rating readOnly readOnlyValue={restaurantData.ave_rating} />
 			</div>
 		</div>
 		<div className="restaurantMapContainer">

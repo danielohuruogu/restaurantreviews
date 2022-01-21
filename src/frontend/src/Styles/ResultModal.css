@@ -1,31 +1,37 @@
-
-.restaurantInfo {
+.modalContent {
 	display: grid;
 	grid-template-columns: 60% 40%;
-	align-items: center;
-	width: 100%;
+	height: 100%;
 }
+.nameAndReviews {
+	display: grid;
+	grid-template-rows: 40% 60%;
+}
+/****  ****/
+
+.name {
+	display: inherit;
+	align-items: center;
+}
+
+.noReviews {
+	display: grid;
+	place-items: center;
+}
+/****  ****/
+
+.summary {
+	display: grid;
+    align-content: space-evenly;
+    justify-content: center;
+}
+
 .info {
 	display: inherit;
-	place-items: center;
-	padding: 1%;
-}
-/****  ****/
-.subheader {
-	place-items: center;
-}
-
-/****  ****/
-.review {
-	display: grid;
-	grid-template-columns: 60% 40%;
-	font-size: 0.9rem;
+	justify-items: center;
+	text-align: center;
 }
 
 .linkBtn {
-	display: inherit;
-	place-items: center;
-}
-.noReviews {
-	padding-top: 2rem;
+	text-align: center;
 }

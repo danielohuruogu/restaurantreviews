@@ -6,7 +6,9 @@ import {RiRadioButtonLine} from 'react-icons/ri';
 import '../Styles/TableComponents.css';
 import Avatar from '../Images/avatar-icon.png';
 
-const TableComponent_Review = (props) => {
+import Controls from './Reusables/Controls.jsx';
+
+export default function TableComponent_Review(props) {
 
 	const { data, index } = props;
 
@@ -24,6 +26,15 @@ const TableComponent_Review = (props) => {
 	const isLongReview = () => {
 		return (data.body.length > 100 ? true : false);
 	};
+
+	var keywords_string = "";
+    for (let i=0; i < data.keywords.length; i++){
+        if (i === data.keywords.length-1) {
+            keywords_string += data.keywords[i]
+        } else {
+        keywords_string += data.keywords[i] + ", "
+        }
+    }
 
 	return (
     <>
@@ -53,14 +64,25 @@ const TableComponent_Review = (props) => {
                 </div>
             </div>
             <div className="review">
-                <p><em>{data.rating}</em></p>
+                <Controls.Rating readOnly readOnlyValue={data.rating}/>
                 <h2>{data.title}</h2>
                 {/* if showMore is true, show the body
                 if false, show the button to turn it on */}
-                <p>{ isLongReview() ?
-                        (showMore ? data.body : `${data.body.substring(0,100)}...`) :
-                        data.body
-                }</p>
+                {isLongReview() ?
+                        (showMore ?
+	                        (
+	                            <div>
+		                            <p>{data.body}</p>
+		                            <p>{keywords_string}</p>
+	                            </div>
+	                        ) : (<p>{data.body.substring(0,100)}...</p>)
+                        ) : (
+	                        <div>
+		                        <p>{data.body}</p>
+		                        <p>{keywords_string}</p>
+	                        </div>
+                        )
+                }
             </div>
             <div className="date-btn">
                 <p className="date"><em>{data.date_made}</em></p>
@@ -77,5 +99,3 @@ const TableComponent_Review = (props) => {
     </>
   );
 };
-
-export default TableComponent_Review;

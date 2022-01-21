@@ -45,12 +45,17 @@ function MainPage() {
         }
     // filter through the results and return those that have the query included in any of the fields listed below
 
+
         return results.filter((result) => {
+            // changing all the results into lowercase text
+            let type_foodLowerCaseArray = [];
+            type_foodLowerCaseArray.push(result.type_food.forEach(word => word.toLowerCase()));
+
             const resultInfo = {
                 // for each data object that comes through, make the info lower-case
                 name: result.name.toLowerCase(),
                 address: result.address.toLowerCase(),
-				type_food: result.type_food.toLowerCase(),
+				type_food: type_foodLowerCaseArray,
 				// will have to go through array of keywords and types of food, add them to results object
             }
             return (

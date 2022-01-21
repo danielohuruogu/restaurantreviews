@@ -1,27 +1,24 @@
 .container {
-  display: flex;
-  flex-direction: column;
-}
-
-.subContainer {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+	display: flex;
+	flex-direction: column;
 }
 
 /*****/
-.columnHeader {
-  border: 1px solid lightgrey;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 3% 0;
-  place-items: center;
+.headers {
+	border: 1px solid lightgrey;
+	border-radius: 8px 8px 0 0;
+	padding: 3% 0;
+	background: #004b50;
+	place-items: center;
 }
 
-.commTableheader {
-  font-size: 16;
-  font-weight: bold;
-  color: grey;
-  z-index: auto;
+.header {
+	font-size: 16;
+	font-weight: bold;
+  	border: 1px solid lightgrey;
+	color: grey;
+	z-index: auto;
+	padding: auto;
 }
 
 /*** to cap size of overflow container ***/
@@ -46,7 +43,3 @@
 
 /*******/
 /* https://tobiasahlin.com/blog/how-to-animate-box-shadow/ - for the box shadow stuff below*/
-
-.even {
-  background-color: #d1d1d1;
-}

@@ -2,13 +2,14 @@ import React from 'react';
 
 import { SELECT_PD, CLEAR_SELECTION } from '../Contexts/ReducerTypes';
 
-// import Modal from 'react-modal';
 import ReduxModalWrapper from './ReduxModalWrapper';
 import ResultModal from './ResultModal';
 
+import Controls from './Reusables/Controls.jsx';
+
 import '../Styles/TableComponents.css';
 
-const TableComponent_Result = (props) => {
+export default function TableComponent_Result(props) {
 
 	const { data, index, state, dispatch } = props
 
@@ -28,6 +29,14 @@ const TableComponent_Result = (props) => {
 
 	const { selection } = state;
 
+	var type_food_string = "";
+    for (let i=0; i < data.type_food.length; i++){
+        if (i === data.type_food.length-1) {
+            type_food_string += data.type_food[i]
+        } else {
+        type_food_string += data.type_food[i] + ", "
+        }
+    }
 
 	return (
     <>
@@ -51,21 +60,11 @@ const TableComponent_Result = (props) => {
                     </em>
                 </span>
                 )}
+                <Controls.Rating readOnly readOnlyValue={data.ave_rating}/>
             </div>
             <div className='gridCell'>
-                <p>
-                    <em>{data.ave_rating}</em>
-                </p>
-            </div>
-            <div className='gridCell'>
-                <p>
-                    <em>{data.address}</em>
-                </p>
-            </div>
-            <div className='gridCell'>
-				<span>
-					{data.type_food}
-				</span>
+                <p>{data.address}</p>
+                <p><em>{type_food_string}</em></p>
             </div>
             <div className='gridCell'>
 				<p>
@@ -95,5 +94,3 @@ const TableComponent_Result = (props) => {
     </>
   );
 };
-
-export default TableComponent_Result;

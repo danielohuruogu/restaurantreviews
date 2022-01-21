@@ -3,7 +3,8 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 
-const FormRating = () => {
+export default function FormRating(props) {
+	const { readOnly=null, readOnlyValue=null } = props
 
 	// for the rating
 	const labels = {
@@ -23,10 +24,13 @@ const FormRating = () => {
 	const [hover, setHover] = useState(-1);
 
 	return (
- 	<Box sx={{display: 'flex', alignItems: 'center', width: 200}}>
+ 	<Box sx={{display: 'flex', alignItems: 'center'}}>
         <Rating
             name="hover-feedback"
-            value={value}
+            value={readOnly ? readOnlyValue : value}
+            {...(readOnly && {
+                readOnly:true
+            })}
             precision={0.5}
             onChange={(event, newValue) => {
               setValue(newValue);
@@ -34,10 +38,9 @@ const FormRating = () => {
             onChangeActive={(event, newHover) => {
               setHover(newHover);
             }}
+//             emptyIcon={<StarIcon style={{ opacity: 0.55 }} />}
             />
-            {value !== null && (<Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>)}
+            {(value !== null && !readOnly )&& (<Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>)}
     </Box>
 	)
 }
-
-export default FormRating;

@@ -50,11 +50,11 @@ function App() {
 				            Main page
 				        </Link></Menu.Item>
 				       {/* <Menu.Item
-//				            key="2"
-//				            icon={<FormOutlined />}
-//				        ><Link to="/">
-//				            Leave a review
-//				        </Link></Menu.Item> */}
+				            key="2"
+				            icon={<FormOutlined />}
+				        ><Link to="/">
+				            Leave a review
+				        </Link></Menu.Item> */}
 				        <Menu.Item key="2" icon={<UserOutlined />}
 				            style={{
 								marginTop: "230%",

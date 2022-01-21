@@ -17,10 +17,12 @@
 
 .reviewSearchContainer {
 	grid-area: search;
+	height: 95%;
 }
 
 .reviewMapContainer {
 	grid-area: map;
 	display: grid;
 	place-items: center;
+	height: 95%;
 }

@@ -18,6 +18,7 @@ let data =
                 author: "Big Chungus",
                 title: "Was good",
                 body: "Went after football, hit the spot. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque laoreet dapibus sem, vel molestie nisi fermentum sed. Duis sodales laoreet ligula a vestibulum. Aliquam erat erat, ultrices ac dui a, iaculis aliquet erat. Duis tincidunt quis ipsum vitae vulputate. Praesent eu eros a mi finibus molestie auctor et libero. Phasellus aliquet sem a ligula volutpat, vel egestas nulla posuere. Morbi eget ante mauris. Pellentesque ornare vel sapien quis elementum. Nunc arcu magna, tincidunt eu aliquam sit amet, gravida eget sapien. Pellentesque eu arcu in diam dapibus placerat ac et ex. Proin euismod est dignissim, fermentum lectus nec, fermentum felis. Fusce dapibus convallis eros. Nam rutrum facilisis ipsum sit amet mollis.",
+                keywords: ["satisfied", "good", "contenteted"],
                 date_made: 2021-11-23,
                 rating: 5
             },
@@ -25,6 +26,7 @@ let data =
                 author: "Joe Nathan",
                 title: "Was decent",
                 body: "Went when I burnt my dinner, was OK",
+                keywords:["decent","crispy skin","good chicken"],
                 date_made: 2021-11-23,
                 rating: 3
             }
@@ -48,6 +50,7 @@ let data =
                 author: "Alex Ferguson",
                 title: "Was alright",
                 body: "Hella sugary",
+                keywords: ["sweet", "colourful"],
                 date_made: 2021-11-23,
                 rating: 2
             },
@@ -55,6 +58,7 @@ let data =
                 author: "Donald Trump",
                 title: "Was decent",
                 body: "Went when I burnt my dinner, was OK",
+                keywords: ["decent"],
                 date_made: 2021-12-25,
                 rating: 4
             }
@@ -78,6 +82,7 @@ let data =
                 author: "Daniel Schaniel",
                 title: "Banging",
                 body: "Bosswoman even gave me extra free fries",
+                keywords: ["friendly", "good value", "bosswoman"],
                 date_made: 2021-12-25,
                 rating: 5
             },
@@ -85,6 +90,7 @@ let data =
                 author: "Jin Kazama",
                 title: "Banging again",
                 body: "7 golden letters",
+                keywords: ["perfect","great","King of Iron Fist Restaurants","This is reality"],
                 date_made: 2021-11-23,
                 rating: 5
             }

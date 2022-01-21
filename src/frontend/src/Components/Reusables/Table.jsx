@@ -18,19 +18,28 @@ function Table(props) {
 	//https://stackoverflow.com/questions/22876978/loop-inside-react-jsx
 	var columnHeaders = [];
 
-	if (useHeader && headerInfo) {
-		const { noColumns, columnNames } = headerInfo
-		for (var i=0; i < noColumns; i++) {
-			columnHeaders.push(columnNames[i])
+	// if a header is wanted
+	if (useHeader) {
+		// if info for the header has been provided
+		if(headerInfo) {
+			const { noColumns, columnNames } = headerInfo
+            for (var i=0; i < noColumns; i++) {
+                columnHeaders.push(
+                    <div className="header">
+                        <p>{columnNames[i]}</p>
+                    </div>
+                )
+            }
+        // if no info for the header has been provided
+		} else {
+			columnHeaders.push(<div className="header">NO HEADER INFO GIVEN</div>)
 		}
-	} else {
-		columnHeaders.push(<div>NO HEADER INFO GIVEN</div>)
 	}
 
 	return (
 		<div className="container">
 			{useHeader &&
-			<div className="header">
+			<div className="subContainer headers">
 				{columnHeaders}
 			</div>
 			}
