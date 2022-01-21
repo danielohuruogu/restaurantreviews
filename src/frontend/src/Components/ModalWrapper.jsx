@@ -7,7 +7,7 @@ import '../Styles/ModalWrapper.css'
 
 export default function ModalWrapper(props) {
 
-	const { RenderComponent, incButton=null, redux=null,displayData=null, ...other } = props
+	const { RenderComponent, incButton=null, btnText=null, redux=null,displayData=null, ...other } = props
 
 	const [isOpen, setOpen] = useState(false);
 
@@ -21,6 +21,9 @@ export default function ModalWrapper(props) {
 
 	return (
 		<>
+			{(incButton && btnText) && (
+                <Controls.MButton className="buttonWidth" onClick={showModal} text={btnText}/>
+            )}
 			<Modal
 				onRequestClose={handleClose}
 				isOpen={isOpen}
@@ -40,9 +43,6 @@ export default function ModalWrapper(props) {
 					{...other}
 					/>
 			</Modal>
-			{incButton && (
-                <Controls.MButton onClick={showModal}/>
-            )}
 		</>
 	)
 }

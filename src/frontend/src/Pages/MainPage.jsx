@@ -21,27 +21,6 @@ import '../Styles/MainPage.css';
 
 function MainPage() {
 
-// 	//******************** TO DISPLAY THE MAIN MAP *******************//
-//
-// 	const center = {
-// 		lat: 51.5087908,
-// 		lng: -0.1289414
-// 	}
-//
-// 	const zoom = 9;
-//
-//     // in this file will be the filtering function for the searching
-//     // can pass the filtered data for display through to the review map
-//     // - this was done by me on the Community page for the app
-//
-//     const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-//
-//     function render(status) {
-//         if (status === Status.LOADING) return <h3>{status} ..</h3>;
-//         if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-//         return null;
-//     };
-
     //******************** FOR THE SEARCH + FILTER FUNCTION *******************//
 	// **** TO GRAB USERS FROM SERVER AND STORE WITH A STATE **** //
     const [serverData, setServerData] = useState([]);
@@ -91,11 +70,14 @@ function MainPage() {
 
     return (
     <div className="pageContent">
-		<ModalWrapper
-			RenderComponent={AddRestaurant}
-			incButton={true}
-			displayData={serverData}
-			/>
+        <div className="addRestaurantContainer">
+			<ModalWrapper
+				RenderComponent={AddRestaurant}
+				incButton={true}
+				displayData={serverData}
+				btnText="Add a new review"
+				/>
+		</div>
 		<div className="reviewMapContainer">
 			<MapsWrapper
 				center={params.center}

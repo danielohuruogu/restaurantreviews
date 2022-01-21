@@ -9,8 +9,10 @@
 	padding-left: 2%;
 }
 
-.buttonContainer {
+.addRestaurantContainer {
 	grid-area: button;
+	display: grid;
+	place-items: center;
 }
 
 .reviewSearchContainer {

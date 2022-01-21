@@ -8,7 +8,7 @@ export default function MButton(props) {
 	return (
 		<Button
 			variant={variant || "contained"}
-			size={size || "large"}
+			size={size || "medium"}
 			onClick={onClick}
 			{...other}
 			>
