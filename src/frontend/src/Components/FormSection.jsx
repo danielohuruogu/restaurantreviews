@@ -12,7 +12,7 @@ export default function FormSection(props) {
         id: 0,
         name:"",
         address:"",
-		type_of_food:[],
+		type_of_food: [],
 		keywords: [],
 		rating: 0,
         reviewTitle: "",
@@ -120,41 +120,60 @@ export default function FormSection(props) {
 		<Form onSubmit={submitForm}>
 {/* 			<Grid container> */}
 {/* 				<Grid item xs={6}> */}
-			<label>Pick an existing restaurant or leave a review for a new one</label>
-			<Controls.AutoCompleteInput
-				options={data}
-				setMatchedValue={setMatchedValue}
-				values={values}
-				setValues={setValues}
-			    />
-			<Controls.Input
-				name="address"
-				value={values.address}
-				label="Shop Address"
-				onChange={handleInputChange}
-				error={errors.name}
-				/>
-			<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
-            <Controls.TagsInput name="keywords" stateItems={values} setStateItems={setValues}/>
-            <Controls.Input
-                name="reviewTitle"
-                value={values.reviewTitle}
-                label="Title"
-                onChange={handleInputChange}
-                error={errors.reviewTitle}
-                />
-			<Controls.Rating />
-            <Controls.DatePicker date={values} setDate={setValues}/>
-            <Controls.TextArea
-                name="reviewBody"
-                value={values.reviewBody}
-                aria-label="Section to leave a review"
-                onChange={handleInputChange}
-                minRows={3}
-                placeholder="What did you think?"
-                />
-            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
-            <Controls.MButton color="default" onClick={resetForm} text="Reset"/>
+			<div className="formArea">
+				<label>Pick an existing restaurant or leave a review for a new one</label>
+				<Controls.AutoCompleteInput
+					options={data}
+					setMatchedValue={setMatchedValue}
+					values={values}
+					setValues={setValues}
+				    />
+				<Controls.Input
+					name="address"
+					value={values.address}
+					label="Shop Address"
+					onChange={handleInputChange}
+					error={errors.name}
+					/>
+				<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
+            </div>
+            <div className="formArea">
+                <div className="reviewSummary">
+                    <div>
+			            <Controls.Input
+			                name="reviewTitle"
+			                value={values.reviewTitle}
+			                label="Title"
+			                onChange={handleInputChange}
+			                error={errors.reviewTitle}
+			                />
+			            <Controls.TagsInput
+			                name="keywords"
+			                stateItems={values}
+			                setStateItems={setValues}
+			                />
+		            </div>
+		            <div>
+		                <Controls.DatePicker
+	                        date={values}
+	                        setDate={setValues}
+	                        />
+						<Controls.Rating />
+		            </div>
+	            </div>
+	            <Controls.TextArea
+	                name="reviewBody"
+	                value={values.reviewBody}
+	                aria-label="Section to leave a review"
+	                onChange={handleInputChange}
+	                minRows={3}
+	                placeholder="What did you think?"
+	                />
+	            <div>
+		            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
+		            <Controls.MButton color="default" onClick={resetForm} text="Reset"/>
+	            </div>
+            </div>
 		</Form>
 	)
 }

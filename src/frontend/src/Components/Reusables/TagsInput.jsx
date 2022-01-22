@@ -1,15 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MButton from './Button.jsx';
 
+import '../../Styles/TagsInput.css';
+
 //https://blog.logrocket.com/building-a-tag-input-field-component-for-react/
-const TagsInput = (props) => {
+export default function TagsInput(props) {
 
 	const { stateItems, setStateItems, name } = props
 	const [input, setInput] = useState('');
 	const [isKeyReleased, setIsKeyReleased] = useState(false);
 
+// 	console.log(stateItems)
+// 	const nameString = name;
+//
+// 	console.log(nameString)
+// 	console.log(typeof nameString);
+//
+// 	console.log(typeof name);
+//
+// 	console.log(typeof stateItems);
+
 	const stateItemsArray = [...stateItems.name];
+
+	var stateItemsTwo = Object.entries(stateItems).filter(field => field == name )
+
+// 	console.log(stateItemsTwo);
+//
+// 	console.log("stateItems.name is a " + typeof(stateItems.name))
+// 	console.log("stateItems.nameString is a " + typeof(stateItems.nameString))
+
+// 	useEffect(()=> {
+// 		stateItemsTwo = Object.entries(stateItems).filter(field => field == name )
+// 	}, [stateItems])
+//
 
 	const onChange = (e) => {
 		const { value } = e.target;
@@ -20,12 +44,18 @@ const TagsInput = (props) => {
 		const { key } = e;
 		const trimmedInput = input.trim();
 
-		if ((key === ',' || key === 'Enter' || key === ' ') && trimmedInput.length && !stateItems.includes(trimmedInput)) {
+		if ((key === ',' || key === 'Enter' || key === ' ') && trimmedInput.length && !stateItemsArray.includes(trimmedInput)) {
 			e.preventDefault();
+			// add the trimmed input to the array above
+// 			stateItemsTwo.push(trimmedInput)
+			// and set the object state's array
 			setStateItems({
 				...stateItems,
-				[name]: [...stateItemsArray, trimmedInput]
+				[name]: [...stateItemsTwo, trimmedInput]
 				});
+			console.log(trimmedInput);
+			console.log(stateItemsTwo)
+			console.log(stateItems)
 			setInput('');
 		}
 
@@ -59,7 +89,7 @@ const TagsInput = (props) => {
 	}
 
 	return (
-	<div className="container">
+	<div className="inputContainer">
 	{stateItemsArray.map((tag, index) =>
 		<div className="tag" key={index}>
 			{tag}
@@ -75,5 +105,3 @@ const TagsInput = (props) => {
 	</div>
 	);
 }
-
-export default TagsInput

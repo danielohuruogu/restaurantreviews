@@ -32,8 +32,8 @@ export default function ModalWrapper(props) {
 					describedby: "modal description"
 				}}
 				parentSelector={()=>document.querySelector('#root')}
-				overlayClassName={'searchModalOverlay'}
-                className={'searchModalContainer'}
+				overlayClassName={'modalOverlay'}
+                className={'modalContainer'}
                 ariaHideApp={false}
 				>
 				<RenderComponent

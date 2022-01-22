@@ -12,11 +12,14 @@
 .addRestaurantContainer {
 	grid-area: button;
 	display: grid;
-	place-items: center;
+	align-items: center;
+	justify-content: start;
 }
 
 .reviewSearchContainer {
 	grid-area: search;
+	display: inherit;
+	align-items: space-between;
 	height: 95%;
 }
 

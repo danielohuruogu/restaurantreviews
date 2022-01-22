@@ -4,7 +4,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 export default function MapsWrapper(props) {
 
-	const { center, zoom, ComponentToRender, ...other } = props;
+	const { center, zoom, style, ComponentToRender, ...other } = props;
 
 	const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY1}`;
 
@@ -16,7 +16,7 @@ export default function MapsWrapper(props) {
 
     return (
 		<Wrapper apiKey={apiKey} render={render} libraries={["places"]}>
-			<ComponentToRender center={center} zoom={zoom} {...other}/>
+			<ComponentToRender center={center} zoom={zoom} style={style} {...other}/>
 		</Wrapper>
     )
 }

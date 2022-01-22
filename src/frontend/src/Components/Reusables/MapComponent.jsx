@@ -3,7 +3,7 @@ import { GenerateMarkerAndInfoWindow } from './MapsDataAndFunctions.jsx';
 
 function MapComponent(props) {
 
-	const { center, zoom, style, dataToDisplay=null, url=null } = props
+	const { center, zoom, style, dataToDisplay=null, url=null, className=null } = props
 
 	const refMap = useRef();
 
@@ -34,7 +34,7 @@ function MapComponent(props) {
 	}, [refMap.current, dataToDisplay])
 
 	return (
-		<div ref={refMap}  style={style}
+		<div ref={refMap} style={style}
             />
 	)
 }

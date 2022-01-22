@@ -26,7 +26,7 @@ function Table(props) {
             for (var i=0; i < noColumns; i++) {
                 columnHeaders.push(
                     <div className="header">
-                        <p>{columnNames[i]}</p>
+                       {columnNames[i]}
                     </div>
                 )
             }

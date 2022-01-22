@@ -2,7 +2,7 @@ import React from 'react'
 
 import Modal from 'react-modal';
 
-import '../Styles/ModalWrapper.css'
+import '../Styles/ReduxModalWrapper.css'
 
 export default function ReduxModalWrapper(props) {
 

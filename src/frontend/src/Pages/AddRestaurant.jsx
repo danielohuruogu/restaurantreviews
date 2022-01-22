@@ -23,6 +23,10 @@ function AddRestaurant(props) {
 	        <MapsWrapper
 	            center={params.center}
 	            zoom={params.zoom}
+	            style={{
+	                gridArea: "map",
+	                width: "100%"
+	            }}
 	            ComponentToRender={SearchMap}
 	            setAddressState={setAddressState}
 	            />

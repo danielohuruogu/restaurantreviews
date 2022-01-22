@@ -1,4 +1,16 @@
 .addRestaurantSection {
 	display: grid;
 	grid-template-columns: 50% 50%;
+	grid-template-rows: 50% 50%;
+	grid-temmplate-areas:
+		" form map "
+		" form form ";
+}
+
+.mapArea {
+	grid-area: map;
+}
+
+.formArea {
+	grid-area: form;
 }
