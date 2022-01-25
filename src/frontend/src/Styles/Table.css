@@ -4,12 +4,12 @@
 }
 
 /*****/
-.subContainer.headers {
+.subContainer.header {
 	border-radius: 8px 8px 0 0;
 	background: #004b50;
 }
 
-.header {
+.heading {
 	display: grid;
 	place-items: center;
 	font-size: 16px;
@@ -22,21 +22,21 @@
 /*** to cap size of overflow container ***/
 
 .overflow-content {
-  height: 100%;
-  overflow-y: scroll;
-  border-radius: 0 0 8px 8px;
+	height: 100%;
+	overflow-y: scroll;
+	border-radius: 0 0 8px 8px;
 }
 
 ::-webkit-scrollbar {
-  width: 0px; /* remove scrollbar space */
-  background: black; /* optional: just make scrollbar invisible */
+	width: 0px; /* remove scrollbar space */
+	background: black; /* optional: just make scrollbar invisible */
 }
 /* https://css-tricks.com/forums/topic/hide-vertical-scrollbar-but-still-scrollable/ */
 /* taken from https://codepen.io/sulfurious/pen/eWPBjY?editors=1100 */
 
 .noResults {
-  grid-column: 1/6;
-  text-align: center;
+	grid-column: 1/6;
+	text-align: center;
 }
 
 /*******/

@@ -4,13 +4,16 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 
-function AutoCompleteInput(props) {
+export default function AutoCompleteInput(props) {
 
-	const { options, setMatchedValue, values, setValues } = props
+	const { options, setMatchedValue, values, setValues, style=null } = props
+
+// 	 onClick={()=> setMatchedValue(option)}
 
 	return (
 		<Autocomplete
 			value={values.name}
+			sx={{style}}
 			onChange={(event, newValue) => {
 				if (typeof newValue === 'string') {
 					setValues({
@@ -63,8 +66,8 @@ function AutoCompleteInput(props) {
 			}}
 			renderOption={(props, option) =>
 				<ul {...props} style={{ listStyleType: "none", display: "flex", textAlign: "left"}}>
-				    <li onClick={()=> setMatchedValue(option)}><strong>{option.name}</strong></li>
-				    <li style={{ paddingLeft: "5px" }}onClick={()=> setMatchedValue(option)}>{option.postcode}</li>
+				    <li><strong>{option.name}</strong></li>
+				    <li style={{ paddingLeft: "5px" }}>{option.postcode}</li>
 				</ul>
 			}
 			sx={{ width: 300 }}
@@ -75,5 +78,3 @@ function AutoCompleteInput(props) {
 		/>
 	);
 }
-
-export default AutoCompleteInput;

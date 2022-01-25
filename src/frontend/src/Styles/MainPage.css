@@ -9,7 +9,7 @@
 	padding-left: 2%;
 }
 
-.addRestaurantContainer {
+.addShopContainer {
 	grid-area: button;
 	display: grid;
 	align-items: center;

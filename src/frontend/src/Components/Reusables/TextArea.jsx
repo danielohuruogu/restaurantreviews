@@ -3,7 +3,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 export default function TextArea(props) {
 
-	const { name, value, ariaLabel, onChange, minRows, placeholder } = props
+	const { name, value, ariaLabel, onChange, minRows, placeholder, style=null } = props
 
 	return (
 		<TextareaAutosize
@@ -13,6 +13,7 @@ export default function TextArea(props) {
             onChange={onChange}
             minRows={minRows}
             placeholder={placeholder}
+            style={style}
             />
 	)
 }

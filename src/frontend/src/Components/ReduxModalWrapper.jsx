@@ -2,11 +2,11 @@ import React from 'react'
 
 import Modal from 'react-modal';
 
-import '../Styles/ReduxModalWrapper.css'
+import '../Styles/ModalWrapper.css'
 
 export default function ReduxModalWrapper(props) {
 
-	const { RenderComponent, reduxSelection, reduxClearSelection, displayData, ...other } = props
+	const { RenderComponent, reduxSelection, reduxClearSelection, displayData, modalStyleClassName=null, modalOverlayStyleClassName=null, ...other } = props
 
 	return (
 		<>
@@ -18,8 +18,8 @@ export default function ReduxModalWrapper(props) {
 					describedby: "modal description"
 				}}
 				parentSelector={()=>document.querySelector('#root')}
-				overlayClassName={'searchModalOverlay'}
-                className={'searchModalContainer'}
+				overlayClassName={ modalOverlayStyleClassName ? modalOverlayStyleClassName : 'modalOverlay' }
+                className={ modalStyleClassName ? modalStyleClassName : 'modalContainer' }
                 ariaHideApp={false}
 				>
 				<RenderComponent

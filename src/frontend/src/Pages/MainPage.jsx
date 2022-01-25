@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import AddRestaurant from './AddRestaurant.jsx';
 
 import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
 import { getData } from '../Adapters/mapdata.js';
 
 import ModalWrapper from '../Components/ModalWrapper.jsx';
+import AddReviewForm from '../Components/AddReviewForm.jsx';
 import MapsWrapper from '../Components/Reusables/MapsWrapper.jsx';
 import MapComponent from '../Components/Reusables/MapComponent.jsx';
 import Chicken from './../Images/fried-chicken.png';
@@ -75,12 +75,13 @@ function MainPage() {
 
     return (
     <div className="pageContent">
-        <div className="addRestaurantContainer">
+        <div className="addShopContainer">
 			<ModalWrapper
-				RenderComponent={AddRestaurant}
+				RenderComponent={AddReviewForm}
 				incButton={true}
 				displayData={serverData}
 				btnText="Add a new review"
+				modalStyleClassName={'modalContainer addRes'}
 				/>
 		</div>
 		<div className="reviewMapContainer">

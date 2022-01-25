@@ -30,11 +30,11 @@ export default function TableComponent_Result(props) {
 	const { selection } = state;
 
 	var type_food_string = "";
-    for (let i=0; i < data.type_food.length; i++){
-        if (i === data.type_food.length-1) {
-            type_food_string += data.type_food[i]
+    for (let i=0; i < data.type_of_food.length; i++){
+        if (i === data.type_of_food.length-1) {
+            type_food_string += data.type_of_food[i]
         } else {
-        type_food_string += data.type_food[i] + ", "
+        type_food_string += data.type_of_food[i] + ", "
         }
     }
 
@@ -77,20 +77,8 @@ export default function TableComponent_Result(props) {
             reduxSelection={!!selection}
             reduxClearSelection={clearSelection}
             displayData={selection}
+            modalStyleClassName={'modalContainer redux'}
             />
-{/*         <Modal */}
-{/* 	        overlayClassName={'searchModalOverlay'} */}
-{/* 	        className={'searchModalContainer'} */}
-{/* 	        isOpen={!!selection} */}
-{/* 	        onRequestClose={clearSelection} */}
-{/* 	      > */}
-{/* 	        <SearchResultModal */}
-{/* 	          key={selection?.id} */}
-{/* 	          closeModal={clearSelection} */}
-{/* 	          d={selection} */}
-{/* 	          dispatch={dispatch} */}
-{/* 	            /> */}
-{/*         </Modal> */}
     </>
   );
 };

@@ -4,7 +4,7 @@ import { Reducer, initialState } from '../../Contexts/Reducer.js'
 import '../../Styles/Table.css'
 
 function Table(props) {
-	const { data, RenderComponent, useHeader, headerInfo=null, redux=null, ...other } = props
+	const { data, RenderComponent, useHeader, headerInfo=null, redux=null, containerStyle=null, headerStyle=null, headingStyle=null, ...other } = props
 
 	const [state, dispatch] = useReducer(Reducer, initialState)
 
@@ -25,21 +25,37 @@ function Table(props) {
 			const { noColumns, columnNames } = headerInfo
             for (var i=0; i < noColumns; i++) {
                 columnHeaders.push(
-                    <div className="header">
+                    <div
+                        {...(headingStyle && {
+                            headingStyle:true,
+                            style:headingStyle,
+                        })}
+                        className="heading"
+                        >
                        {columnNames[i]}
                     </div>
                 )
             }
         // if no info for the header has been provided
 		} else {
-			columnHeaders.push(<div className="header">NO HEADER INFO GIVEN</div>)
+			columnHeaders.push(<div className="heading">NO HEADER INFO GIVEN</div>)
 		}
 	}
 
 	return (
-		<div className="container">
+		<div
+			{...(containerStyle && {
+				containerStyle:true,
+				style:containerStyle,
+			})}
+			className={ containerStyle ? null : "container" }>
 			{useHeader &&
-			<div className="subContainer headers">
+			<div
+				{...(headerStyle && {
+					headerStyle:true,
+					style:headerStyle,
+				})}
+				className={ headerStyle ? null : "subContainer result header" }>
 				{columnHeaders}
 			</div>
 			}
@@ -47,7 +63,7 @@ function Table(props) {
 			{data.length > 0 ? (data.map((d, index) => {
 				return (
 					<RenderComponent
-						key={d.id}
+						key={d.index}
 						data={d}
 						index={index}
 						{...(redux && {

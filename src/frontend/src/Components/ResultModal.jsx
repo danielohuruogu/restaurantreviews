@@ -33,7 +33,7 @@ export default function ResultModal(props) {
         </div>
         <div className="summary">
             <div className="info">
-                <h3>{payload.type_food.join(', ')}</h3>
+                <h3>{payload.type_of_food.join(', ')}</h3>
                 <Controls.Rating readOnly readOnlyValue={payload.ave_rating} />
             </div>
             {payload.reviews.length > 0 &&

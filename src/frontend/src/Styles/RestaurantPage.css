@@ -1,3 +1,34 @@
 .restaurantPage {
-	display: inherit;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 60% 40%;
+	grid-template-areas:
+		" summary map "
+		" reviews map ";
+	gap: 10px 10px;
+    padding-left: 2%;
+}
+
+.restaurantInfo {
+	padding: 2% 4% 2% 2%;
+	display: flex;
+	flex-direction: row;
+}
+
+.summary {
+	margin: 2%;
+}
+
+.updateModal {
+	display: flex;
+	align-items: flex-end;
+}
+
+.shopMapContainer {
+	grid-area: map;
+}
+
+.reviewContainer {
+	height: 50vh;
+	padding: 1% 4%;
 }

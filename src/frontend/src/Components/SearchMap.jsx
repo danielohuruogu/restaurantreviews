@@ -9,7 +9,7 @@ import '../Styles/SearchMap.css'
 
 export default function SearchMap(props) {
 
-	const { center, zoom, setAddressState } = props;
+	const { center, zoom, style, setAddressState } = props;
 
     const refSearchMap = useRef();
     const refSearchBox = useRef();
@@ -104,7 +104,7 @@ export default function SearchMap(props) {
     }, [refSearchMap.current, refSearchBox.current]);
 
 	return (
-		<div ref={refSearchMap} id="mapSearch" style={{ zIndex:2, width: "80%" }}>
+		<div ref={refSearchMap} id="mapSearch" style={style}>
 	        <input
 	            ref={refSearchBox}
 	            id="pac-input"

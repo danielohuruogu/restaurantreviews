@@ -6,7 +6,7 @@ let data =
         address: "Unit 6, Gateway Retail Park, 8 Claps Gate Ln, Beckton E6 6LG",
         postcode: "E6 6LG",
         ave_rating: 4,
-        type_food: ["takeaway", "fast food", "chicken"],
+        type_of_food: ["takeaway", "fast food", "chicken"],
         geometry: {
             location: {
                 lat: 51.5217103,
@@ -38,7 +38,7 @@ let data =
         address: "Unit 4B, Gateway Retail Park, 8 Claps Gate Ln, London E6 6LG",
         postcode: "E6 6LG",
         ave_rating: 3,
-        type_food: ["desserts", "fast food", "cakes"],
+        type_of_food: ["desserts", "fast food", "cakes"],
         geometry: {
             location: {
                 lat: 51.521283,
@@ -70,7 +70,7 @@ let data =
         address: "Armada Wy., London E6 7ER",
         postcode: "E6 7ER",
         ave_rating: 5,
-        type_food: ["takeaway", "fast food", "tasty"],
+        type_of_food: ["takeaway", "fast food", "tasty"],
         geometry: {
             location: {
                 lat: 51.5160856,

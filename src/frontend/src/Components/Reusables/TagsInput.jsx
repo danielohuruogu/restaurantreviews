@@ -11,29 +11,13 @@ export default function TagsInput(props) {
 	const [input, setInput] = useState('');
 	const [isKeyReleased, setIsKeyReleased] = useState(false);
 
-// 	console.log(stateItems)
-// 	const nameString = name;
-//
-// 	console.log(nameString)
-// 	console.log(typeof nameString);
-//
-// 	console.log(typeof name);
-//
-// 	console.log(typeof stateItems);
-
-	const stateItemsArray = [...stateItems.name];
-
-	var stateItemsTwo = Object.entries(stateItems).filter(field => field == name )
-
-// 	console.log(stateItemsTwo);
-//
-// 	console.log("stateItems.name is a " + typeof(stateItems.name))
-// 	console.log("stateItems.nameString is a " + typeof(stateItems.nameString))
-
-// 	useEffect(()=> {
-// 		stateItemsTwo = Object.entries(stateItems).filter(field => field == name )
-// 	}, [stateItems])
-//
+	console.log(stateItems)
+	var fieldInObjectToUpdate = Object.entries(stateItems).filter(field => field[0] == name)
+	console.log(fieldInObjectToUpdate)
+	var fieldToCheck = fieldInObjectToUpdate[0];
+	console.log(fieldToCheck);
+	var stateItemsArray = fieldToCheck[1];
+	console.log(stateItemsArray)
 
 	const onChange = (e) => {
 		const { value } = e.target;
@@ -46,24 +30,17 @@ export default function TagsInput(props) {
 
 		if ((key === ',' || key === 'Enter' || key === ' ') && trimmedInput.length && !stateItemsArray.includes(trimmedInput)) {
 			e.preventDefault();
-			// add the trimmed input to the array above
-// 			stateItemsTwo.push(trimmedInput)
-			// and set the object state's array
 			setStateItems({
 				...stateItems,
-				[name]: [...stateItemsTwo, trimmedInput]
+				[name]: [...stateItemsArray, trimmedInput]
 				});
-			console.log(trimmedInput);
-			console.log(stateItemsTwo)
-			console.log(stateItems)
 			setInput('');
 		}
 
-		if (key === 'Backspace' && !input.length && stateItems.length && isKeyReleased) {
+		if (key === 'Backspace' && !input.length && stateItemsArray.length && isKeyReleased) {
 			e.preventDefault();
 			const stateItemsCopy = stateItemsArray;
 			const poppedTag = stateItemsCopy.pop();
-			console.log(poppedTag);
 			setStateItems({
 				...stateItems,
 				[name]: stateItemsCopy
@@ -78,14 +55,11 @@ export default function TagsInput(props) {
 	}
 
 	const deleteTag = (index) => {
-		console.log("tried to delete");
 		const poppedItemsArray = stateItemsArray.filter((tag, i) => i !== index);
 		setStateItems({
 			...stateItems,
 			[name]: poppedItemsArray
 		});
-// 		prevState => prevState.filter((tag, i) => i !== index)
-		console.log(stateItems);
 	}
 
 	return (

@@ -1,21 +1,87 @@
-.addRestaurantSection {
+.formLayout {
 	display: grid;
 	grid-template-columns: 50% 50%;
-	grid-template-rows: 50% 50%;
+	grid-template-rows: 45% 55%;
 	grid-template-areas:
 		" shopForm map "
 		" reviewForm reviewForm ";
 	height: 100%;
 }
 
+/************/
+
 .mapArea {
 	grid-area: map;
 }
 
+/************/
+
 .summaryFormArea {
 	grid-area: shopForm;
+	padding: 0 1%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
 
+/************/
+
+hr {
+    border: none;
+    border-top: 1px dotted #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 300px;
+}
+
+hr:after {
+    background: #fff;
+    content: '∴    ∵    ∴';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
+}
+
+/************/
+
 .reviewFormArea {
-	grid-area: reviewForm
+	grid-area: reviewForm;
+	padding: 0 1%;
+	margin-top: 2%;
+}
+
+.reviewSummary {
+	display: grid;
+	grid-template-columns: 60% 40%;
+	margin: 2% 0;
+	grid-gap: 2%;
+	align-items: space-evenly;
+}
+
+.reviewSummary div {
+	margin: 2% 0;
+}
+
+.reviewInfo{
+	padding-left: 2%;
+	display: inherit;
+	align-items: space-evenly;
+}
+
+/************/
+
+.formSubmit {
+	position: relative;
+	top: 25px;
+	display: flex;
+	justify-content: center;
+	margin-top: 2%;
+}
+
+.formSubmit div {
+	display: inherit;
+	width: 50%;
+	justify-content: space-evenly;
 }

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-import * as FaIcons from 'react-icons/fa';
-import {RiRadioButtonLine} from 'react-icons/ri';
+import Avatar from '../Images/avatar-icon.png';
+import Controls from './Reusables/Controls.jsx';
+
+import Close from '@mui/icons-material/Close';
+
+import { confirmDialog } from './Reusables/ConfirmDialog';
 
 import '../Styles/TableComponents.css';
-import Avatar from '../Images/avatar-icon.png';
 
-import Controls from './Reusables/Controls.jsx';
 
 export default function TableComponent_Review(props) {
 
@@ -17,6 +19,9 @@ export default function TableComponent_Review(props) {
 		reviewClass = 'subContainer review even';
 	} else if (index % 2 !== 0) {
 		reviewClass = 'subContainer review odd';
+	}
+	if (index === 0) {
+		reviewClass += " first";
 	}
 
 	// logic inspired by here
@@ -39,7 +44,7 @@ export default function TableComponent_Review(props) {
 	return (
     <>
         <div className={reviewClass}>
-            <div className="user">
+            <div className="cell user">
 	            <div className="userPicture">
 	                <img
 	                    className="userAvatar"
@@ -63,37 +68,44 @@ export default function TableComponent_Review(props) {
                 )}
                 </div>
             </div>
-            <div className="review">
+            <div className="cell reviewAndRating">
                 <Controls.Rating readOnly readOnlyValue={data.rating}/>
-                <h2>{data.title}</h2>
+                <h2 style={{ marginTop: "2%" }}>{data.title}</h2>
                 {/* if showMore is true, show the body
                 if false, show the button to turn it on */}
+                <div className="reviewBody">
                 {isLongReview() ?
                         (showMore ?
 	                        (
-	                            <div>
-		                            <p>{data.body}</p>
-		                            <p>{keywords_string}</p>
-	                            </div>
+	                        <>
+	                            <p>{data.body}</p>
+	                            <p><strong><em>{keywords_string}</em></strong></p>
+	                        </>
 	                        ) : (<p>{data.body.substring(0,100)}...</p>)
                         ) : (
-	                        <div>
-		                        <p>{data.body}</p>
-		                        <p>{keywords_string}</p>
-	                        </div>
+                        <>
+	                        <p>{data.body}</p>
+	                        <p><strong><em>{keywords_string}</em></strong></p>
+	                    </>
                         )
                 }
+                </div>
             </div>
-            <div className="date-btn">
+            <div className="cell date-btn">
+				<Close className="deleteIcon" onClick={()=> {
+						confirmDialog("Delete review?", ()=> console.log("deleted review"))
+					}}
+					/>
                 <p className="date"><em>{data.date_made}</em></p>
-                <button
-                    className={ isLongReview() ? "showMoreBtn" : "notThere"}
+                <Controls.MButton
+                    className={ isLongReview() ? null : "notThere" }
+                    variant="text"
+                    size="small"
                     onClick={() => {
                         setShowMore(!showMore)
                     }}
-                    >
-                    {showMore ? "Show less" : "Show more"}
-                </button>
+                    text={showMore ? "Show less" : "Show more"}
+                    />
             </div>
         </div>
     </>

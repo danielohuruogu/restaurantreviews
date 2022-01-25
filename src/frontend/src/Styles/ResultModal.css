@@ -2,10 +2,12 @@
 	display: grid;
 	grid-template-columns: 60% 40%;
 	height: 100%;
+	min-width: 60%;
 }
 .nameAndReviews {
 	display: grid;
 	grid-template-rows: 40% 60%;
+	block-size: fit-content;
 }
 /****  ****/
 

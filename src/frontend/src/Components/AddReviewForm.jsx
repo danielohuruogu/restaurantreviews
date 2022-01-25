@@ -8,9 +8,11 @@ import SearchMap from '../Components/SearchMap.jsx';
 
 import Controls from './Reusables/Controls.jsx';
 
-export default function FormSection(props) {
+import '../Styles/AddReviewForm.css'
 
-	const { addressInfo, data } = props
+export default function AddReviewForm(props) {
+
+	const { payload } = props
 	/// **** INITIAL VALUES AND STATES
 	const initialFValues = {
         id: 0,
@@ -78,14 +80,14 @@ export default function FormSection(props) {
 	 // TO GRAB THE FORMATTED ADDRESS FROM GOOGLE MAPS AND PUT IT IN THE FORM,
 	 // TO MAKE SURE ACCURATE ADDRESSES ARE SAVED TO THE DATABASE
 	useEffect(() => {
-		if (addressInfo) {
-  			console.log(addressInfo)
+		if (addressState) {
+  			console.log(addressState)
 			setValues({
 				...values,
-				address: addressInfo.formatted_address,
+				address: addressState.formatted_address,
 			})
 		}
-	}, [addressInfo]);
+	}, [addressState]);
 
 	// TO RESET THE FORM IF THE AUTOSELECT OPTION IS CLEARED - IF THE USER WANTS TO
 	// SELECT SOMETHING ELSE
@@ -124,14 +126,15 @@ export default function FormSection(props) {
 	};
 
 	return (
-		<Form onSubmit={submitForm} className="addRestaurantSection">
+		<Form onSubmit={submitForm} className="formLayout">
 			<div className="summaryFormArea">
-				<label>Pick an existing restaurant or leave a review for a new one</label>
+				<label><strong>Pick an existing restaurant or leave a review for a new one</strong></label>
 				<Controls.AutoCompleteInput
-					options={data}
+					options={payload}
 					setMatchedValue={setMatchedValue}
 					values={values}
 					setValues={setValues}
+					style={{ width: 100 }}
 				    />
 				<Controls.Input
 					name="address"
@@ -153,35 +156,52 @@ export default function FormSection(props) {
 	            setAddressState={setAddressState}
 	            />
             <div className="reviewFormArea">
+                <div>
+            	    <hr/>
+            	</div>
                 <div className="reviewSummary">
-                    <div>
+                    <div className="reviewContent">
 			            <Controls.Input
 			                name="reviewTitle"
 			                value={values.reviewTitle}
 			                label="Title"
 			                onChange={handleInputChange}
 			                error={errors.reviewTitle}
+			                style={{
+			                    fontSize: "0.8rem",
+			                }}
 			                />
+		                <Controls.TextArea
+                            name="reviewBody"
+                            value={values.reviewBody}
+                            aria-label="Section to leave a review"
+                            onChange={handleInputChange}
+                            minRows={3}
+                            placeholder="What did you think?"
+                            style={{
+                                width: "100%",
+                                height: "50%",
+                                borderColor: "rgb(190,190,190)",
+                                borderRadius: "3px"
+                            }}
+                            />
 		            </div>
-		            <div>
+		            <div className="reviewInfo">
 		                <Controls.DatePicker
 	                        date={values}
 	                        setDate={setValues}
 	                        />
 						<Controls.Rating />
+						<div style={{ height: "30%"}}>
+                            PLACEHOLDER FOR KEYWORDS
+                        </div>
 		            </div>
 	            </div>
-	            <Controls.TextArea
-	                name="reviewBody"
-	                value={values.reviewBody}
-	                aria-label="Section to leave a review"
-	                onChange={handleInputChange}
-	                minRows={3}
-	                placeholder="What did you think?"
-	                />
 	            <div className="formSubmit">
-		            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
-		            <Controls.MButton color="default" onClick={resetForm} text="Reset"/>
+	                <div>
+			            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
+			            <Controls.MButton color="secondary" onClick={resetForm} text="Reset"/>
+		            </div>
 	            </div>
             </div>
 		</Form>
