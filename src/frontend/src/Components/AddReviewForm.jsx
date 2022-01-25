@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { useForm, Form } from './useForm.jsx';
 
+import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
+import MapsWrapper from '../Components/Reusables/MapsWrapper';
+import SearchMap from '../Components/SearchMap.jsx';
+
 import Controls from './Reusables/Controls.jsx';
 
 export default function FormSection(props) {
@@ -13,11 +17,13 @@ export default function FormSection(props) {
         name:"",
         address:"",
 		type_of_food: [],
-		keywords: [],
-		rating: 0,
-        reviewTitle: "",
-        reviewBody: "",
-        dateVisited: new Date(),
+		review: {
+			title: "",
+			body: "",
+			keywords: [],
+			dateVisited: new Date(),
+			rating: 0,
+		},
     }
 
 	const {
@@ -45,28 +51,29 @@ export default function FormSection(props) {
 		type_food: []
 	});
 
-// 	const [ typeFoodTags, setTypeFoodTags ] = useState([]);
+	const [addressState, setAddressState] = useState();
 
-// 	const [ keywordTags, setKeywordTags ] = useState([]);
+	const mapData = MapParams();
+    const { params } = mapData[0];
 
 	/// ****  BELOW IS CODE TO HELP THE USER EXPERIENCE WITH THE FORM
 
 	// TO GRAB A VALUE FROM THE AUTOCOMPLETE AND FILL IN THE REST OF THE FORM, TO
 	// PREVENT DUPLICATES IN THE DATABASE
-	useEffect(() => {
-		if (matchedValue) {
-			if (matchedValue.address) {
-				console.log(matchedValue)
-				setValues({
-					...values,
-					address: matchedValue.address
-				})
-			}
-// 			if (matchedValue.type_food) {
-// 				setTypeFoodTags(matchedValue.type_food)
+// 	useEffect(() => {
+// 		if (matchedValue) {
+// 			if (matchedValue.address) {
+// 				console.log(matchedValue)
+// // 				setValues({
+// // 					...values,
+// // 					address: matchedValue.address
+// // 				})
 // 			}
-		}
-	}, [matchedValue]);
+// // 			if (matchedValue.type_food) {
+// // 				setTypeFoodTags(matchedValue.type_food)
+// // 			}
+// 		}
+// 	}, [matchedValue]);
 
 	 // TO GRAB THE FORMATTED ADDRESS FROM GOOGLE MAPS AND PUT IT IN THE FORM,
 	 // TO MAKE SURE ACCURATE ADDRESSES ARE SAVED TO THE DATABASE
@@ -117,10 +124,8 @@ export default function FormSection(props) {
 	};
 
 	return (
-		<Form onSubmit={submitForm}>
-{/* 			<Grid container> */}
-{/* 				<Grid item xs={6}> */}
-			<div className="formArea">
+		<Form onSubmit={submitForm} className="addRestaurantSection">
+			<div className="summaryFormArea">
 				<label>Pick an existing restaurant or leave a review for a new one</label>
 				<Controls.AutoCompleteInput
 					options={data}
@@ -137,7 +142,17 @@ export default function FormSection(props) {
 					/>
 				<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
             </div>
-            <div className="formArea">
+            <MapsWrapper
+	            center={params.center}
+	            zoom={params.zoom}
+	            ComponentToRender={SearchMap}
+	            style={{
+	                height: "100%",
+	                gridArea: "map",
+	            }}
+	            setAddressState={setAddressState}
+	            />
+            <div className="reviewFormArea">
                 <div className="reviewSummary">
                     <div>
 			            <Controls.Input
@@ -146,11 +161,6 @@ export default function FormSection(props) {
 			                label="Title"
 			                onChange={handleInputChange}
 			                error={errors.reviewTitle}
-			                />
-			            <Controls.TagsInput
-			                name="keywords"
-			                stateItems={values}
-			                setStateItems={setValues}
 			                />
 		            </div>
 		            <div>
@@ -169,7 +179,7 @@ export default function FormSection(props) {
 	                minRows={3}
 	                placeholder="What did you think?"
 	                />
-	            <div>
+	            <div className="formSubmit">
 		            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
 		            <Controls.MButton color="default" onClick={resetForm} text="Reset"/>
 	            </div>

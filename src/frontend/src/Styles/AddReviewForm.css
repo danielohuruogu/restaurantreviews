@@ -1,0 +1,21 @@
+.addRestaurantSection {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 50% 50%;
+	grid-template-areas:
+		" shopForm map "
+		" reviewForm reviewForm ";
+	height: 100%;
+}
+
+.mapArea {
+	grid-area: map;
+}
+
+.summaryFormArea {
+	grid-area: shopForm;
+}
+
+.reviewFormArea {
+	grid-area: reviewForm
+}
