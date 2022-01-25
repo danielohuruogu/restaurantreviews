@@ -11,7 +11,10 @@ In my corner of London there are an abundance of shops to choose from, but plent
 
 ## Tech stack
 Backend: Java - Springboot
+
 Frontend: Javascript - React
+
+Database: SQL - PostgreSQL
 
 Deployed to AWS via Docker
 
