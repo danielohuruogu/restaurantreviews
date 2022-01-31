@@ -13,7 +13,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<SiteUser> getAllUsers() {
-
         return userRepository.findAll();
     }
 

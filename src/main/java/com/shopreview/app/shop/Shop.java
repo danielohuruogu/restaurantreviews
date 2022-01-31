@@ -1,8 +1,8 @@
-package com.shopreview.app.restaurant;
+package com.shopreview.app.shop;
 
 import com.shopreview.app.review.Review;
 import lombok.*;
-import java.sql.Timestamp;
+
 import java.util.*;
 import javax.persistence.*;
 
@@ -14,17 +14,25 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "restaurants")
-public class Restaurant {
+public class Shop {
 
     @Id
-    @SequenceGenerator(name="restaurant_sequence", sequenceName = "restaurant_sequence", allocationSize = 1)
-    @GeneratedValue(generator="restaurant_sequence", strategy = GenerationType.SEQUENCE)
-    private Long restaurant_Id;
-    private String restaurant_name;
-    private List<String> Type_Of_Food;
-    private List<String> keywords;
-    private Integer rating;
+    @SequenceGenerator(
+            name="restaurant_sequence",
+            sequenceName = "restaurant_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator="restaurant_sequence",
+            strategy = GenerationType.SEQUENCE
+    )
+    private Long shop_Id;
+    private String shop_name;
+	@ElementCollection(targetClass=String.class)
+	private List<String> Type_Of_Food;
+    @Transient
     private Integer no_of_ratings;
+    @Transient
     private Float average_rating;
     @Embedded
     private Address address;
@@ -32,16 +40,16 @@ public class Restaurant {
     private GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @ElementCollection(targetClass=String.class)
+    private List<Review> shop_reviews = new ArrayList<>();
 
     private boolean geoProcessed = false;
 
-    public Restaurant(String name, List<String> keywords, Integer rating, Address address, String website){
-        this.restaurant_name = name;
-        this.website = website;
+    public Shop(String name, Address address, String website){
+        this.shop_name = name;
         this.address = address;
-//        this.average_rating =
+        this.website = website;
         // will have to add up all that restaurant's ratings and work out the average
         // geolocation and keywords can be set from data gathered from the maps API
 
@@ -56,6 +64,8 @@ public class Restaurant {
 //      and summing them up to get the number of ratings
 //      and averaging to get the overall rating
     }
+
+
 
 //  this function here would take an address for a location and create a Geocode for it to be stored
     // on a database

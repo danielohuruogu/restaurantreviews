@@ -19,8 +19,15 @@ import javax.persistence.*;
 public class SiteUser {
 
     @Id
-    @SequenceGenerator(name="siteuser_sequence",sequenceName="siteuser_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "siteuser_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name="siteuser_sequence",
+            sequenceName="siteuser_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "siteuser_sequence",
+            strategy = GenerationType.SEQUENCE
+    )
     private Long user_Id;
     @Column(nullable = false)
     private String first_name;
@@ -35,12 +42,18 @@ public class SiteUser {
     private Date created_at;
     @Column(nullable = false)
     private Role role;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
+//    private List<Review> reviews = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
+//    private List<Comment> comments = new ArrayList<>();
 
-    public SiteUser(String first_name, String last_name, String password, String email, Role role) {
+    public SiteUser(
+            String first_name,
+            String last_name,
+            String password,
+            String email,
+            Role role
+    ) {
         long now = System.currentTimeMillis();
 
         this.first_name = first_name;
@@ -49,7 +62,6 @@ public class SiteUser {
         this.email = email;
         this.created_at = new Date(now);
         this.role = role;
-
     }
 
     String getFullName() {

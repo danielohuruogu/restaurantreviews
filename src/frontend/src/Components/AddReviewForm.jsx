@@ -128,7 +128,7 @@ export default function AddReviewForm(props) {
 	return (
 		<Form onSubmit={submitForm} className="formLayout">
 			<div className="summaryFormArea">
-				<label><strong>Pick an existing restaurant or leave a review for a new one</strong></label>
+				<label><strong>Pick an existing shop or leave a review for a new one</strong></label>
 				<Controls.AutoCompleteInput
 					options={payload}
 					setMatchedValue={setMatchedValue}

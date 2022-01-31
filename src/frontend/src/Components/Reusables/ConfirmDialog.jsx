@@ -1,3 +1,5 @@
+//https://dev.to/uguremirmustafa/material-ui-reusable-confirmation-dialog-in-react-2jnl
+
 import React from 'react';
 
 import Dialog from '@mui/material/Dialog';

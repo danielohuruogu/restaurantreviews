@@ -1,7 +1,6 @@
 package com.shopreview.app.review;
 
-import com.shopreview.app.comment.Comment;
-import com.shopreview.app.restaurant.Restaurant;
+import com.shopreview.app.shop.Shop;
 import com.shopreview.app.siteuser.SiteUser;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -9,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -32,11 +30,14 @@ public class Review {
     @JoinColumn(name = "author_Id")
     private SiteUser author;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_Id")
+    @JoinColumn(name = "shop_Id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Restaurant restaurant;
+    private Shop shop;
     @Column
     private Rating rating;
+    @Column
+    @ElementCollection(targetClass=String.class)
+    private List<String> keywords;
     @Column(nullable = false)
     private String title;
     @Column
@@ -45,15 +46,16 @@ public class Review {
     private Date date_of_visit;
     @Column
     private Timestamp created_at;
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<Comment> comments = new ArrayList<>();
     
-    public Review(Rating rating, String title, String body){
+    public Review(Rating rating, List<String> keywords, String title, String body){
         this.rating = rating;
         this.title = title;
         this.body = body;
         long now = System.currentTimeMillis();
-        this.date_of_visit = new Date(now);
+//        this.date_of_visit = new Date(now);
         this.created_at = new Timestamp(now);
+        this.keywords = keywords;
     }
 }

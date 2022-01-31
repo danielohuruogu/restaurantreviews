@@ -1,4 +1,4 @@
-package com.shopreview.app.restaurant;
+package com.shopreview.app.shop;
 
 import java.util.Optional;
 
