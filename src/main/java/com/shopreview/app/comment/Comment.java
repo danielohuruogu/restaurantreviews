@@ -26,7 +26,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_Id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private SiteUser author;
+    private SiteUser comment_author;
     @ManyToOne
     @JoinColumn(name = "review_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

@@ -13,23 +13,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "restaurants")
+@Table(name = "shops")
 public class Shop {
 
     @Id
     @SequenceGenerator(
-            name="restaurant_sequence",
-            sequenceName = "restaurant_sequence",
+            name="shop_sequence",
+            sequenceName = "shop_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
-            generator="restaurant_sequence",
+            generator="shop_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    private Long shop_Id;
+    private Long shopId;
     private String shop_name;
 	@ElementCollection(targetClass=String.class)
-	private List<String> Type_Of_Food;
+	private List<String> type_Of_Food;
     @Transient
     private Integer no_of_ratings;
     @Transient
@@ -40,11 +40,22 @@ public class Shop {
     private GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @ElementCollection(targetClass=String.class)
-    private List<Review> shop_reviews = new ArrayList<>();
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
+    )
+    @JoinColumn(
+            name="shop_Id",
+            referencedColumnName="shopId"
+    )
+    private List<Review> shop_reviews;
 
     private boolean geoProcessed = false;
+
+    public void addReview(Review review) {
+        shop_reviews.add(review);
+    }
 
     public Shop(String name, Address address, String website){
         this.shop_name = name;

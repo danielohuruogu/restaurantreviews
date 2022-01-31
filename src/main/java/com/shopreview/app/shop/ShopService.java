@@ -38,7 +38,7 @@ public class ShopService {
     }
 
     public void deleteShop(Shop shop) {
-        long shop_id = shop.getShop_Id();
+        long shop_id = shop.getShopId();
         String name = shop.getShop_name();
         // will need to add check to make sure that the restaurant exists
         if(!shopRepository.existsById(shop_id)) {

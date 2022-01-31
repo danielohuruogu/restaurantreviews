@@ -14,6 +14,7 @@ import java.util.List;
 public class ShopController {
 
     private final ShopService shopService;
+    private final ShopRepository shopRepository;
 
     @GetMapping
     public List<Shop> getAllShops() {
@@ -21,8 +22,10 @@ public class ShopController {
     }
 
     @PostMapping
-    public void addRestaurant(@RequestBody Shop shop) {
+    public String addRestaurant(@RequestBody Shop shop) {
         shopService.addShop(shop);
+        // grab the name and just return a string to say it's been successful
+        return shopRepository.findById(shop.getShopId()).get().getShop_name() + " saved successfully";
     }
 
     @DeleteMapping()

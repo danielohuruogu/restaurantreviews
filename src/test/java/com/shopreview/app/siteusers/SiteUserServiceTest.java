@@ -6,6 +6,7 @@ package com.shopreview.app.siteusers;
 *
 * */
 
+import com.shopreview.app.review.Review;
 import com.shopreview.app.siteuser.Role;
 import com.shopreview.app.siteuser.SiteUser;
 import com.shopreview.app.siteuser.UserRepository;
@@ -20,6 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -33,7 +36,7 @@ public class SiteUserServiceTest {
     @Mock
     private UserRepository userRepository;
     private UserService underTest;
-    private ArrayList reviews;
+    private List<Review> reviews = Arrays.asList();
     private ArrayList comments;
     private Date created_at = new Date(System.currentTimeMillis());
 
@@ -67,7 +70,8 @@ public class SiteUserServiceTest {
                 "saeadrg",
                 "jtorres@gmail.es",
                 created_at,
-                Role.Reader
+                Role.Reader,
+                reviews
                 );
         userRepository.save(fakeUser);
         long testId = fakeUser.getUser_Id();
@@ -183,7 +187,8 @@ public class SiteUserServiceTest {
                 "adjkghs",
                 "harrys@hello.com",
                 created_at,
-                Role.Reader
+                Role.Reader,
+                reviews
         );
         given(userRepository.existsById(initialUser.getUser_Id())).willReturn(true);
 
@@ -195,7 +200,8 @@ public class SiteUserServiceTest {
                 "agargra",
                 "jbiggs@hello.com",
                 created_at,
-                Role.Admin
+                Role.Admin,
+                reviews
         );
         underTest.replaceUser(userToUpdate);
 

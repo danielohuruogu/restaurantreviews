@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,17 +49,15 @@ public class SiteUserIT {
     private final Faker faker = new Faker();
 
     // just empty arraylists to complete the user to be sent through to the repo
-    private ArrayList reviews;
+    private List<Review> reviews = Arrays.asList();
     private ArrayList comments;
     private Date created_at = new Date(System.currentTimeMillis());
-
 
     // can we add a user in to the app
     @Test
     @Disabled
     void canRegisterNewUser() throws Exception {
         // given
-        Review review;
         SiteUser user = new SiteUser(
                 1L,
                 "name",
@@ -66,7 +65,8 @@ public class SiteUserIT {
                 "dagsdrgsd",
                 "faker@fake.com",
                 created_at,
-                Role.Reader
+                Role.Reader,
+                reviews
         );
 
         // when
@@ -108,7 +108,8 @@ public class SiteUserIT {
                 password,
                 email,
                 created_at,
-                Role.Reader
+                Role.Reader,
+                reviews
         );
 
         // using mock controller to send data to repo
@@ -233,7 +234,8 @@ public class SiteUserIT {
                 password,
                 email,
                 created_at,
-                Role.Reader
+                Role.Reader,
+                reviews
         );
 
         ResultActions resultActions = mockMvc

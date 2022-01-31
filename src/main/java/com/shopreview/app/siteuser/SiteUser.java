@@ -5,6 +5,7 @@ import com.shopreview.app.review.Review;
 import lombok.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.*;
 
@@ -20,12 +21,12 @@ public class SiteUser {
 
     @Id
     @SequenceGenerator(
-            name="siteuser_sequence",
-            sequenceName="siteuser_sequence",
+            name="user_sequence",
+            sequenceName="user_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
-            generator = "siteuser_sequence",
+            generator = "user_sequence",
             strategy = GenerationType.SEQUENCE
     )
     private Long user_Id;
@@ -42,9 +43,10 @@ public class SiteUser {
     private Date created_at;
     @Column(nullable = false)
     private Role role;
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
-//    private List<Review> reviews = new ArrayList<>();
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "review_author", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+    @ElementCollection(targetClass=String.class)
+    private List<Review> reviews = Arrays.asList();
+//    @OneToMany(mappedBy = "comment_author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
 //    private List<Comment> comments = new ArrayList<>();
 
     public SiteUser(

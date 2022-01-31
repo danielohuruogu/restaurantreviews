@@ -3,6 +3,11 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="1" author="DanielAdmin">
+        <addColumn tableName="users">
+            <column name="reviews" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
