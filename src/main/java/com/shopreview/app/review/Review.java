@@ -20,6 +20,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "reviews")
 public class Review {
 
@@ -27,14 +28,10 @@ public class Review {
     @SequenceGenerator(name="review_sequence",sequenceName="review_sequence",allocationSize = 1)
     @GeneratedValue(generator="review_sequence",strategy = GenerationType.SEQUENCE)
     private Long reviewId;
-    @ManyToOne
-//            (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_Id")
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_Id", referencedColumnName = "userId")
     private SiteUser review_author;
-    @ManyToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_Id", referencedColumnName = "shopId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Shop shop;

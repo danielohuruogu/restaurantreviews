@@ -141,7 +141,7 @@ public class SiteUserIT {
         // way to find the first id that has an email that matches that of the user
         long idToFind = users.stream()
                 .filter(u -> u.getEmail().equals(user.getEmail()))
-                .map(SiteUser::getUser_Id)
+                .map(SiteUser::getUserId)
                 .findFirst()
                 .orElseThrow(() ->
                         new IllegalStateException(
@@ -213,7 +213,7 @@ public class SiteUserIT {
                 // so getting all the users that have the same email as the user
                 // that got sent in
                 // then mapping out the ids for each of them
-                .map(SiteUser::getUser_Id)
+                .map(SiteUser::getUserId)
                 // grabbing the first
                 .findFirst()
                 // or saying that the email doesn't exist

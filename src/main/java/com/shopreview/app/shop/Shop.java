@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "shops")
 public class Shop {
 
@@ -57,9 +58,11 @@ public class Shop {
         shop_reviews.add(review);
     }
 
-    public Shop(String name, Address address, String website){
+    public Shop(String name,
+                Address address,
+                String website){
         this.shop_name = name;
-        this.address = address;
+//        this.address = address;
         this.website = website;
         // will have to add up all that restaurant's ratings and work out the average
         // geolocation and keywords can be set from data gathered from the maps API

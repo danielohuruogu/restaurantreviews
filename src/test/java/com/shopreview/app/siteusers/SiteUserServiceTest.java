@@ -74,7 +74,7 @@ public class SiteUserServiceTest {
                 reviews
                 );
         userRepository.save(fakeUser);
-        long testId = fakeUser.getUser_Id();
+        long testId = fakeUser.getUserId();
         // testUser needs to be already saved to the mock repository
         // needs to be a mock object saved to a mock repo, with service method tested
 
@@ -190,7 +190,7 @@ public class SiteUserServiceTest {
                 Role.Reader,
                 reviews
         );
-        given(userRepository.existsById(initialUser.getUser_Id())).willReturn(true);
+        given(userRepository.existsById(initialUser.getUserId())).willReturn(true);
 
         // when
         SiteUser userToUpdate = new SiteUser(

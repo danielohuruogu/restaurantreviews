@@ -16,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class SiteUser {
 
@@ -29,7 +30,7 @@ public class SiteUser {
             generator = "user_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    private Long user_Id;
+    private Long userId;
     @Column(nullable = false)
     private String first_name;
     @Column(nullable = false)
@@ -43,8 +44,8 @@ public class SiteUser {
     private Date created_at;
     @Column(nullable = false)
     private Role role;
-    @OneToMany(mappedBy = "review_author", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-    @ElementCollection(targetClass=String.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "user_Id", referencedColumnName = "userId")
     private List<Review> reviews = Arrays.asList();
 //    @OneToMany(mappedBy = "comment_author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
 //    private List<Comment> comments = new ArrayList<>();

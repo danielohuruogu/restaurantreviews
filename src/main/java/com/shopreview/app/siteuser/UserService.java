@@ -46,7 +46,7 @@ public class UserService {
 
     public SiteUser replaceUser(SiteUser newUserDetails) {
         // grab the id of the person coming in
-        Long userId = newUserDetails.getUser_Id();
+        Long userId = newUserDetails.getUserId();
         // if it doesn't already exist in the database, add it in
         if(!userRepository.existsById(userId)){
             throw new UserNotFoundException(
@@ -73,13 +73,13 @@ public class UserService {
                     return userRepository.save(userToUpdate);
                 })
                 .orElseGet(() -> {
-                    newUserDetails.setUser_Id(userId);
+                    newUserDetails.setUserId(userId);
                     return userRepository.save(newUserDetails);
                 });
     }
 
     public SiteUser updateUser(SiteUser newUserDetails) {
-        Long userId = newUserDetails.getUser_Id();
+        Long userId = newUserDetails.getUserId();
         if(!userRepository.existsById(userId)){
             throw new UserNotFoundException(
                     "User with id " + userId + " does not exist"
@@ -96,7 +96,7 @@ public class UserService {
                     return userRepository.save(userToUpdate);
                 })
                 .orElseGet(() -> {
-                    newUserDetails.setUser_Id(userId);
+                    newUserDetails.setUserId(userId);
                     return userRepository.save(newUserDetails);
                 });
     }
