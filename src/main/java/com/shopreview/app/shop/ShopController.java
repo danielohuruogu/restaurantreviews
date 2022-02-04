@@ -1,6 +1,7 @@
 package com.shopreview.app.shop;
 
 
+import com.shopreview.app.siteuser.SiteUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,4 +34,7 @@ public class ShopController {
     public void deleteRestaurant(@RequestBody Shop shop) {
         shopService.deleteShop(shop);
     }
+
+    @PatchMapping()
+    public void updateUser(@RequestBody Shop shop) { shopService.updateShop(shop); }
 }

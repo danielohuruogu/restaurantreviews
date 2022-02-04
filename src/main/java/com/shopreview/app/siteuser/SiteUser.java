@@ -1,11 +1,9 @@
 package com.shopreview.app.siteuser;
 
-import com.shopreview.app.comment.Comment;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.shopreview.app.review.Review;
 import lombok.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.persistence.*;
 
@@ -15,9 +13,9 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name="User")
 @Builder
-@Table(name = "users")
+@Table(name="users")
 public class SiteUser {
 
     @Id
@@ -40,15 +38,11 @@ public class SiteUser {
     @Column(nullable = false, unique = true)
     private String email;
     @Column
-//            (nullable = false)
     private Date created_at;
     @Column(nullable = false)
     private Role role;
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "user_Id", referencedColumnName = "userId")
-    private List<Review> reviews = Arrays.asList();
-//    @OneToMany(mappedBy = "comment_author", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
-//    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy="review_author",cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Review> reviews;
 
     public SiteUser(
             String first_name,

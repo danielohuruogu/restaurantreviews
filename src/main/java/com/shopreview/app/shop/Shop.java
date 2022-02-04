@@ -1,5 +1,6 @@
 package com.shopreview.app.shop;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.shopreview.app.review.Review;
 import lombok.*;
 
@@ -12,9 +13,9 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name="Shop")
 @Builder
-@Table(name = "shops")
+@Table(name="shops")
 public class Shop {
 
     @Id
@@ -31,9 +32,7 @@ public class Shop {
     private String shop_name;
 	@ElementCollection(targetClass=String.class)
 	private List<String> type_Of_Food;
-    @Transient
     private Integer no_of_ratings;
-    @Transient
     private Float average_rating;
     @Embedded
     private Address address;
@@ -41,22 +40,10 @@ public class Shop {
     private GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
-    )
-    @JoinColumn(
-            name="shop_Id",
-            referencedColumnName="shopId"
-    )
+    @OneToMany(mappedBy="shop",cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Review> shop_reviews;
 
     private boolean geoProcessed = false;
-
-    public void addReview(Review review) {
-        shop_reviews.add(review);
-    }
 
     public Shop(String name,
                 Address address,
@@ -66,20 +53,34 @@ public class Shop {
         this.website = website;
         // will have to add up all that restaurant's ratings and work out the average
         // geolocation and keywords can be set from data gathered from the maps API
-
-
-//      need to find a way of grabbing all ratings related to this restaurant
-//      grab reviews that have this restaurant id as part of its data
-//      of those reviews, grab the rating enums
-//      convert them to numbers
-//      sum them up
-//      average them
-//      return each result as this.whatever they are
-//      and summing them up to get the number of ratings
-//      and averaging to get the overall rating
     }
 
 
+    public void addReview(Review review) {
+        shop_reviews.add(review);
+        review.setShop(this);
+    }
+
+    public void removeReview(Review review) {
+        shop_reviews.remove(review);
+        review.setShop(null);
+    }
+
+    // setter with small calculation
+    public void findNoRatings() {
+        for (Review review : shop_reviews) {
+            this.no_of_ratings++;
+        }
+    }
+
+    // setter with small calculation
+    public void findAveRating() {
+        int sumRatings = 0;
+        for (Review review : shop_reviews) {
+            sumRatings += review.getRating();
+        }
+        this.average_rating = Float.valueOf(sumRatings/getNo_of_ratings());
+    }
 
 //  this function here would take an address for a location and create a Geocode for it to be stored
     // on a database

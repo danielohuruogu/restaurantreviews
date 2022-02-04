@@ -24,8 +24,10 @@ public class ReviewController {
 	}
 
 	@PostMapping
-	public void addReview(@RequestBody Review review) {
+	public String addReview(@RequestBody Review review) {
 		reviewService.addReview(review);
+
+		return "review saved successfully";
 	}
 
 	@DeleteMapping(value = "/{id}")

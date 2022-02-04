@@ -32,7 +32,6 @@ class ReviewRepositoryTest {
 						.type_Of_Food(List.of("takeaway", "chicken", "delicious"))
 						.no_of_ratings(2)
 						.geoLocation(geoLocation)
-						.shop_reviews(List.of())
 						.website("hello.com")
 						.build();
 
@@ -44,7 +43,6 @@ class ReviewRepositoryTest {
 						.password("hello")
 						.email("dave@schmave.com")
 						.role(Role.Admin)
-						.reviews(List.of())
 						.build();
 
 		Review review =
@@ -52,7 +50,7 @@ class ReviewRepositoryTest {
 						.reviewId(1L)
 						.review_author(user)
 						.shop(shop)
-						.rating(Rating._1)
+						.rating(1)
 						.keywords(List.of("tasty", "tasty again", "tasty thrice"))
 						.title("tasty")
 						.body("just tasty")

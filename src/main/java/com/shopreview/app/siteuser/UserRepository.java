@@ -10,7 +10,7 @@ public interface UserRepository
     @Query("" +
             "SELECT CASE WHEN COUNT(u) > 0 THEN " +
             "TRUE ELSE FALSE END " +
-            "FROM SiteUser u " +
+            "FROM User u " +
             "WHERE u.email = ?1"
     )
     Boolean selectExistingEmail(String email);

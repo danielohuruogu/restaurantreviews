@@ -38,7 +38,7 @@ public class ShopService {
     }
 
     public void deleteShop(Shop shop) {
-        long shop_id = shop.getShopId();
+        Long shop_id = shop.getShopId();
         String name = shop.getShop_name();
         // will need to add check to make sure that the restaurant exists
         if(!shopRepository.existsById(shop_id)) {
@@ -47,5 +47,27 @@ public class ShopService {
             );
         }
         shopRepository.deleteById(shop_id);
+    }
+
+    public Shop updateShop(Shop newShopDetails) {
+        Long shop_id = newShopDetails.getShopId();
+        if(!shopRepository.existsById(shop_id)){
+            throw new ShopNotFoundException(
+                    "Shop with id " + shop_id + " does not exist"
+            );
+        }
+
+        return shopRepository.findById(shop_id)
+                .map(shopToUpdate -> {
+                    shopToUpdate.setShop_name(newShopDetails.getShop_name());
+                    shopToUpdate.setAddress(newShopDetails.getAddress());
+                    shopToUpdate.setType_Of_Food(newShopDetails.getType_Of_Food());
+                    shopToUpdate.setWebsite(newShopDetails.getWebsite());
+                    return shopRepository.save(shopToUpdate);
+                })
+                .orElseGet(() -> {
+                    newShopDetails.setShopId(shop_id);
+                    return shopRepository.save(newShopDetails);
+                });
     }
 }

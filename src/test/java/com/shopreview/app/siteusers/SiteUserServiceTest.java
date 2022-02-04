@@ -70,8 +70,9 @@ public class SiteUserServiceTest {
                 "saeadrg",
                 "jtorres@gmail.es",
                 created_at,
-                Role.Reader,
-                reviews
+                Role.Reader
+//                ,
+//                reviews
                 );
         userRepository.save(fakeUser);
         long testId = fakeUser.getUserId();
@@ -187,8 +188,9 @@ public class SiteUserServiceTest {
                 "adjkghs",
                 "harrys@hello.com",
                 created_at,
-                Role.Reader,
-                reviews
+                Role.Reader
+//                ,
+//                reviews
         );
         given(userRepository.existsById(initialUser.getUserId())).willReturn(true);
 
@@ -200,8 +202,9 @@ public class SiteUserServiceTest {
                 "agargra",
                 "jbiggs@hello.com",
                 created_at,
-                Role.Admin,
-                reviews
+                Role.Admin
+//                ,
+//                reviews
         );
         underTest.replaceUser(userToUpdate);
 

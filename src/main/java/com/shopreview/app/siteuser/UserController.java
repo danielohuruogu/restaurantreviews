@@ -11,6 +11,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     // can also do @RequestMapping to create a route with multiple methods
     // the code below just splits the methods up
@@ -25,8 +26,10 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody SiteUser user) {
+    public String addUser(@RequestBody SiteUser user) {
         userService.addUser(user);
+
+        return userRepository.findById(user.getUserId()).get().getFirst_name() + " saved successfully";
     }
 
     @DeleteMapping(value = "/{id}")

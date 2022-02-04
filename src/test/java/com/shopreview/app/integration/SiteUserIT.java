@@ -65,8 +65,9 @@ public class SiteUserIT {
                 "dagsdrgsd",
                 "faker@fake.com",
                 created_at,
-                Role.Reader,
-                reviews
+                Role.Reader
+//                ,
+//                reviews
         );
 
         // when
@@ -108,8 +109,9 @@ public class SiteUserIT {
                 password,
                 email,
                 created_at,
-                Role.Reader,
-                reviews
+                Role.Reader
+//                ,
+//                reviews
         );
 
         // using mock controller to send data to repo
@@ -234,8 +236,9 @@ public class SiteUserIT {
                 password,
                 email,
                 created_at,
-                Role.Reader,
-                reviews
+                Role.Reader
+//                ,
+//                reviews
         );
 
         ResultActions resultActions = mockMvc

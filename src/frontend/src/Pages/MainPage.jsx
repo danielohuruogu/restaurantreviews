@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
 import { getData } from '../Adapters/mapdata.js';
+import { getAllShops } from '../Adapters/client.js';
 
 import ModalWrapper from '../Components/ModalWrapper.jsx';
 import AddReviewForm from '../Components/AddReviewForm.jsx';
@@ -21,14 +22,29 @@ import '../Styles/MainPage.css';
 
 function MainPage() {
 
+	const grabShopData = () => {
+		getAllShops()
+		.then(res => res.json())
+		.then(data => {
+			console.log(data);
+// 			setServerData(data);
+		}).catch(err => {
+			console.log(err.response)
+			err.response.json().then(res=> {
+				console.log(res);
+			})
+		})
+
+	}
     //******************** FOR THE SEARCH + FILTER FUNCTION *******************//
 	// **** TO GRAB USERS FROM SERVER AND STORE WITH A STATE **** //
     const [serverData, setServerData] = useState([]);
 
     useEffect(()=>{
         // here the data for each review on the map will be pulled in
-		setServerData(getData());
-    }, [])
+		setServerData(getData())
+		grabShopData();
+    }, [serverData])
 
 	// **** TO DISPLAY PARAMS IN URL BROWSER **** //
 //     const { search } = window.location;

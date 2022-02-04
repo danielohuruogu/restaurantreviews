@@ -12,34 +12,68 @@ const checkStatus = response => {
     return Promise.reject(error);
 }
 // I think get requests are the default and need nothing else to be specified in the headers
+
+// ******************************
 // for the restaurants
 
-export const getAllRestaurants = () =>
-    fetch("api/restaurants")
+// this will be called at the start
+export const getAllShops = () =>
+    fetch("api/shops")
         .then(checkStatus);
 
-export const addNewRestaurant = restaurant =>
-    fetch("api/restaurants", {
+// ******************************
+// for the modal shop submission
+
+export const updateShop = shop =>
+    fetch("api/shops", {
         headers: {
             'Content-Type': 'application/json'
-            },
+        },
+        method: 'PATCH',
+        body: JSON.stringify(shop),
+    })
+
+export const addNewShop = shop =>
+    fetch("api/shops", {
+        headers: {
+            'Content-Type': 'application/json'
+        },
         method: 'POST',
-        body: JSON.stringify(restaurant)
+        body: JSON.stringify(shop)
         }
     ).then(checkStatus)
 
-// for the users
+export const deleteShop = shop =>
+	fetch("api/shops", {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		method: 'DELETE',
+		body: JSON.stringify(shop)
+	})
 
-//export const getAllUsers = () =>
-//    fetch("api/users")
-//        .then(checkStatus)
-//
-//export cont addNewUser = user =>
-//    fetch("api/users", {
-//        headers: {
-//            'Content-Type': 'application/json'
-//            },
-//        method: 'POST',
-//        body: JSON.stringify(user)
-//        }
-//    ).then(checkStatus)
+
+// ******************************
+// for the individual shop page
+// may not actually be necessary, if the collection comes through with the shop data in the first call
+// it should do
+
+export const getAllReviews = review =>
+	fetch("api/reviews", {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		method: 'GET',
+		body: JSON.stringify(review)
+	})
+
+
+export const deleteReview = review =>
+	fetch("api/reviews", {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		method: 'DELETE',
+		body: JSON.stringify(review)
+	})
+
