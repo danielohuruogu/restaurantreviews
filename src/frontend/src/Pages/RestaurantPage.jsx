@@ -36,7 +36,7 @@ function RestaurantPage () {
 			<div className="summary">
 				<h2>{restaurantData.name}</h2>
 				<h2>{restaurantData.address}</h2>
-				<Controls.Rating readOnly readOnlyValue={restaurantData.ave_rating} />
+				<Controls.FormRating readOnly readOnlyValue={restaurantData.ave_rating} />
 			</div>
 			<div className="updateModal">
 				<ModalWrapper

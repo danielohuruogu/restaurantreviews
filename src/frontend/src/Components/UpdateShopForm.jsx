@@ -5,6 +5,8 @@ import { useForm, Form } from './useForm.jsx';
 import Controls from './Reusables/Controls.jsx';
 import { confirmDialog } from './Reusables/ConfirmDialog';
 
+import { updateShop, deleteShop } from '../Adapters/client.js';
+
 import { useNavigate } from 'react-router-dom';
 
 import '../Styles/UpdateShopForm.css';
@@ -29,6 +31,8 @@ export default function UpdateShopForm() {
 
     const submitForm = () => {
         console.log("submitted form")
+        console.log(JSON.stringify(values,null,2));
+        updateShop(values)
 		resetForm();
     }
 
@@ -53,7 +57,8 @@ export default function UpdateShopForm() {
 	                            submitForm();
 	                        })
 	                    }}
-	                    text="Update"/>
+	                    text="Update"
+	                    />
                 </div>
                 <div>
 	                <Controls.MButton
@@ -61,10 +66,13 @@ export default function UpdateShopForm() {
 	                    onClick={() => {
 	                        confirmDialog("Delete shop from records?", () => {
 	                            console.log("deleted shop. will replace with proper function");
+	                            console.log(JSON.stringify(values,null,2));
+	                            deleteShop(values)
 	                           {/* navigate(`/`); */}
 	                        })
 	                    }}
-	                    text="Delete shop"/>
+	                    text="Delete shop"
+	                    />
                 </div>
             </div>
 		</Form>

@@ -52,7 +52,6 @@ export const deleteShop = shop =>
 		body: JSON.stringify(shop)
 	})
 
-
 // ******************************
 // for the individual shop page
 // may not actually be necessary, if the collection comes through with the shop data in the first call
@@ -64,6 +63,15 @@ export const getAllReviews = review =>
 			'Content-Type': 'application/json'
 		},
 		method: 'GET',
+		body: JSON.stringify(review)
+	})
+
+export const addReview = review =>
+	fetch("api/reviews", {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		method: 'POST',
 		body: JSON.stringify(review)
 	})
 

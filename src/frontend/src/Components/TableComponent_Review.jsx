@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Avatar from '../Images/avatar-icon.png';
 import Controls from './Reusables/Controls.jsx';
 
+import { deleteReview } from '../Adapters/client.js';
+
 import Close from '@mui/icons-material/Close';
 
 import { confirmDialog } from './Reusables/ConfirmDialog';
@@ -93,7 +95,10 @@ export default function TableComponent_Review(props) {
             </div>
             <div className="cell date-btn">
 				<Close className="deleteIcon" onClick={()=> {
-						confirmDialog("Delete review?", ()=> console.log("deleted review"))
+						confirmDialog("Delete review?", () => {
+							console.log("deleted review");
+							deleteReview(data);
+						})
 					}}
 					/>
                 <p className="date"><em>{data.date_made}</em></p>

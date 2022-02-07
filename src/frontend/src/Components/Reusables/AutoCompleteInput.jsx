@@ -6,7 +6,7 @@ const filter = createFilterOptions();
 
 export default function AutoCompleteInput(props) {
 
-	const { options, setMatchedValue, values, setValues, style=null } = props
+	const { name, options, setMatchedValue, values, setValues, style=null } = props
 
 // 	 onClick={()=> setMatchedValue(option)}
 
@@ -38,15 +38,15 @@ export default function AutoCompleteInput(props) {
 				const isExisting = options.some((option) => inputValue === option.name);
 				// if the inputValue has something and doesn't match any currently existing option
 				if (inputValue !== '' && !isExisting) {
-				filtered.push({
-				inputValue,
-				name: `Add "${inputValue}"`,
-				});
+					filtered.push({
+						inputValue,
+						name: `Add "${inputValue}"`,
+					});
 				}
 				return filtered;
 			}}
 			selectOnFocus={true}
-			clearOnBlur={true}
+// 			clearOnBlur={true}
 			handleHomeEndKeys={true}
 			id="free-solo-with-text-demo"
 			options={options}

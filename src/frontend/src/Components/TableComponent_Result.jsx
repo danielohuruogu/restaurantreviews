@@ -60,7 +60,7 @@ export default function TableComponent_Result(props) {
                     </em>
                 </span>
                 )}
-                <Controls.Rating readOnly readOnlyValue={data.ave_rating}/>
+                <Controls.FormRating readOnly readOnlyValue={data.ave_rating}/>
             </div>
             <div className='gridCell'>
                 <p>{data.address}</p>

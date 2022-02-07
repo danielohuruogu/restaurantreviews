@@ -3,9 +3,9 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 
-export default function FormRating(props) {
+export default function DynRating(props) {
 
-	const { readOnly=null, readOnlyValue=null, ...other } = props
+	const { values, setValues, name, readOnly=null, readOnlyValue=null, ...other } = props
 
 	// for the rating
 	const labels = {
@@ -21,27 +21,35 @@ export default function FormRating(props) {
       5: 'Excellent+',
     };
 
+	var fieldInObjectToUpdate = Object.entries(values).filter(field => field[0] == name)
+//  console.log(fieldInObjectToUpdate)
+    var fieldToCheck = fieldInObjectToUpdate[0];
+// 	console.log(fieldToCheck);
+    var fieldValue = fieldToCheck[1];
+// 	console.log(stateItemsArray)
+
 	const [hover, setHover] = useState(-1);
 
 	return (
- 	<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+ 	<Box sx={{display: 'flex', alignItems: 'center'}}>
         <Rating
             name="hover-feedback"
-            value={readOnly && readOnlyValue }
+            value={ readOnly ? readOnlyValue : fieldValue }
             {...(readOnly && {
                 readOnly:true
             })}
             precision={0.5}
             onChange={(event, newValue) => {
-// 				setValues();
-				console.log("Hi :)")
+				setValues({
+					...values,
+					[name]: newValue
+				});
 			}}
 			onChangeActive={(event, newHover) => {
 				setHover(newHover);
 			}}
-//             emptyIcon={<StarIcon style={{ opacity: 0.55 }} />}
             />
-            {readOnlyValue !== null && (<Box sx={{ ml: 2 }}>{labels[readOnlyValue !== -1 && readOnlyValue]}</Box>)}
+            {( fieldValue !== null && !readOnly ) && (<Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : fieldValue ]}</Box>)}
     </Box>
 	)
 }

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm, Form } from './useForm.jsx';
 
 import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
+import { updateShop, addReview } from '../Adapters/client.js';
+
 import MapsWrapper from '../Components/Reusables/MapsWrapper';
 import SearchMap from '../Components/SearchMap.jsx';
 
@@ -14,34 +16,30 @@ export default function AddReviewForm(props) {
 
 	const { payload } = props
 	/// **** INITIAL VALUES AND STATES
-	const initialFValues = {
-        id: 0,
-        name:"",
-        address:"",
+
+	const initialShopValues = {
+        shopName:"",
+        shopAddress:"",
 		type_of_food: [],
-		review: {
-			title: "",
-			body: "",
-			keywords: [],
-			dateVisited: new Date(),
-			rating: 0,
-		},
+		geometry: {}
     }
 
-	const {
-		values,
-		setValues,
-		errors,
-		setErrors,
-		resetForm,
-		handleInputChange,
-	} = useForm(initialFValues)
+    const initialReviewValues = {
+        reviewTitle: "",
+        reviewBody: "",
+        keywords: [],
+        dateVisited: new Date(),
+        rating: 0,
+    }
+
+	const shopFormSec = useForm(initialShopValues);
+	const reviewFormSec = useForm(initialReviewValues);
 
 	const [ matchedValue, setMatchedValue ] = useState({
 		id: 0,
-		name: "",
-		address: "",
-		ave_rating: 0,
+		shopName: "",
+		shopAddress: "",
+// 		ave_rating: 0,
 		geometry: {
 			location: {
 				lat: 0,
@@ -49,7 +47,7 @@ export default function AddReviewForm(props) {
 			},
 		},
 		postcode: "",
-		reviews: [],
+// 		reviews: [],
 		type_food: []
 	});
 
@@ -82,12 +80,13 @@ export default function AddReviewForm(props) {
 	useEffect(() => {
 		if (addressState) {
   			console.log(addressState)
-			setValues({
-				...values,
-				address: addressState.formatted_address,
+			shopFormSec.setValues({
+				...shopFormSec.values,
+				address: addressState.formatted_address
 			})
 		}
-	}, [addressState]);
+		console.log(matchedValue);
+	}, [addressState, matchedValue]);
 
 	// TO RESET THE FORM IF THE AUTOSELECT OPTION IS CLEARED - IF THE USER WANTS TO
 	// SELECT SOMETHING ELSE
@@ -101,49 +100,63 @@ export default function AddReviewForm(props) {
 // 		}
 // 	}, [values.name.length]);
 
-	const validate = () => {
-		let temp = {};
-		temp.name = values.name ? "" : "Shop name required"
-		temp.address = values.address ? "" : "Shop address required"
-		temp.reviewTitle = values.reviewTitle ? "" : "Review title required"
-		temp.reviewBody = values.reviewBody ? "" : "Review required"
-		setErrors({
-			...temp,
-		});
-
-		// return an object with the values found in temp
-		return Object.values(temp)
-		// returns a boolean if every item in an array passes the test laid out
-		// in this case, returns true if there are only empty strings, that the
-		// form is valid
-			.every(x => x === "");
-	};
+// 	const validate = (values) => {
+// 		let temp = {};
+// 		for (field of values)
+// 		temp.name = values.name ? "" : "Shop name required"
+// 		temp.address = values.address ? "" : "Shop address required"
+// 		temp.reviewTitle = values.reviewTitle ? "" : "Review title required"
+// 		temp.reviewBody = values.reviewBody ? "" : "Review required"
+// 		setErrors({
+// 			...temp,
+// 		});
+//
+// 		// return an object with the values found in temp
+// 		return Object.values(temp)
+// 		// returns a boolean if every item in an array passes the test laid out
+// 		// in this case, returns true if there are only empty strings, that the
+// 		// form is valid
+// 			.every(x => x === "");
+// 	};
+	const resetSections = () => {
+		shopFormSec.resetForm();
+        reviewFormSec.resetForm();
+	}
 
 	const submitForm = (e) => {
 		e.preventDefault()
-		console.log(JSON.stringify(values,null,2));
-		resetForm();
+		console.log(JSON.stringify(shopFormSec.values,null,2));
+		console.log(JSON.stringify(reviewFormSec.values,null,2));
+// 		updateShop(values)
+		resetSections()
 	};
+
+	useEffect(()=>{
+		console.log(shopFormSec.values)
+        console.log(reviewFormSec.values)
+	},[shopFormSec, reviewFormSec])
+
 
 	return (
 		<Form onSubmit={submitForm} className="formLayout">
 			<div className="summaryFormArea">
 				<label><strong>Pick an existing shop or leave a review for a new one</strong></label>
 				<Controls.AutoCompleteInput
+					name="shopName"
 					options={payload}
 					setMatchedValue={setMatchedValue}
-					values={values}
-					setValues={setValues}
+					values={shopFormSec.values}
+					setValues={shopFormSec.setValues}
 					style={{ width: 100 }}
 				    />
 				<Controls.Input
-					name="address"
-					value={values.address}
+					name="shopAddress"
+					value={shopFormSec.values.shopAddress}
 					label="Shop Address"
-					onChange={handleInputChange}
-					error={errors.name}
+					onChange={shopFormSec.handleInputChange}
+					error={shopFormSec.errors.shopAddress}
 					/>
-				<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
+				<Controls.TagsInput name="type_of_food" stateItems={shopFormSec.values} setStateItems={shopFormSec.setValues}/>
             </div>
             <MapsWrapper
 	            center={params.center}
@@ -163,19 +176,19 @@ export default function AddReviewForm(props) {
                     <div className="reviewContent">
 			            <Controls.Input
 			                name="reviewTitle"
-			                value={values.reviewTitle}
+			                value={reviewFormSec.values.reviewTitle}
 			                label="Title"
-			                onChange={handleInputChange}
-			                error={errors.reviewTitle}
+			                onChange={reviewFormSec.handleInputChange}
+			                error={reviewFormSec.errors.reviewTitle}
 			                style={{
 			                    fontSize: "0.8rem",
 			                }}
 			                />
 		                <Controls.TextArea
                             name="reviewBody"
-                            value={values.reviewBody}
+                            value={reviewFormSec.values.reviewBody}
                             aria-label="Section to leave a review"
-                            onChange={handleInputChange}
+                            onChange={reviewFormSec.handleInputChange}
                             minRows={3}
                             placeholder="What did you think?"
                             style={{
@@ -188,19 +201,26 @@ export default function AddReviewForm(props) {
 		            </div>
 		            <div className="reviewInfo">
 		                <Controls.DatePicker
-	                        date={values}
-	                        setDate={setValues}
+		                    name="dateVisited"
+	                        values={reviewFormSec.values}
+	                        setValues={reviewFormSec.setValues}
 	                        />
-						<Controls.Rating />
-						<div style={{ height: "30%"}}>
-                            PLACEHOLDER FOR KEYWORDS
-                        </div>
+						<Controls.DynRating
+							name="rating"
+						    values={reviewFormSec.values}
+						    setValues={reviewFormSec.setValues}
+						    />
+						<Controls.TagsInput
+							name="keywords"
+							stateItems={reviewFormSec.values}
+							setStateItems={reviewFormSec.setValues}
+							/>
 		            </div>
 	            </div>
 	            <div className="formSubmit">
 	                <div>
 			            <Controls.MButton onClick={submitForm} text="Submit" type="submit" />
-			            <Controls.MButton color="secondary" onClick={resetForm} text="Reset"/>
+			            <Controls.MButton color="secondary" onClick={resetSections} text="Reset"/>
 		            </div>
 	            </div>
             </div>

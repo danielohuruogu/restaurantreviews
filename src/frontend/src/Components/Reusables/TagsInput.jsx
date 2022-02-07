@@ -11,13 +11,13 @@ export default function TagsInput(props) {
 	const [input, setInput] = useState('');
 	const [isKeyReleased, setIsKeyReleased] = useState(false);
 
-	console.log(stateItems)
+// 	console.log(stateItems)
 	var fieldInObjectToUpdate = Object.entries(stateItems).filter(field => field[0] == name)
-	console.log(fieldInObjectToUpdate)
+// 	console.log(fieldInObjectToUpdate)
 	var fieldToCheck = fieldInObjectToUpdate[0];
-	console.log(fieldToCheck);
+// 	console.log(fieldToCheck);
 	var stateItemsArray = fieldToCheck[1];
-	console.log(stateItemsArray)
+// 	console.log(stateItemsArray)
 
 	const onChange = (e) => {
 		const { value } = e.target;
