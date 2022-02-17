@@ -35,7 +35,7 @@ export default function AddReviewForm(props) {
 	const shopFormSec = useForm(initialShopValues);
 	const reviewFormSec = useForm(initialReviewValues);
 
-	const [ matchedValue, setMatchedValue ] = useState({
+// 	const [ matchedValue, setMatchedValue ] = useState({
 // 		id: 0,
 // 		shopName: "",
 // 		shopAddress: "",
@@ -47,7 +47,7 @@ export default function AddReviewForm(props) {
 // 		},
 // 		postcode: "",
 // 		type_food: []
-	});
+// 	});
 
 	const [addressState, setAddressState] = useState();
 
@@ -78,7 +78,7 @@ export default function AddReviewForm(props) {
 		}
 		console.log(shopFormSec.values)
         console.log(reviewFormSec.values)
-        console.log(matchedValue);
+//         console.log(matchedValue);
 	}, [
 	addressState,
 //  matchedValue,
@@ -91,17 +91,17 @@ export default function AddReviewForm(props) {
         reviewFormSec.resetForm();
 	}
 
-	const submittedFormValues = [
-		shopFormSec.values,
-		reviewFormSec.values
-	]
+	const submittedFormValues = {
+		shopDetails: shopFormSec.values,
+		reviewDetails: reviewFormSec.values
+	}
 
 	const submitForm = (e) => {
 		e.preventDefault()
 // 		console.log(JSON.stringify(submittedFormValues,null,2));
 		console.log(submittedFormValues);
 		updateShopAndCollectionOrAddShop(submittedFormValues)
-		resetSections()
+// 		resetSections()
 	};
 
 	return (
@@ -111,7 +111,7 @@ export default function AddReviewForm(props) {
 				<Controls.AutoCompleteInput
 					name="shopName"
 					shopOptions={payload}
-					setMatchedValue={setMatchedValue}
+// 					setMatchedValue={setMatchedValue}
 					values={shopFormSec.values}
 					setValues={shopFormSec.setValues}
 					onChange={shopFormSec.handleInputChange}

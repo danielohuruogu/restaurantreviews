@@ -70,6 +70,22 @@ public class ShopService {
         shopRepository.deleteById(shop_id);
     }
 
+    public void checkShopAndCollection(RequestWrapper requestArrayList) {
+        System.out.println(requestArrayList);
+        // will need to grab the shop name and postcode out of the request
+        List reqItems = requestArrayList.getRequestItems();
+        Object shopDetails = reqItems.get(0);
+        Object reviewDetails = reqItems.get(1);
+        System.out.println(shopDetails);
+        System.out.println(reviewDetails);
+        // if the shop exists, do nothing
+        // if it doesn't add it to the database
+
+        // and then focus on the review section
+        // save it to the database
+        // grab its id and add it to the shop's collection
+    }
+
     public void updateShopDetails(Long shopId, Map<Integer, Optional> newShopDetails) throws IOException {
 //        Long shop_id = newShopDetails.getShopId();
         if(!shopRepository.existsById(shopId)){
@@ -104,35 +120,7 @@ public class ShopService {
 
 // *********** SUPERCEDED CODE
 
-//    public Shop checkShopAndCollection(RequestWrapper requestArrayList) {
-//        // will need to grab the shop name and postcode out of the request
-//        // if the shop exists, do nothing
-//        // if it doesn't add it to the database
-//
-//        // and then focus on the review section
-//        // save it to the database
-//        // grab its id and add it to the shop's collection
-//        Long shop_id
-//        = newShopDetails.getShopId();
-//        if(!shopRepository.existsById(shop_id)){
-//            throw new NotFoundException(
-//                    "Shop with id " + shop_id + " does not exist"
-//            );
-//        }
-//
-//        return shopRepository.findById(shop_id)
-//            .map(shopToUpdate -> {
-//                shopToUpdate.setShop_name(newShopDetails.getShop_name());
-//                shopToUpdate.setAddress(newShopDetails.getAddress());
-//                shopToUpdate.setType_Of_Food(newShopDetails.getType_Of_Food());
-//                shopToUpdate.setWebsite(newShopDetails.getWebsite());
-//                return shopRepository.save(shopToUpdate);
-//            })
-//            .orElseGet(() -> {
-//                newShopDetails.setShopId(shop_id);
-//                return shopRepository.save(newShopDetails);
-//            });
-//    }
+
 
 //            .map(shopToUpdate -> {
 //                shopToUpdate.setShop_name(newShopDetails.getShop_name());

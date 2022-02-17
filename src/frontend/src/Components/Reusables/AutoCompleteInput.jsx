@@ -22,7 +22,7 @@ export default function AutoCompleteInput(props) {
 			onChange=
 // 			{onChange}
 			{(event, newValue) => {
-				console.log(newValue);
+// 				console.log(newValue);
 				if (typeof newValue === 'string') {
 					setValues({
 						...values,

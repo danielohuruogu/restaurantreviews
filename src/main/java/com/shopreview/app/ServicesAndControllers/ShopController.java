@@ -34,9 +34,9 @@ public class ShopController {
         shopService.updateShopDetails(shopId, newShopDetails);
     }
     @PostMapping()
-    public void updateShopCollectionOrAddShop(@RequestBody RequestWrapper[] req) {
-//        shopService.checkShopAndCollection(req);
-        System.out.println(req);
+    public void updateShopCollectionOrAddShop(@RequestBody RequestWrapper req) {
+        shopService.checkShopAndCollection(req);
+        System.out.print(req);
     }
 
     @DeleteMapping()
