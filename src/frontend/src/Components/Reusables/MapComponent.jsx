@@ -22,7 +22,7 @@ function MapComponent(props) {
 // 			}
 // 			if (typeof dataToDisplay === 'array') {
 			dataToDisplay.forEach((place)=> {
-				if(!place.geometry || !place.geometry.location) {
+				if(!place.geoLocation || !place.geoLocation) {
 					console.log("returned place has no geometry")
 					return
 				}

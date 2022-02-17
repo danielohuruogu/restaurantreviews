@@ -4,9 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-src/main/resources/application-local.properties
-src/test/resources/application.properties
-src/test/resources/application-IT.properties
+**/src/main/resources/application-local.properties
+**/src/test/resources/application.properties
+**/src/test/resources/application-IT.properties
 
 
 ### STS ###

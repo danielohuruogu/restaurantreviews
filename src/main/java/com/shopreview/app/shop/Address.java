@@ -1,13 +1,13 @@
 package com.shopreview.app.shop;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
@@ -19,4 +19,6 @@ public class Address {
     public String toString(){
         return String.join(", ", street, city, postCode);
     }
+
+
 }

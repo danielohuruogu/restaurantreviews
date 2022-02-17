@@ -27,7 +27,7 @@ function MainPage() {
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
-// 			setServerData(data);
+			setServerData(data);
 		}).catch(err => {
 			console.log(err.response)
 			err.response.json().then(res=> {
@@ -42,9 +42,9 @@ function MainPage() {
 
     useEffect(()=>{
         // here the data for each review on the map will be pulled in
-		setServerData(getData())
+// 		setServerData(getData())
 		grabShopData();
-    }, [serverData])
+    }, [])
 
 	// **** TO DISPLAY PARAMS IN URL BROWSER **** //
 //     const { search } = window.location;
@@ -122,7 +122,7 @@ function MainPage() {
 			    useHeader={true}
 			    headerInfo={{
 			        noColumns: 3,
-			        columnNames: ["Name", "Address", "Date Visited"]
+			        columnNames: ["Name", "Address", "Rating"]
 			    }}
 			    redux
 				/>

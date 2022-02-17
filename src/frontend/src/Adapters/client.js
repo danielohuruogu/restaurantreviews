@@ -24,33 +24,14 @@ export const getAllShops = () =>
 // ******************************
 // for the modal shop submission
 
-export const updateShop = shop =>
-    fetch("api/shops", {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'PATCH',
-        body: JSON.stringify(shop),
-    })
-
-export const addNewShop = shop =>
+export const updateShopAndCollectionOrAddShop = shopInfo =>
     fetch("api/shops", {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(shop)
-        }
-    ).then(checkStatus)
-
-export const deleteShop = shop =>
-	fetch("api/shops", {
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		method: 'DELETE',
-		body: JSON.stringify(shop)
-	})
+        body: JSON.stringify(shopInfo),
+    })
 
 // ******************************
 // for the individual shop page
@@ -66,15 +47,23 @@ export const getAllReviews = review =>
 		body: JSON.stringify(review)
 	})
 
-export const addReview = review =>
-	fetch("api/reviews", {
+export const updateShopDetails = (shopId,shopDetails) =>
+    fetch(`api/shops/${shopId}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PATCH',
+        body: JSON.stringify(shopDetails),
+    })
+
+export const deleteShop = shop =>
+	fetch("api/shops", {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		method: 'POST',
-		body: JSON.stringify(review)
+		method: 'DELETE',
+		body: JSON.stringify(shop)
 	})
-
 
 export const deleteReview = review =>
 	fetch("api/reviews", {

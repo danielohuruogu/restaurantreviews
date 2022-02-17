@@ -5,19 +5,24 @@ import { useForm, Form } from './useForm.jsx';
 import Controls from './Reusables/Controls.jsx';
 import { confirmDialog } from './Reusables/ConfirmDialog';
 
-import { updateShop, deleteShop } from '../Adapters/client.js';
+import { updateShopDetails, deleteShop } from '../Adapters/client.js';
 
 import { useNavigate } from 'react-router-dom';
 
 import '../Styles/UpdateShopForm.css';
 
 
-export default function UpdateShopForm() {
+export default function UpdateShopForm(props) {
+
+	const { restaurantId } = props;
 
 	const initialFValues = {
-		name: "",
-		address: "",
+		shop_name: "",
+		street: "",
+		city: "",
+		post_code: "",
 		type_of_food: [],
+		website: ""
 	}
 
 	const {
@@ -32,7 +37,7 @@ export default function UpdateShopForm() {
     const submitForm = () => {
         console.log("submitted form")
         console.log(JSON.stringify(values,null,2));
-        updateShop(values)
+        updateShopDetails(restaurantId, values)
 		resetForm();
     }
 
@@ -42,11 +47,15 @@ export default function UpdateShopForm() {
 	return (
 		<Form className="formContainer">
 			<Controls.Input label="Name changed?"/>
-			<Controls.Input label="Address changed?"/>
+			<label>Address changed?</label>
+			<Controls.Input label="Street"/>
+			<Controls.Input label="City"/>
+			<Controls.Input label="Post code"/>
 			<div>
 				<label>Type of food sold changed?</label>
 				<Controls.TagsInput name="type_of_food" stateItems={values} setStateItems={setValues}/>
 			</div>
+			<Controls.Input label="Website changed?"/>
 			<div className="btnContainer">
 				<div>
 					<Controls.MButton color="info" onClick={resetForm} text="Reset"/>

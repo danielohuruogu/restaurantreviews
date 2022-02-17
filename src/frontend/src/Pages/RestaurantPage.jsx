@@ -44,6 +44,7 @@ function RestaurantPage () {
 					incButton={true}
 					btnText="Update shop"
 					modalStyleClassName={'modalContainer updateShop'}
+					restaurantId={restaurantId}
 					/>
 			</div>
 

@@ -35,9 +35,9 @@ public class Shop {
     private Integer no_of_ratings;
     private Float average_rating;
     @Embedded
-    private Address address;
+    Address address;
     @Embedded
-    private GeoLocation geoLocation;
+    GeoLocation geoLocation;
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
     @OneToMany(mappedBy="shop",cascade = CascadeType.ALL, orphanRemoval=true)
@@ -67,22 +67,26 @@ public class Shop {
     }
 
     // setter with small calculation
-    public void findNoRatings() {
-        for (Review review : shop_reviews) {
-            this.no_of_ratings++;
-        }
-    }
-
-    // setter with small calculation
-    public void findAveRating() {
-        int sumRatings = 0;
-        for (Review review : shop_reviews) {
-            sumRatings += review.getRating();
-        }
-        this.average_rating = Float.valueOf(sumRatings/getNo_of_ratings());
-    }
-
-//  this function here would take an address for a location and create a Geocode for it to be stored
-    // on a database
-    //
+//    public void findNoRatings() {
+//        if (shop_reviews.size() > 0) {
+//            for (Review review : shop_reviews) {
+//                this.no_of_ratings++;
+//            }
+//        } else {
+//            no_of_ratings = 0;
+//        }
+//    }
+//
+//    // setter with small calculation
+//    public Integer findAveRating() {
+//        if(getNo_of_ratings() == 0) {
+//            int sumRatings = 0;
+//            for (Review review : shop_reviews) {
+//                sumRatings += review.getRating();
+//            }
+//            this.average_rating = Float.valueOf(sumRatings / getNo_of_ratings());
+//        } else {
+//            return 0;
+//        }
+//    }
 }

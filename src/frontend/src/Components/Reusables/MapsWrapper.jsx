@@ -6,7 +6,7 @@ export default function MapsWrapper(props) {
 
 	const { center, zoom, style, ComponentToRender, ...other } = props;
 
-	const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY1}`;
+	const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 
     function render(status) {
         if (status === Status.LOADING) return <h3>{status} ...</h3>;

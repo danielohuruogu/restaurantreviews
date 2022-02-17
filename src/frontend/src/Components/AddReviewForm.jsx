@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm, Form } from './useForm.jsx';
 
 import { MapParams } from '../Components/Reusables/MapsDataAndFunctions.jsx';
-import { updateShop, addReview } from '../Adapters/client.js';
+import { updateShopAndCollectionOrAddShop, addReview } from '../Adapters/client.js';
 
 import MapsWrapper from '../Components/Reusables/MapsWrapper';
 import SearchMap from '../Components/SearchMap.jsx';
@@ -20,8 +20,8 @@ export default function AddReviewForm(props) {
 	const initialShopValues = {
         shopName:"",
         shopAddress:"",
+        postCode:"",
 		type_of_food: [],
-		geometry: {}
     }
 
     const initialReviewValues = {
@@ -36,19 +36,17 @@ export default function AddReviewForm(props) {
 	const reviewFormSec = useForm(initialReviewValues);
 
 	const [ matchedValue, setMatchedValue ] = useState({
-		id: 0,
-		shopName: "",
-		shopAddress: "",
-// 		ave_rating: 0,
-		geometry: {
-			location: {
-				lat: 0,
-				lng: 0,
-			},
-		},
-		postcode: "",
-// 		reviews: [],
-		type_food: []
+// 		id: 0,
+// 		shopName: "",
+// 		shopAddress: "",
+// 		geometry: {
+// 			location: {
+// 				lat: 0,
+// 				lng: 0,
+// 			},
+// 		},
+// 		postcode: "",
+// 		type_food: []
 	});
 
 	const [addressState, setAddressState] = useState();
@@ -56,86 +54,54 @@ export default function AddReviewForm(props) {
 	const mapData = MapParams();
     const { params } = mapData[0];
 
-	/// ****  BELOW IS CODE TO HELP THE USER EXPERIENCE WITH THE FORM
+	// TO GRAB THE FORMATTED ADDRESS FROM GOOGLE MAPS AND PUT IT IN THE FORM,
+	// TO MAKE SURE ACCURATE ADDRESSES ARE SAVED TO THE DATABASE
 
-	// TO GRAB A VALUE FROM THE AUTOCOMPLETE AND FILL IN THE REST OF THE FORM, TO
-	// PREVENT DUPLICATES IN THE DATABASE
-// 	useEffect(() => {
-// 		if (matchedValue) {
-// 			if (matchedValue.address) {
-// 				console.log(matchedValue)
-// // 				setValues({
-// // 					...values,
-// // 					address: matchedValue.address
-// // 				})
-// 			}
-// // 			if (matchedValue.type_food) {
-// // 				setTypeFoodTags(matchedValue.type_food)
-// // 			}
-// 		}
-// 	}, [matchedValue]);
+	// for matching post code regex
+	var regex = /([A-Z]?\d(:? \d[A-Z]{2})?|[A-Z]\d{2}(:? \d[A-Z]{2})?|[A-Z]{2}\d(:? \d[A-Z]{2})?|[A-Z]{2}\d{2}(:? \d[A-Z]{2})?|[A-Z]\d[A-Z](:? \d[A-Z]{2})?|[A-Z]{2}\d[A-Z](:? \d[A-Z]{2})?),\s*UK$/gm;
 
-	 // TO GRAB THE FORMATTED ADDRESS FROM GOOGLE MAPS AND PUT IT IN THE FORM,
-	 // TO MAKE SURE ACCURATE ADDRESSES ARE SAVED TO THE DATABASE
 	useEffect(() => {
 		if (addressState) {
   			console.log(addressState)
+  			let addressString = addressState.formatted_address;
+  			let startOfPostcode = addressString.search(regex);
+  			let shortenedString = addressString.substring(startOfPostcode);
+  			let postCodeFromAddress = shortenedString.split(",",1)[0];
+  			console.log(postCodeFromAddress);
+
 			shopFormSec.setValues({
 				...shopFormSec.values,
-				address: addressState.formatted_address
+				shopAddress: addressString,
+				postCode: postCodeFromAddress
 			})
 		}
-		console.log(matchedValue);
-	}, [addressState, matchedValue]);
+		console.log(shopFormSec.values)
+        console.log(reviewFormSec.values)
+        console.log(matchedValue);
+	}, [
+	addressState,
+//  matchedValue,
+//  shopFormSec,
+//  reviewFormSec
+	]);
 
-	// TO RESET THE FORM IF THE AUTOSELECT OPTION IS CLEARED - IF THE USER WANTS TO
-	// SELECT SOMETHING ELSE
-// 	useEffect(() => {
-// 		if (!values.name.length) {
-// 			setValues({
-// 				...values,
-// 				address: '',
-// 			});
-// 			setTypeFoodTags([]);
-// 		}
-// 	}, [values.name.length]);
-
-// 	const validate = (values) => {
-// 		let temp = {};
-// 		for (field of values)
-// 		temp.name = values.name ? "" : "Shop name required"
-// 		temp.address = values.address ? "" : "Shop address required"
-// 		temp.reviewTitle = values.reviewTitle ? "" : "Review title required"
-// 		temp.reviewBody = values.reviewBody ? "" : "Review required"
-// 		setErrors({
-// 			...temp,
-// 		});
-//
-// 		// return an object with the values found in temp
-// 		return Object.values(temp)
-// 		// returns a boolean if every item in an array passes the test laid out
-// 		// in this case, returns true if there are only empty strings, that the
-// 		// form is valid
-// 			.every(x => x === "");
-// 	};
 	const resetSections = () => {
 		shopFormSec.resetForm();
         reviewFormSec.resetForm();
 	}
 
+	const submittedFormValues = [
+		shopFormSec.values,
+		reviewFormSec.values
+	]
+
 	const submitForm = (e) => {
 		e.preventDefault()
-		console.log(JSON.stringify(shopFormSec.values,null,2));
-		console.log(JSON.stringify(reviewFormSec.values,null,2));
-// 		updateShop(values)
+// 		console.log(JSON.stringify(submittedFormValues,null,2));
+		console.log(submittedFormValues);
+		updateShopAndCollectionOrAddShop(submittedFormValues)
 		resetSections()
 	};
-
-	useEffect(()=>{
-		console.log(shopFormSec.values)
-        console.log(reviewFormSec.values)
-	},[shopFormSec, reviewFormSec])
-
 
 	return (
 		<Form onSubmit={submitForm} className="formLayout">
@@ -147,6 +113,7 @@ export default function AddReviewForm(props) {
 					setMatchedValue={setMatchedValue}
 					values={shopFormSec.values}
 					setValues={shopFormSec.setValues}
+					onChange={shopFormSec.handleInputChange}
 					style={{ width: 100 }}
 				    />
 				<Controls.Input
@@ -227,3 +194,53 @@ export default function AddReviewForm(props) {
 		</Form>
 	)
 }
+
+	/// ****  BELOW IS CODE TO HELP THE USER EXPERIENCE WITH THE FORM
+
+	// TO GRAB A VALUE FROM THE AUTOCOMPLETE AND FILL IN THE REST OF THE FORM, TO
+	// PREVENT DUPLICATES IN THE DATABASE
+// 	useEffect(() => {
+// 		if (matchedValue) {
+// 			if (matchedValue.address) {
+// 				console.log(matchedValue)
+// // 				setValues({
+// // 					...values,
+// // 					address: matchedValue.address
+// // 				})
+// 			}
+// // 			if (matchedValue.type_food) {
+// // 				setTypeFoodTags(matchedValue.type_food)
+// // 			}
+// 		}
+// 	}, [matchedValue]);
+
+	// TO RESET THE FORM IF THE AUTOSELECT OPTION IS CLEARED - IF THE USER WANTS TO
+	// SELECT SOMETHING ELSE
+// 	useEffect(() => {
+// 		if (!values.name.length) {
+// 			setValues({
+// 				...values,
+// 				address: '',
+// 			});
+// 			setTypeFoodTags([]);
+// 		}
+// 	}, [values.name.length]);
+
+// 	const validate = (values) => {
+// 		let temp = {};
+// 		for (field of values)
+// 		temp.name = values.name ? "" : "Shop name required"
+// 		temp.address = values.address ? "" : "Shop address required"
+// 		temp.reviewTitle = values.reviewTitle ? "" : "Review title required"
+// 		temp.reviewBody = values.reviewBody ? "" : "Review required"
+// 		setErrors({
+// 			...temp,
+// 		});
+//
+// 		// return an object with the values found in temp
+// 		return Object.values(temp)
+// 		// returns a boolean if every item in an array passes the test laid out
+// 		// in this case, returns true if there are only empty strings, that the
+// 		// form is valid
+// 			.every(x => x === "");
+// 	};

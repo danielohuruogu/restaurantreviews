@@ -39,20 +39,23 @@ export function GenerateMarkerAndInfoWindow(place, map, url){
     	coords: [1,32,32,1],
     	type: "rect",
     }
+//     const geometry =
 
 	const marker = new window.google.maps.Marker({
-		position: place.geometry.location,
+		position: Object.values(place.geoLocation),
 		map: map,
 		icon: image,
 		shape: shape,
-		title: place.name
+		title: place.shop_name
 	})
+
+    var addressString = Object.values(place.address).join(', ');
 
 	const markerDescription = `
 	<div style={{ alignContent: center, alignItems: center, textAlign: center }}>
-        <h4>${place.name}</h4><h4><strong>${place.rating ? place.rating : "no rating available"}</strong></h4>
+        <h4>${place.shop_name}</h4><h4><strong>${place.average_rating ? place.average_rating : "no rating available"}</strong></h4>
         <div>
-            <h5>${place.address}</h5>
+            <h5>${addressString}</h5>
         </div>
     </div>
 	`;

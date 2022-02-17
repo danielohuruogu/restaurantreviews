@@ -63,9 +63,9 @@ function Table(props) {
 			{data.length > 0 ? (data.map((d, index) => {
 				return (
 					<RenderComponent
-						key={d.index}
+						key={index}
 						data={d}
-						index={index}
+// 						index={index}
 						{...(redux && {
 							redux:true,
 							state:state,

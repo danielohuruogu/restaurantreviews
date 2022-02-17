@@ -30,13 +30,17 @@ export default function TableComponent_Result(props) {
 	const { selection } = state;
 
 	var type_food_string = "";
-    for (let i=0; i < data.type_of_food.length; i++){
-        if (i === data.type_of_food.length-1) {
-            type_food_string += data.type_of_food[i]
-        } else {
-        type_food_string += data.type_of_food[i] + ", "
-        }
+	if (data.type_Of_Food) {
+	    for (let i=0; i < data.type_Of_Food.length; i++){
+	        if (i === data.type_Of_Food.length-1) {
+	            type_food_string += data.type_Of_Food[i]
+	        } else {
+	        type_food_string += data.type_Of_Food[i] + ", "
+	        }
+	    }
     }
+
+    var addressString = Object.values(data.address).join(', ');
 
 	return (
     <>
@@ -47,12 +51,15 @@ export default function TableComponent_Result(props) {
             onClick={() => dispatch({ type: SELECT_PD, payload: data })}
             >
             <div className='gridCell'>
-                {data.name ? (
-                <span>
-	                <strong>
-	                    {data.name}
-	                </strong>
-                </span>
+                {data.shop_name ? (
+                <>
+	                <p>
+		                <strong>
+		                    {data.shop_name}
+		                </strong>
+	                </p>
+	                <p><em>{type_food_string}</em></p>
+                </>
                 ) : (
                 <span>
                     <em>
@@ -60,16 +67,12 @@ export default function TableComponent_Result(props) {
                     </em>
                 </span>
                 )}
-                <Controls.FormRating readOnly readOnlyValue={data.ave_rating}/>
             </div>
             <div className='gridCell'>
-                <p>{data.address}</p>
-                <p><em>{type_food_string}</em></p>
+                <p><strong><em>{addressString}</em></strong></p>
             </div>
             <div className='gridCell'>
-				<p>
-					<em>6/1/22</em>
-				</p>
+				<Controls.FormRating readOnly readOnlyValue={data.ave_rating}/>
 	        </div>
         </div>
         <ReduxModalWrapper

@@ -40,6 +40,7 @@ export default function FormRating(props) {
 				setHover(newHover);
 			}}
 //             emptyIcon={<StarIcon style={{ opacity: 0.55 }} />}
+			sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
             />
             {readOnlyValue !== null && (<Box sx={{ ml: 2 }}>{labels[readOnlyValue !== -1 && readOnlyValue]}</Box>)}
     </Box>

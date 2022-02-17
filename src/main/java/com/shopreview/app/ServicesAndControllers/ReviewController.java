@@ -1,6 +1,6 @@
-package com.shopreview.app.review;
+package com.shopreview.app.ServicesAndControllers;
 
-import com.shopreview.app.siteuser.SiteUser;
+import com.shopreview.app.review.Review;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +18,13 @@ public class ReviewController {
 		return reviewService.getAllReviews();
 	}
 
+	@DeleteMapping(value = "/{id}")
+	public void deleteReview(@PathVariable("id") Long id) {
+		reviewService.deleteReview(id);
+	}
+
+	// ************* ************ //
+
 	@GetMapping(value = "/{id}")
 	public Review getReviewById(@PathVariable("id") Long id) {
 		return reviewService.getReviewById(id);
@@ -28,10 +35,5 @@ public class ReviewController {
 		reviewService.addReview(review);
 
 		return "review saved successfully";
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public void deleteReview(@PathVariable("id") Long id) {
-		reviewService.deleteReview(id);
 	}
 }
