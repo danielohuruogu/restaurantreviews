@@ -46,10 +46,10 @@ public class ShopController {
 
 //******************* *******************//
     // for use in postman
-    @PostMapping
-    public String addShop(@RequestBody Shop shop) {
-        shopService.addShop(shop);
-        // grab the name and just return a string to say it's been successful
-        return shopRepository.findById(shop.getShopId()).get().getShop_name() + " saved successfully";
-    }
+//    @PostMapping
+//    public String addShop(@RequestBody Shop shop) {
+//        shopService.addShop(shop);
+//        // grab the name and just return a string to say it's been successful
+//        return shopRepository.findById(shop.getShopId()).get().getShopName() + " saved successfully";
+//    }
 }

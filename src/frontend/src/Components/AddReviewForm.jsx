@@ -58,6 +58,7 @@ export default function AddReviewForm(props) {
 	// TO MAKE SURE ACCURATE ADDRESSES ARE SAVED TO THE DATABASE
 
 	// for matching post code regex
+	// from https://en.wikipedia.org/wiki/Postcodes_in_the_United_Kingdom
 	var regex = /([A-Z]?\d(:? \d[A-Z]{2})?|[A-Z]\d{2}(:? \d[A-Z]{2})?|[A-Z]{2}\d(:? \d[A-Z]{2})?|[A-Z]{2}\d{2}(:? \d[A-Z]{2})?|[A-Z]\d[A-Z](:? \d[A-Z]{2})?|[A-Z]{2}\d[A-Z](:? \d[A-Z]{2})?),\s*UK$/gm;
 
 	useEffect(() => {
@@ -109,12 +110,12 @@ export default function AddReviewForm(props) {
 				<label><strong>Pick an existing shop or leave a review for a new one</strong></label>
 				<Controls.AutoCompleteInput
 					name="shopName"
-					options={payload}
+					shopOptions={payload}
 					setMatchedValue={setMatchedValue}
 					values={shopFormSec.values}
 					setValues={shopFormSec.setValues}
 					onChange={shopFormSec.handleInputChange}
-					style={{ width: 100 }}
+					style={{ width: '90%'}}
 				    />
 				<Controls.Input
 					name="shopAddress"

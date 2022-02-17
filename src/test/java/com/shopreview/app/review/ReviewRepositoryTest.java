@@ -27,10 +27,10 @@ class ReviewRepositoryTest {
 		Shop shop =
 				Shop.builder()
 						.shopId(1L)
-						.shop_name("SFC")
+						.shopName("SFC")
 						.address(address)
-						.type_Of_Food(List.of("takeaway", "chicken", "delicious"))
-						.no_of_ratings(2)
+						.typeOfFood(List.of("takeaway", "chicken", "delicious"))
+						.noOfRatings(2)
 						.geoLocation(geoLocation)
 						.website("hello.com")
 						.build();
@@ -38,8 +38,8 @@ class ReviewRepositoryTest {
 		SiteUser user =
 				SiteUser.builder()
 						.userId(1L)
-						.first_name("Dave")
-						.last_name("Schmave")
+						.firstName("Dave")
+						.lastName("Schmave")
 						.password("hello")
 						.email("dave@schmave.com")
 						.role(Role.Admin)
@@ -48,13 +48,13 @@ class ReviewRepositoryTest {
 		Review review =
 				Review.builder()
 						.reviewId(1L)
-						.review_author(user)
+						.reviewAuthor(user)
 						.shop(shop)
 						.rating(1)
 						.keywords(List.of("tasty", "tasty again", "tasty thrice"))
 						.title("tasty")
 						.body("just tasty")
-						.date_of_visit(Date.valueOf("2022-01-02"))
+						.dateOfVisit(Date.valueOf("2022-01-02"))
 						.build();
 
 		repository.save(review);

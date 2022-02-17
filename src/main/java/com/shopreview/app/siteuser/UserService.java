@@ -65,8 +65,8 @@ public class UserService {
 //        userRepository.save(userToUpdate);
         return userRepository.findById(userId)
                 .map(userToUpdate -> {
-                    userToUpdate.setFirst_name(newUserDetails.getFirst_name());
-                    userToUpdate.setLast_name(newUserDetails.getLast_name());
+                    userToUpdate.setFirstName(newUserDetails.getFirstName());
+                    userToUpdate.setLastName(newUserDetails.getLastName());
                     userToUpdate.setPassword(newUserDetails.getPassword());
                     userToUpdate.setEmail(newUserDetails.getEmail());
                     userToUpdate.setRole(newUserDetails.getRole());
@@ -88,8 +88,8 @@ public class UserService {
         // this may not work - need to make sure it works for empty fields
         return userRepository.findById(userId)
                 .map(userToUpdate -> {
-                    userToUpdate.setFirst_name(newUserDetails.getFirst_name());
-                    userToUpdate.setLast_name(newUserDetails.getLast_name());
+                    userToUpdate.setFirstName(newUserDetails.getFirstName());
+                    userToUpdate.setLastName(newUserDetails.getLastName());
                     userToUpdate.setPassword(newUserDetails.getPassword());
                     userToUpdate.setEmail(newUserDetails.getEmail());
                     userToUpdate.setRole(newUserDetails.getRole());

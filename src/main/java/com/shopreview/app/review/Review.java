@@ -30,7 +30,7 @@ public class Review {
     private Long reviewId;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "author_Id")
-    private SiteUser review_author;
+    private SiteUser reviewAuthor;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "shop_Id")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -45,9 +45,9 @@ public class Review {
     @Column
     private String body;
     @Column
-    private Date date_of_visit;
+    private Date dateOfVisit;
     @Column
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
     public Review (
             Integer rating,
@@ -60,7 +60,7 @@ public class Review {
         this.body = body;
 
         long now = System.currentTimeMillis();
-        this.created_at = new Timestamp(now);
+        this.createdAt = new Timestamp(now);
 
         this.keywords = keywords;
     }

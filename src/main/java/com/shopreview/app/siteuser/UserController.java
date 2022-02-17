@@ -29,7 +29,7 @@ public class UserController {
     public String addUser(@RequestBody SiteUser user) {
         userService.addUser(user);
 
-        return userRepository.findById(user.getUserId()).get().getFirst_name() + " saved successfully";
+        return userRepository.findById(user.getUserId()).get().getFirstName() + " saved successfully";
     }
 
     @DeleteMapping(value = "/{id}")

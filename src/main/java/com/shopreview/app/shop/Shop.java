@@ -29,11 +29,11 @@ public class Shop {
             strategy = GenerationType.SEQUENCE
     )
     private Long shopId;
-    private String shop_name;
+    private String shopName;
 	@ElementCollection(targetClass=String.class)
-	private List<String> type_Of_Food;
-    private Integer no_of_ratings;
-    private Float average_rating;
+	private List<String> typeOfFood;
+    private Integer noOfRatings;
+    private Float averageRating;
     @Embedded
     Address address;
     @Embedded
@@ -41,14 +41,14 @@ public class Shop {
     private String website;
 //    HAVE TO FORMAT PHONE NUMBER FOR DATABASE
     @OneToMany(mappedBy="shop",cascade = CascadeType.ALL, orphanRemoval=true)
-    private List<Review> shop_reviews;
+    private List<Review> shopReviews;
 
     private boolean geoProcessed = false;
 
     public Shop(String name,
                 Address address,
                 String website){
-        this.shop_name = name;
+        this.shopName = name;
 //        this.address = address;
         this.website = website;
         // will have to add up all that restaurant's ratings and work out the average
@@ -57,12 +57,12 @@ public class Shop {
 
 
     public void addReview(Review review) {
-        shop_reviews.add(review);
+        shopReviews.add(review);
         review.setShop(this);
     }
 
     public void removeReview(Review review) {
-        shop_reviews.remove(review);
+        shopReviews.remove(review);
         review.setShop(null);
     }
 

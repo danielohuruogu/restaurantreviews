@@ -30,12 +30,12 @@ export default function TableComponent_Result(props) {
 	const { selection } = state;
 
 	var type_food_string = "";
-	if (data.type_Of_Food) {
-	    for (let i=0; i < data.type_Of_Food.length; i++){
-	        if (i === data.type_Of_Food.length-1) {
-	            type_food_string += data.type_Of_Food[i]
+	if (data.typeOfFood) {
+	    for (let i=0; i < data.typeOfFood.length; i++){
+	        if (i === data.typeOfFood.length-1) {
+	            type_food_string += data.typeOfFood[i]
 	        } else {
-	        type_food_string += data.type_Of_Food[i] + ", "
+	        type_food_string += data.typeOfFood[i] + ", "
 	        }
 	    }
     }
@@ -51,11 +51,11 @@ export default function TableComponent_Result(props) {
             onClick={() => dispatch({ type: SELECT_PD, payload: data })}
             >
             <div className='gridCell'>
-                {data.shop_name ? (
+                {data.shopName ? (
                 <>
 	                <p>
 		                <strong>
-		                    {data.shop_name}
+		                    {data.shopName}
 		                </strong>
 	                </p>
 	                <p><em>{type_food_string}</em></p>
@@ -72,7 +72,7 @@ export default function TableComponent_Result(props) {
                 <p><strong><em>{addressString}</em></strong></p>
             </div>
             <div className='gridCell'>
-				<Controls.FormRating readOnly readOnlyValue={data.ave_rating}/>
+				<Controls.FormRating readOnly readOnlyValue={data.averageRating}/>
 	        </div>
         </div>
         <ReduxModalWrapper

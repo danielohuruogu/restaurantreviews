@@ -20,12 +20,12 @@ class ShopRepositoryTest {
 	@Test
 	public void saveShop() {
 		Shop shop = Shop.builder()
-				.shop_name("KFC")
+				.shopName("KFC")
 				.address(new Address("76 Evesham Street","London", "E16 2QT"))
 				.geoLocation(new GeoLocation(0.012,0.0230))
-				.no_of_ratings(4)
-				.type_Of_Food(List.of("tasty", "delicious","huh huh"))
-				.shop_reviews(Collections.emptyList())
+				.noOfRatings(4)
+				.typeOfFood(List.of("tasty", "delicious","huh huh"))
+				.shopReviews(Collections.emptyList())
 				.website("hello.com")
 				.geoProcessed(false)
 				.build();

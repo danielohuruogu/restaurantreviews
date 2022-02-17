@@ -58,7 +58,7 @@ export default function TableComponent_Review(props) {
                 {data.author ? (
 	                <span>
 		                <strong>
-		                    {data.author}
+		                    {data.reviewAuthor}
 		                </strong>
 	                </span>
 	                ) : (
@@ -101,7 +101,7 @@ export default function TableComponent_Review(props) {
 						})
 					}}
 					/>
-                <p className="date"><em>{data.date_made}</em></p>
+                <p className="date"><em>{data.createdAt}</em></p>
                 <Controls.MButton
                     className={ isLongReview() ? null : "notThere" }
                     variant="text"

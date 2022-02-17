@@ -30,38 +30,38 @@ public class SiteUser {
     )
     private Long userId;
     @Column(nullable = false)
-    private String first_name;
+    private String firstName;
     @Column(nullable = false)
-    private String last_name;
+    private String lastName;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
     @Column
-    private Date created_at;
+    private Date createdAt;
     @Column(nullable = false)
     private Role role;
 //    @OneToMany(mappedBy="review_author",cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Review> reviews;
 
     public SiteUser(
-            String first_name,
-            String last_name,
+            String firstName,
+            String lastName,
             String password,
             String email,
             Role role
     ) {
         long now = System.currentTimeMillis();
 
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
-        this.created_at = new Date(now);
+        this.createdAt = new Date(now);
         this.role = role;
     }
 
     String getFullName() {
-        return first_name + last_name;
+        return firstName + lastName;
     }
 }

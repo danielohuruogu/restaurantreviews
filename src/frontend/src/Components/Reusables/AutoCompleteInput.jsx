@@ -6,57 +6,63 @@ const filter = createFilterOptions();
 
 export default function AutoCompleteInput(props) {
 
-	const { name, options, setMatchedValue,
+	const { name, shopOptions, setMatchedValue,
 	values, setValues,
 	 onChange, style=null } = props
 
 // 	 onClick={()=> setMatchedValue(option)}
 // 	const [value, setValue] = useState();
-	console.log(values);
+// 	console.log(values);
+// 	console.log(shopOptions);
 
 	return (
 		<Autocomplete
 			value={values.shopName}
 			sx={{style}}
 			onChange=
-			{onChange}
-// 			{(event, newValue) => {
-// 				console.log(newValue);
-// 				if (typeof newValue === 'string') {
-// 					setValues({
-// 						...values,
-// 						shopName: newValue,
-// 					});
-// 				} else if (newValue && newValue.inputValue) {
-// 				  // Create a new value from the user input
-// 					setValues({
-// 						...values,
-// 						shopName: newValue.inputValue,
-// 					});
-// 				} else {
+// 			{onChange}
+			{(event, newValue) => {
+				console.log(newValue);
+				if (typeof newValue === 'string') {
+					setValues({
+						...values,
+						[name]: newValue,
+					});
+// 					console.log(values.shopName)
+				} else if (newValue && newValue.inputValue) {
+				  // Create a new value from the user input
+					setValues({
+						...values,
+						[name]: newValue.inputValue,
+					});
+// 					console.log(values.shopName)
+				}
+// 				else {
 // 				  setValues(newValue);
+// 				  console.log(values)
 // 				}
-// 			}}
+			}}
 			filterOptions={(options, params) => {
 				const filtered = filter(options, params);
 
 				const { inputValue } = params;
 				// Suggest the creation of a new value
-				const isExisting = options.some((option) => inputValue === option.shop_name);
+				const isExisting = options.some((option) => inputValue === option.shopName);
 				// if the inputValue has something and doesn't match any currently existing option
+// 				console.log(isExisting);
 				if (inputValue !== '' && !isExisting) {
 					filtered.push({
 						inputValue,
-						name: `Add "${inputValue}"`,
+						shopName: `Add "${inputValue}"`,
 					});
 				}
 				return filtered;
 			}}
-			selectOnFocus={true}
-// 			clearOnBlur={true}
-			handleHomeEndKeys={true}
+			selectOnFocus
+			handleHomeEndKeys
 			id="free-solo-with-text-demo"
-			options={options}
+			options={shopOptions}
+// 			noOptionsText={(<p>no options</p>)}
 			getOptionLabel={(option) => {
 				if (option.inputValue !== ''){
 			        // Value selected with enter, right from the input
@@ -68,13 +74,15 @@ export default function AutoCompleteInput(props) {
 			          return option.inputValue;
 			        }
 			        // Regular option
-			        return option.shop_name;
+			        return option.shopName;
 		        }
 			}}
 			renderOption={(props, option) =>
 				<ul {...props} style={{ listStyleType: "none", display: "flex", textAlign: "left"}}>
-				    <li><strong>{option.shop_name}</strong></li>
-				    <li style={{ paddingLeft: "5px" }}>{option.address.postCode}</li>
+				    <li><strong>{option.shopName}</strong></li>
+				    {option.address &&(
+						<li style={{ paddingLeft: "5px" }}>{option.address.postCode}</li>
+				    )}
 				</ul>
 			}
 			sx={{ width: 300 }}

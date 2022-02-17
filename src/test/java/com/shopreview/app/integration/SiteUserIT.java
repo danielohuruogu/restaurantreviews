@@ -51,7 +51,7 @@ public class SiteUserIT {
     // just empty arraylists to complete the user to be sent through to the repo
     private List<Review> reviews = Arrays.asList();
     private ArrayList comments;
-    private Date created_at = new Date(System.currentTimeMillis());
+    private Date createdAt = new Date(System.currentTimeMillis());
 
     // can we add a user in to the app
     @Test
@@ -64,7 +64,7 @@ public class SiteUserIT {
                 "faker",
                 "dagsdrgsd",
                 "faker@fake.com",
-                created_at,
+                createdAt,
                 Role.Reader
 //                ,
 //                reviews
@@ -108,7 +108,7 @@ public class SiteUserIT {
                 lastname,
                 password,
                 email,
-                created_at,
+                createdAt,
                 Role.Reader
 //                ,
 //                reviews
@@ -235,7 +235,7 @@ public class SiteUserIT {
                 lastname,
                 password,
                 email,
-                created_at,
+                createdAt,
                 Role.Reader
 //                ,
 //                reviews
@@ -254,7 +254,7 @@ public class SiteUserIT {
         // ids should be the same, as I've set them to be the same
 //        assertThat(user.getId()).isEqualTo(userToUpdate.getId());
         // but the first name should be updated
-        assertThat(user.getFirst_name()).isNotEqualTo(userToUpdate.getFirst_name());
+        assertThat(user.getFirstName()).isNotEqualTo(userToUpdate.getFirstName());
     }
 
 }
